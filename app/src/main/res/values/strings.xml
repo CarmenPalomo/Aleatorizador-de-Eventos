@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">PruebaProyecto</string>
+    <string name="Nombre">Nombre</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="atras">Atras</string>
+    <string name="escoge_la_edad">Escoge la Edad:</string>
+    <string name="escoge_la_raza">Escoge la Raza:</string>
+    <string name="escoge_la_clase">Escoge la clase:</string>
+    <string name="nombre">Nombre</string>
+    <string name="continuar">Continuar</string>
+    <string name="recoger">Recoger</string>
+    <string name="comerciar">Comerciar</string>
+    <string name="aventura"><b>La aventrua está a punto de comenzar, pulsa el dado para poder avanzar. ¡Ten cuidado! puedes encontrarte enemigos a lo largo de la aventrua</b> </string>
+    <string name="dado">dado</string>
+    <string-array name="clase">
+        <item name="Brujo">Brujo</item>
+        <item name="Mago">Mago</item>
+        <item name="Guerrero">Guerrero</item>
+    </string-array>
+
+    <string-array name="raza">
+        <item name="Humano">Humano</item>
+        <item name="Elfo">Elfo</item>
+        <item name="Enano">Enano</item>
+        <item name="Maldito">Maldito</item>
+    </string-array>
+
+    <string-array name="EstadoVital">
+        <item name="Anciano">Anciano</item>
+        <item name="Joven">Joven</item>
+        <item name="Adulto">Adulto</item>
+
+    </string-array>
+</resources>
