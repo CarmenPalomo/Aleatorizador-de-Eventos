@@ -16,6 +16,9 @@ class Objeto : AppCompatActivity() {
         recoger.setOnClickListener {
             val intent = Intent(this,Aventura::class.java)
             startActivity(intent)
+
+            
+
         }
 
         siguiente.setOnClickListener {

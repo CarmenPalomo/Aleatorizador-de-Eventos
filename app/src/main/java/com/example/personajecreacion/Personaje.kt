@@ -2,12 +2,12 @@ package com.example.personajecreacion
 
 import android.os.Parcel
 import android.os.Parcelable
-import kotlin.random.Random
 
 data class Personaje(
     private var nombre: String,
     private var estadoVital: String,
     private var raza: String,
+    //private var pesoMochila: String,
     private var clase: String,
 
     ): Parcelable {
@@ -22,7 +22,10 @@ data class Personaje(
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
+       // parcel.readInt().toString(),
         parcel.readString().toString()
+
+
     ) {
 
     }
@@ -66,6 +69,12 @@ data class Personaje(
     fun setClase(clase: String) {
         this.clase = clase
     }
+
+    /*fun getPesoMochila(): String{
+        return this.pesoMochila
+    }
+
+     */
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nombre)
