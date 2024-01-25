@@ -46,7 +46,7 @@ class MercaderDataBase(context: Context) :
                         "('GARRAS', 'ARMA', 2, 'garras', 1, 3)," +
                         "('ESPADA', 'ARMA', 3, 'espada', 1, 3)," +
                         "('ESCUDO', 'PROTECCION', 1, 'escudo', 1, 3)," +
-                        "('DAGA', 'ARMA', 1, 'daga', 1)," +
+                        "('DAGA', 'ARMA', 1, 'daga', 1, 1)," +
                         "('COMIDA', 'OBJETO', 2, 'comida', 1, 3)," +
                         "('COFRE', 'OBJETO', 3, 'cofre', 1, 3)," +
                         "('CASCO', 'PROTECCION', 2, 'casco', 1, 3)"
