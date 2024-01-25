@@ -13,6 +13,8 @@ class Objeto : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_objeto)
 
+        val personaje : Personaje? = intent.getParcelableExtra("Personaje")
+
         var dbHelper  = DataBaseHelper(applicationContext)
         val articulo = dbHelper.getArticuloAleatorio()
         val imageView = findViewById<ImageView>(R.id.ImagenObjeto)
@@ -24,13 +26,17 @@ class Objeto : AppCompatActivity() {
 
 
         recoger.setOnClickListener {
-            val intent = Intent(this, Aventura::class.java)
-            startActivity(intent)
-
+            if (personaje!!.getMochila()!!.getEspacio() > 0) {
+                personaje.getMochila()!!.guardarArticulo(articulo)
+                val intent = Intent(this, Aventura::class.java)
+                intent.putExtra("Personaje", personaje)
+                startActivity(intent)
+            }
         }
 
         siguiente.setOnClickListener {
             val intent = Intent(this, Aventura::class.java)
+            intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
     }

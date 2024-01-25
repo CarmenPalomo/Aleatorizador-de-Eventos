@@ -4,30 +4,31 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Personaje(
-    private var nombre: String,
-    private var estadoVital: String,
-    private var raza: String,
-    //private var pesoMochila: String,
-    private var clase: String,
+    private var nombre: String?,
+    private var estadoVital: String?,
+    private var raza: String?,
+    private var clase: String?,
+    private var mochila: Mochila?
+) : Parcelable {
 
-    ): Parcelable {
-
-    private var experiencia : Int
-    private var nivel : Int
-    private var salud : Int
-    private var ataque : Int
-    private var defensa : Int
+    private var experiencia: Int
+    private var nivel: Int
+    private var salud: Int
+    private var ataque: Int
+    private var defensa: Int
 
     constructor(parcel: Parcel) : this(
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-       // parcel.readInt().toString(),
-        parcel.readString().toString()
-
-
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readParcelable(Mochila::class.java.classLoader),
     ) {
-
+        experiencia = parcel.readInt()
+        nivel = parcel.readInt()
+        salud = parcel.readInt()
+        ataque = parcel.readInt()
+        defensa = parcel.readInt()
     }
 
     init {
@@ -38,7 +39,7 @@ data class Personaje(
         defensa = 4
     }
 
-    fun getNombre(): String {
+    fun getNombre(): String? {
         return nombre
     }
 
@@ -46,7 +47,7 @@ data class Personaje(
         this.nombre = nombre
     }
 
-    fun getEstadoVital(): String {
+    fun getEstadoVital(): String? {
         return estadoVital
     }
 
@@ -54,7 +55,7 @@ data class Personaje(
         this.estadoVital = estadoVital
     }
 
-    fun getRaza(): String {
+    fun getRaza(): String? {
         return raza
     }
 
@@ -62,7 +63,7 @@ data class Personaje(
         this.raza = raza
     }
 
-    fun getClase(): String {
+    fun getClase(): String? {
         return clase
     }
 
@@ -70,17 +71,21 @@ data class Personaje(
         this.clase = clase
     }
 
-    /*fun getPesoMochila(): String{
-        return this.pesoMochila
+    fun getMochila(): Mochila? {
+        return this.mochila
     }
-
-     */
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nombre)
         parcel.writeString(estadoVital)
         parcel.writeString(raza)
         parcel.writeString(clase)
+        parcel.writeInt(experiencia)
+        parcel.writeInt(nivel)
+        parcel.writeInt(salud)
+        parcel.writeInt(ataque)
+        parcel.writeInt(defensa)
+        parcel.writeParcelable(mochila, flags)
     }
 
     override fun describeContents(): Int {
@@ -96,4 +101,5 @@ data class Personaje(
             return arrayOfNulls(size)
         }
     }
+
 }
