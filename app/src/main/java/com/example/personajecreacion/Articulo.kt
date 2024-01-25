@@ -3,7 +3,7 @@ package com.example.personajecreacion
 data class Articulo (private var nombre: String,
                      private var peso: Int,
                      private var tipo: TipoArt?,
-                     private var url: String,
+                     private var imagen: String,
                      private var unidades: Int,
                      private var precio: Int){
     private var id:Int = 0
@@ -16,8 +16,8 @@ data class Articulo (private var nombre: String,
     fun getTipo(): TipoArt? {
         return tipo
     }
-    fun getUrl(): String {
-        return url
+    fun getImagen(): String {
+        return imagen
     }
     fun getUnidades(): Int {
         return unidades

@@ -12,7 +12,7 @@ class DataBaseHelper(context: Context) :
 
     companion object {
         // nombre, tipo, peso, url, unidades
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 3
         private const val DATABASE = "OBJETOS_ALEATORIOS.db"
         private const val TABLA_OBJETOS = "Objeto"
         private const val KEY_ID = "_id"
@@ -35,22 +35,22 @@ class DataBaseHelper(context: Context) :
                 "$COLUMN_PESO INTEGER, " +
                 "$COLUMN_URL TEXT, " +
                 "$COLUMN_UNIDADES INTEGER," +
-                "$COLUMN_PRECIO)"
+                "$COLUMN_PRECIO INTEGER)"
         if (db != null) {
             log.info("creating table $createTable")
             db.execSQL(createTable)
             val insertInto =
                 "INSERT INTO $TABLA_OBJETOS($COLUMN_NOMBRE, $COLUMN_TIPO, $COLUMN_PESO, $COLUMN_URL, $COLUMN_UNIDADES ) " +
-                        "VALUES('YELMO', 'PROTECCION', 2, 'yelmo.jpg', 1)," +
-                        "('POCION', 'PROTECCION', 1, 'pocion.jpg', 1)," +
-                        "('MARTILLO', 'ARMA', 3, 'martillo.jpg', 1)," +
-                        "('GARRAS', 'ARMA', 2, 'garras.jpg', 1)," +
-                        "('ESPADA', 'ARMA', 3, 'espada.jpg', 1)," +
-                        "('ESCUDO', 'PROTECCION', 1, 'escudo.jpg', 1)," +
-                        "('DAGA', 'ARMA', 1, 'daga.jpg', 1)," +
-                        "('COMIDA', 'OBJETO', 2, 'comida.jpg', 1)," +
-                        "('COFRE', 'OBJETO', 3, 'cofre.jpg', 1)," +
-                        "('CASCO', 'PROTECCION', 2, 'casco.jpg', 1)"
+                        "VALUES('YELMO', 'PROTECCION', 2, 'yelmo', 1)," +
+                        "('POCION', 'PROTECCION', 1, 'pocion', 1)," +
+                        "('MARTILLO', 'ARMA', 3, 'martillo', 1)," +
+                        "('GARRAS', 'ARMA', 2, 'garras', 1)," +
+                        "('ESPADA', 'ARMA', 3, 'espada', 1)," +
+                        "('ESCUDO', 'PROTECCION', 1, 'escudo', 1)," +
+                        "('DAGA', 'ARMA', 1, 'daga', 1)," +
+                        "('COMIDA', 'OBJETO', 2, 'comida', 1)," +
+                        "('COFRE', 'OBJETO', 3, 'cofre', 1)," +
+                        "('CASCO', 'PROTECCION', 2, 'casco', 1)"
             db.execSQL(insertInto);
         }
 
@@ -65,19 +65,27 @@ class DataBaseHelper(context: Context) :
     }
 
     override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        log.info("dropping table $TABLA_OBJETOS")
+        db?.execSQL("DROP TABLE IF EXISTS $TABLA_OBJETOS")
         onUpgrade(db, oldVersion, newVersion)
     }
 
-    fun insertarObjeto(objeto: Articulo) {
+    fun insertarArticulos() {
         val db = this.writableDatabase
-        val values = ContentValues().apply {
-            put(COLUMN_NOMBRE, objeto.getNombre())
-            put(COLUMN_TIPO, objeto.getTipo()?.name)
-            put(COLUMN_PESO, objeto.getPeso())
-            put(COLUMN_URL, objeto.getUrl())
-            put(COLUMN_UNIDADES, objeto.getUnidades())
-        }
-        db?.insert(TABLA_OBJETOS, null, values)
+        val insertInto =
+            "INSERT INTO $TABLA_OBJETOS($COLUMN_NOMBRE, $COLUMN_TIPO, $COLUMN_PESO, $COLUMN_URL, $COLUMN_UNIDADES ) " +
+                    "VALUES('YELMO', 'PROTECCION', 2, 'yelmo.jpg', 1)," +
+                    "('POCION', 'PROTECCION', 1, 'pocion.jpg', 1)," +
+                    "('MARTILLO', 'ARMA', 3, 'martillo.jpg', 1)," +
+                    "('GARRAS', 'ARMA', 2, 'garras.jpg', 1)," +
+                    "('ESPADA', 'ARMA', 3, 'espada.jpg', 1)," +
+                    "('ESCUDO', 'PROTECCION', 1, 'escudo.jpg', 1)," +
+                    "('DAGA', 'ARMA', 1, 'daga.jpg', 1)," +
+                    "('COMIDA', 'OBJETO', 2, 'comida.jpg', 1)," +
+                    "('COFRE', 'OBJETO', 3, 'cofre.jpg', 1)," +
+                    "('CASCO', 'PROTECCION', 2, 'casco.jpg', 1)"
+        db.execSQL(insertInto);
+        log.info("insertado los datos")
         db.close()
     }
 
@@ -87,6 +95,7 @@ class DataBaseHelper(context: Context) :
         val db = this.readableDatabase
         val cursor = db.rawQuery(selectQuery, null)
         if (cursor.moveToFirst()) {
+            log.info("obtenemos articulos")
             do {
                 val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
                 val tipo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIPO))
@@ -99,7 +108,7 @@ class DataBaseHelper(context: Context) :
         }
         cursor.close()
         db.close()
-        val num = (0..objeto.size - 1).random()
+        val num = (0..<objeto.size).random()
         return objeto[num]
     }
 
