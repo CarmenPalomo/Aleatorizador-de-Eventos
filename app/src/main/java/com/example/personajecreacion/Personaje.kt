@@ -80,12 +80,12 @@ data class Personaje(
         parcel.writeString(estadoVital)
         parcel.writeString(raza)
         parcel.writeString(clase)
+        parcel.writeParcelable(mochila, flags)
         parcel.writeInt(experiencia)
         parcel.writeInt(nivel)
         parcel.writeInt(salud)
         parcel.writeInt(ataque)
         parcel.writeInt(defensa)
-        parcel.writeParcelable(mochila, flags)
     }
 
     override fun describeContents(): Int {

@@ -30,7 +30,9 @@ class MostrarDatos: AppCompatActivity() {
         clase_personaje.text = "La clase del personaje es: $clase"
         edad_personaje.text = "La edad del personaje es: $edad"
 
-        personaje = Personaje("nombre","viejo","raza","clase")
+        personaje = Personaje("nombre","viejo","raza","clase",
+            Mochila(9, ArrayList())
+        )
 
 
         botonAtras.setOnClickListener {

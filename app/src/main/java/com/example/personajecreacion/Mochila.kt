@@ -13,19 +13,10 @@ class Mochila(espacio: Int, articulos: ArrayList<Articulo>) : Parcelable {
             ?: emptyList<Articulo>()) as ArrayList<Articulo>
     ) {
     }
-
-    fun getArticulos(): ArrayList<Articulo> {
-        return this.articulos
-    }
-
     fun guardarArticulo(nuevoArticulo: Articulo) {
         if (articulos.size < this.espacio) {
             articulos.add(nuevoArticulo)
         }
-    }
-
-    fun getEspacio(): Int {
-        return espacio
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
