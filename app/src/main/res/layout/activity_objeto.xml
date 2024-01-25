@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Objeto">
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ImagenObjeto"
         android:layout_width="363dp"
         android:layout_height="338dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -14,7 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.081"
-        android:src="@drawable/objeto" />
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:srcCompat="@drawable/ic_launcher_background"/>
 
     <Button
         android:id="@+id/continuarOb"

@@ -43,8 +43,8 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="369dp"
+        android:layout_height="306dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,12 +114,15 @@
 
         <Button
             android:id="@+id/boton_siguiente"
-            android:layout_width="match_parent"
+            android:layout_width="153dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:text="@string/siguiente"
-            app:cornerRadius="5dp"
+            android:layout_below="@+id/spinner_edad"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="200dp"
-            android:layout_marginTop="250dp"/>
+            android:layout_marginTop="27dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="122dp"
+            android:text="@string/siguiente"
+            app:cornerRadius="5dp" />
     </RelativeLayout>
 </LinearLayout>

@@ -2,7 +2,7 @@ package com.example.personajecreacion
 
 data class Articulo (private var nombre: String,
                      private var peso: Int,
-                     private var tipo: TipoArt,
+                     private var tipo: TipoArt?,
                      private var url: String,
                      private var unidades: Int,
                      private var precio: Int){
@@ -13,7 +13,7 @@ data class Articulo (private var nombre: String,
     fun getPeso(): Int {
         return peso
     }
-    fun getTipo(): TipoArt {
+    fun getTipo(): TipoArt? {
         return tipo
     }
     fun getUrl(): String {
@@ -25,10 +25,11 @@ data class Articulo (private var nombre: String,
     fun setId(id:Int){
         this.id=id
     }
-}
-enum class TipoArt (val tipo: String) {
-    ARMA("arma"),
-    PROTECCION ("proteccion"),
-    OBJETO ("objeto"),
-    ORO("oro")
+
+    enum class TipoArt (val tipo: String) {
+        ARMA("arma"),
+        PROTECCION ("proteccion"),
+        OBJETO ("objeto"),
+        ORO("oro")
+    }
 }
