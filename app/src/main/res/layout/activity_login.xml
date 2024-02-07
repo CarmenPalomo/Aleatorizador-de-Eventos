@@ -57,26 +57,28 @@
         android:id="@+id/crearCuenta"
         android:layout_width="188dp"
         android:layout_height="60dp"
-        android:layout_marginTop="664dp"
         android:text="CREAR CUENTA"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/continuarInicio"
+        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintVertical_bias="0.676" />
 
     <Button
         android:id="@+id/continuarInicio"
         android:layout_width="178dp"
         android:layout_height="60dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="16dp"
         android:text="CONTINUAR"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintVertical_bias="0.502" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

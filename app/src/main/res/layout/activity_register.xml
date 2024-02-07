@@ -24,16 +24,16 @@
         android:id="@+id/mail"
         android:layout_width="376dp"
         android:layout_height="60dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="84dp"
         android:background="#e9ebf0"
         android:ems="10"
         android:hint="Correo electronico"
         android:inputType="textEmailAddress"
         android:textColorHint="#7f8186"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/usuario"
@@ -50,6 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mail" />
 
+
     <EditText
         android:id="@+id/contra"
         android:layout_width="376dp"
@@ -61,22 +62,24 @@
         android:inputType="textPassword"
         android:textColorHint="#7f8186"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario" />
-
+        app:layout_constraintTop_toBottomOf="@+id/usuario"
+        app:layout_constraintVertical_bias="0.009" />
 
     <Button
         android:id="@+id/continuarInicio"
         android:layout_width="157dp"
         android:layout_height="61dp"
-        android:layout_marginTop="224dp"
+        android:layout_marginBottom="104dp"
         android:text="CONTINUAR"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contra" />
+        app:layout_constraintTop_toBottomOf="@+id/contra"
+        app:layout_constraintVertical_bias="0.869" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

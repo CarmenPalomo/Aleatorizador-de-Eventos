@@ -13,6 +13,7 @@ class MercaderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mercader)
+        val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val botonComerciar: Button = findViewById(R.id.comerciar)
         val botonContinuar: Button = findViewById(R.id.continuarM)
         var imagenMercader: ImageView = findViewById(R.id.mercaderF)
@@ -127,10 +128,11 @@ class MercaderActivity : AppCompatActivity() {
                     imagenMercader.setImageResource(R.drawable.mercader)
                 }
             }
-            botonContinuar.setOnClickListener {
-                val intent = Intent(this, AventuraActivity::class.java)
-                startActivity(intent)
-            }
+        }
+        botonContinuar.setOnClickListener {
+            val intent = Intent(this, AventuraActivity::class.java)
+            intent.putExtra("Personaje", personaje)
+            startActivity(intent)
         }
     }
 }
