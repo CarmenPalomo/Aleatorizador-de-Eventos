@@ -13,12 +13,12 @@ class MercaderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mercader)
-        val comerciar: Button = findViewById(R.id.comerciar)
-        val continuar: Button = findViewById(R.id.continuarM)
-        var imagen: ImageView = findViewById(R.id.mercaderF)
-        val comprar: Button = findViewById(R.id.comprar)
-        val vender: Button = findViewById(R.id.vender)
-        val cancelar: Button = findViewById(R.id.cancelar)
+        val botonComerciar: Button = findViewById(R.id.comerciar)
+        val botonContinuar: Button = findViewById(R.id.continuarM)
+        var imagenMercader: ImageView = findViewById(R.id.mercaderF)
+        val botonComprar: Button = findViewById(R.id.comprar)
+        val botonVender: Button = findViewById(R.id.vender)
+        val botonCancelar: Button = findViewById(R.id.cancelar)
         val mochila: Mochila? = null
         var art1: TextView = findViewById(R.id.art1)
         var art2: TextView = findViewById(R.id.art2)
@@ -42,13 +42,13 @@ class MercaderActivity : AppCompatActivity() {
         var cant10: EditText = findViewById(R.id.cant10)
         val dbHelper2 = MercaderDataBase(this)
 
-        comerciar.setOnClickListener {
-            comerciar.setVisibility(View.INVISIBLE)
-            continuar.setVisibility(View.INVISIBLE)
-            comprar.setVisibility(View.VISIBLE)
-            vender.setVisibility(View.VISIBLE)
-            cancelar.setVisibility(View.VISIBLE)
-            comprar.setOnClickListener {
+        botonComerciar.setOnClickListener {
+            botonComerciar.setVisibility(View.INVISIBLE)
+            botonContinuar.setVisibility(View.INVISIBLE)
+            botonComprar.setVisibility(View.VISIBLE)
+            botonVender.setVisibility(View.VISIBLE)
+            botonCancelar.setVisibility(View.VISIBLE)
+            botonComprar.setOnClickListener {
                 val articulos = dbHelper2.getArticulos()
                 var num = 1
                 articulos.forEach {
@@ -115,19 +115,19 @@ class MercaderActivity : AppCompatActivity() {
                     }
                     num++
                 }
-                vender.setOnClickListener {
-                    imagen.setImageResource(R.drawable.mochila)
+                botonVender.setOnClickListener {
+                    imagenMercader.setImageResource(R.drawable.mochila)
                 }
-                cancelar.setOnClickListener {
-                    comerciar.setVisibility(View.VISIBLE)
-                    continuar.setVisibility(View.VISIBLE)
-                    comprar.setVisibility(View.INVISIBLE)
-                    vender.setVisibility(View.INVISIBLE)
-                    cancelar.setVisibility(View.INVISIBLE)
-                    imagen.setImageResource(R.drawable.mercader)
+                botonCancelar.setOnClickListener {
+                    botonComerciar.setVisibility(View.VISIBLE)
+                    botonContinuar.setVisibility(View.VISIBLE)
+                    botonComprar.setVisibility(View.INVISIBLE)
+                    botonVender.setVisibility(View.INVISIBLE)
+                    botonCancelar.setVisibility(View.INVISIBLE)
+                    imagenMercader.setImageResource(R.drawable.mercader)
                 }
             }
-            continuar.setOnClickListener {
+            botonContinuar.setOnClickListener {
                 val intent = Intent(this, AventuraActivity::class.java)
                 startActivity(intent)
             }
