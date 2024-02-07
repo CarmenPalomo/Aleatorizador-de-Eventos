@@ -13,8 +13,8 @@
     <string name="aventura"><b>La aventrua está a punto de comenzar, pulsa el dado para poder avanzar. ¡Ten cuidado! puedes encontrarte enemigos a lo largo de la aventrua</b> </string>
     <string name="dado">dado</string>
     <string name="cancelar">Cancelar</string>
-    <string name="vender" >Vender</string>
-    <string name="comprar" >Comprar</string>
+    <string name="vender">Vender</string>
+    <string name="comprar">Comprar</string>
     <string-array name="clase">
         <item name="Brujo">Brujo</item>
         <item name="Mago">Mago</item>
