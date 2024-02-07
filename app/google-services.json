@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "452983193888",
+    "project_id": "videojuegopedro",
+    "storage_bucket": "videojuegopedro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452983193888:android:a7db980c457410c5bc5745",
+        "android_client_info": {
+          "package_name": "com.example.personajecreacion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbCj8uL_KW0JilcItjCcUN4TV1_xIPGEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
