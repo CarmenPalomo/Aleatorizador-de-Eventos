@@ -4,39 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Objeto">
+    tools:context=".ObjetoActivity">
+
     <ImageView
         android:id="@+id/ImagenObjeto"
         android:layout_width="363dp"
         android:layout_height="338dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/continuarOb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.081"
+        app:layout_constraintTop_toBottomOf="@+id/textoPrincipio"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_launcher_background"
-        tools:srcCompat="@drawable/ic_launcher_background"/>
+        tools:srcCompat="@drawable/ic_launcher_background" />
 
     <Button
         android:id="@+id/continuarOb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/continuar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934" />
+        app:layout_constraintBottom_toTopOf="@+id/textoConfirmacion"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/recoger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:text="@string/recoger"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textoConfirmacion"
         app:layout_constraintEnd_toStartOf="@+id/continuarOb"
-        app:layout_constraintHorizontal_bias="0.253"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textoPrincipio"
+        android:layout_width="332dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="44dp"
+        android:text="¡Oh ,te acaba de aparecer un objeto! ¿Que quieres hacer?"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.316"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textoConfirmacion"
+        android:layout_width="365dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:text="¡Tienes espacio suficinete en la mochila! El objeto ha sido guardado.Pulsa el botón CONTINUAR para salir."
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/textoSinEspacio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textoSinEspacio"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="88dp"
+        android:text="¡No tienes espacio suficinete en la mochila! El objeto no ha sido guardado. Pulsa el botón CONTINUAR para salir."
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.581"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

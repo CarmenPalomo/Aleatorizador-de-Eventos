@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class MostrarDatos: AppCompatActivity() {
+class MostrarDatosActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class MostrarDatos: AppCompatActivity() {
         }
 
         botonSiguiente.setOnClickListener {
-            val intent = Intent(this, Aventura::class.java)
+            val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje",personaje)
             startActivity(intent)
         }

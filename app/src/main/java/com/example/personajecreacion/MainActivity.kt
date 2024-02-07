@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
-import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         nombreEditText = findViewById(R.id.nombre)
 
         boton.setOnClickListener {
-            val intent = Intent(this@MainActivity, MostrarDatos::class.java)
+            val intent = Intent(this@MainActivity, MostrarDatosActivity::class.java)
             intent.putExtra("raza",opcionSpinnerRaza)
             intent.putExtra("clase",opcionSpinnerClase)
             intent.putExtra("edad",opcionSpinnerEdad)

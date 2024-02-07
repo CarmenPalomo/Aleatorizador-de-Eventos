@@ -1,14 +1,11 @@
 package com.example.personajecreacion
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
-import kotlin.random.Random
 
-class Aventura : AppCompatActivity() {
+class AventuraActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,25 +19,25 @@ class Aventura : AppCompatActivity() {
             val intent: Intent
             when (num) {
                 1 -> {
-                    intent = Intent(this, Objeto::class.java)
+                    intent = Intent(this, ObjetoActivity::class.java)
                     intent.putExtra("Personaje", personaje)
                     startActivity(intent)
                 }
 
                 2 -> {
-                    intent = Intent(this, Ciudad::class.java)
+                    intent = Intent(this, CiudadActivity::class.java)
                     intent.putExtra("Personaje", personaje)
                     startActivity(intent)
                 }
 
                 3 -> {
-                    intent = Intent(this, Mercader::class.java)
+                    intent = Intent(this, MercaderActivity::class.java)
                     intent.putExtra("Personaje", personaje)
                     startActivity(intent)
                 }
 
                 4 -> {
-                    intent = Intent(this, Enemigo::class.java)
+                    intent = Intent(this, EnemigoActivity::class.java)
                     intent.putExtra("Personaje", personaje)
                     startActivity(intent)
                 }

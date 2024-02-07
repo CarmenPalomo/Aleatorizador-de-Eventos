@@ -16,19 +16,19 @@
             android:name=".Blanco"
             android:exported="false" />
         <activity
-            android:name=".Enemigo"
+            android:name=".EnemigoActivity"
             android:exported="false" />
         <activity
-            android:name=".Mercader"
+            android:name=".MercaderActivity"
             android:exported="false" />
         <activity
-            android:name=".Ciudad"
+            android:name=".CiudadActivity"
             android:exported="false" />
         <activity
-            android:name=".Objeto"
+            android:name=".ObjetoActivity"
             android:exported="false" />
         <activity
-            android:name=".Aventura"
+            android:name=".AventuraActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -39,7 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MostrarDatos" />
+        <activity android:name=".MostrarDatosActivity" />
     </application>
 
 </manifest>

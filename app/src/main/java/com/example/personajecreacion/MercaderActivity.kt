@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class Mercader : AppCompatActivity() {
+class MercaderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mercader)
@@ -128,7 +128,7 @@ class Mercader : AppCompatActivity() {
                 }
             }
             continuar.setOnClickListener {
-                val intent = Intent(this, Aventura::class.java)
+                val intent = Intent(this, AventuraActivity::class.java)
                 startActivity(intent)
             }
         }

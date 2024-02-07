@@ -5,23 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class Ciudad : AppCompatActivity() {
+class EnemigoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ciudad)
+        setContentView(R.layout.activity_enemigo)
 
-        val entrar: Button = findViewById(R.id.entrar)
-        val continuar : Button = findViewById(R.id.continuar)
+        val luchar: Button = findViewById(R.id.luchar)
+        val huir : Button = findViewById(R.id.huir)
 
-        entrar.setOnClickListener {
+        luchar.setOnClickListener {
             val intent = Intent(this,Blanco::class.java)
             startActivity(intent)
         }
 
-        continuar.setOnClickListener {
-            val intent = Intent(this,Aventura::class.java)
+        huir.setOnClickListener {
+            val intent = Intent(this,AventuraActivity::class.java)
             startActivity(intent)
         }
-
     }
 }
