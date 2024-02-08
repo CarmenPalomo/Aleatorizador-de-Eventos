@@ -20,6 +20,29 @@
         app:title="Creacion del Personaje"
         app:titleMarginStart="90dp"
         app:titleTextColor="@color/white" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/suenaM"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@android:drawable/ic_media_play" />
+
+        <ImageButton
+            android:id="@+id/paraM"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="260dp"
+            app:srcCompat="@android:drawable/ic_media_pause" />
+
+    </LinearLayout>
+
+
 
     <EditText
         android:id="@+id/nombre"
@@ -114,15 +137,16 @@
 
         <Button
             android:id="@+id/boton_siguiente"
-            android:layout_width="153dp"
-            android:layout_height="wrap_content"
+            android:layout_width="148dp"
+            android:layout_height="48dp"
             android:layout_below="@+id/spinner_edad"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="27dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="122dp"
+            android:layout_marginBottom="121dp"
             android:text="@string/siguiente"
             app:cornerRadius="5dp" />
     </RelativeLayout>
+
 </LinearLayout>

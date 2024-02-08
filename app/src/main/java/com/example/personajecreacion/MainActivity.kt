@@ -1,12 +1,14 @@
 package com.example.personajecreacion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Spinner
 
@@ -18,6 +20,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private var opcionSpinnerEdad: String? = null
     private lateinit var opcionImagen: String
     private lateinit var nombreEditText: EditText
+    private lateinit var botonPlay:ImageButton
+    private lateinit var botonStop:ImageButton
+    private lateinit var mediaplayer : MediaPlayer
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,15 +35,23 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val spinnerRaza: Spinner = findViewById(R.id.spinner_raza)
         val spinnerClase: Spinner = findViewById(R.id.spinner_clase)
         val spinnerEdad: Spinner = findViewById(R.id.spinner_edad)
-
-
+        botonPlay = findViewById(R.id.suenaM)
+        botonStop = findViewById(R.id.paraM)
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        nombreEditText = findViewById(R.id.nombre)
 
         // Se esta asociando a quien tiene que llamar el Spinner cuando ocurre el evento onItemSelected.
         spinnerRaza.onItemSelectedListener = this
         spinnerEdad.onItemSelectedListener = this
         spinnerClase.onItemSelectedListener = this
 
-        nombreEditText = findViewById(R.id.nombre)
+
+        botonPlay.setOnClickListener {
+            mediaplayer.start()
+        }
+        botonStop.setOnClickListener {
+            mediaplayer.pause()
+        }
 
         boton.setOnClickListener {
             val intent = Intent(this@MainActivity, MostrarDatosActivity::class.java)
