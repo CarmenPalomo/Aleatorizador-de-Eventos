@@ -28,19 +28,16 @@ class ObjetoActivity : AppCompatActivity() {
         val recoger: Button = findViewById(R.id.recoger)
         val siguiente: Button = findViewById(R.id.continuarOb)
 
-
         imageView.setImageResource(cascoId)
 
+        textoConirmacion.setVisibility(View.INVISIBLE)
+        textoSinEspacio.setVisibility(View.INVISIBLE)
 
         recoger.setOnClickListener {
-            textoConirmacion.setVisibility(View.INVISIBLE)
-            textoSinEspacio.setVisibility(View.INVISIBLE)
             log.info("recogiendo objecto")
             if (personaje!!.getMochila()!!.espacio > 0) {
-                personaje.getMochila()!!.guardarArticulo(articulo)
                 textoConirmacion.setVisibility(View.VISIBLE)
-                val intent = Intent(this, AventuraActivity::class.java)
-
+                personaje.getMochila()!!.guardarArticulo(articulo)
 
             } else {
                 textoSinEspacio.setVisibility(View.VISIBLE)
