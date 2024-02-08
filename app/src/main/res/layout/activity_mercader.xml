@@ -16,18 +16,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.081" />
+
     <Button
         android:id="@+id/vender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="104dp"
         android:text="@string/vender"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancelar"
         app:layout_constraintHorizontal_bias="0.79"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintVertical_bias="0.976" />
+
     <Button
         android:id="@+id/continuarM"
         android:layout_width="wrap_content"
@@ -36,19 +39,21 @@
         android:text="@string/continuar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintVertical_bias="0.89" />
+
     <Button
         android:id="@+id/comprar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="288dp"
+        android:layout_marginEnd="36dp"
         android:text="@string/comprar"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintEnd_toStartOf="@+id/vender"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintVertical_bias="0.28" />
+
     <Button
         android:id="@+id/comerciar"
         android:layout_width="wrap_content"
@@ -56,30 +61,33 @@
         android:text="@string/comerciar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/continuarM"
-        app:layout_constraintHorizontal_bias="0.178"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintVertical_bias="0.89" />
+
     <Button
         android:id="@+id/cancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
+        android:layout_marginBottom="104dp"
         android:text="@string/cancelar"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintVertical_bias="0.976" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="387dp"
         android:layout_height="201dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.622">
+        app:layout_constraintTop_toBottomOf="@+id/mercaderF"
+        app:layout_constraintVertical_bias="0.093">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,8 +122,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art2"
@@ -139,8 +147,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art3"
@@ -164,8 +172,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art4"
@@ -189,8 +197,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art5"
@@ -214,8 +222,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art6"
@@ -239,8 +247,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art7"
@@ -264,8 +272,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art8"
@@ -289,8 +297,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art9"
@@ -314,8 +322,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <TextView
                     android:id="@+id/art10"
