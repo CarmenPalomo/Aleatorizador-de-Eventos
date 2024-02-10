@@ -4,14 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import java.util.logging.Logger
 
 class AventuraActivity : AppCompatActivity() {
+    private val log = Logger.getLogger("AventuraActivity")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aventura)
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
+        log.info("personaje obtenido $personaje")
         var dado: ImageButton = findViewById(R.id.dado)
 
         dado.setOnClickListener {

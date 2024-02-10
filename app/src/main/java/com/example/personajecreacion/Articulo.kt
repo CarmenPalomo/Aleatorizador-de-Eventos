@@ -69,6 +69,10 @@ data class Articulo(
         return 0
     }
 
+    override fun toString(): String {
+        return "Articulo(nombre=$nombre, peso=$peso, tipo=$tipo, imagen=$imagen, unidades=$unidades, precio=$precio, id=$id)"
+    }
+
     companion object CREATOR : Parcelable.Creator<Articulo> {
         override fun createFromParcel(parcel: Parcel): Articulo {
             return Articulo(parcel)

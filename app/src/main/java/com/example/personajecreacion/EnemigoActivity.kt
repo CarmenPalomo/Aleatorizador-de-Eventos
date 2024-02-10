@@ -10,16 +10,19 @@ class EnemigoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enemigo)
 
+        val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val luchar: Button = findViewById(R.id.luchar)
         val huir : Button = findViewById(R.id.huir)
 
         luchar.setOnClickListener {
             val intent = Intent(this,Blanco::class.java)
+            intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
 
         huir.setOnClickListener {
             val intent = Intent(this,AventuraActivity::class.java)
+            intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
     }

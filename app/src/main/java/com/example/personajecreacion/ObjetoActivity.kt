@@ -18,6 +18,7 @@ class ObjetoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_objeto)
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
+        log.info("personaje obtenido $personaje")
         var dbHelper = ObjectosDataBase(applicationContext)
         val articulo = dbHelper.getArticuloAleatorio()
         val imageView = findViewById<ImageView>(R.id.ImagenObjeto)
@@ -35,12 +36,10 @@ class ObjetoActivity : AppCompatActivity() {
 
         recoger.setOnClickListener {
             log.info("recogiendo objecto")
-            if (personaje!!.getMochila()!!.espacio > 0) {
-                textoConirmacion.setVisibility(View.VISIBLE)
-                personaje.getMochila()!!.guardarArticulo(articulo)
-
+            if (personaje!!.getMochila()!!.guardarArticulo(articulo)) {
+                textoConirmacion.visibility = View.VISIBLE
             } else {
-                textoSinEspacio.setVisibility(View.VISIBLE)
+                textoSinEspacio.visibility = View.VISIBLE
             }
         }
 

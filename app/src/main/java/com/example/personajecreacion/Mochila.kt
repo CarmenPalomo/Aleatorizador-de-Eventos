@@ -3,9 +3,7 @@ package com.example.personajecreacion
 import android.os.Parcel
 import android.os.Parcelable
 
-class Mochila(espacio: Int, articulos: ArrayList<Articulo>) : Parcelable {
-    val espacio = espacio
-    val articulos: ArrayList<Articulo> = ArrayList()
+class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -13,10 +11,15 @@ class Mochila(espacio: Int, articulos: ArrayList<Articulo>) : Parcelable {
             ?: emptyList<Articulo>()) as ArrayList<Articulo>
     ) {
     }
-    fun guardarArticulo(nuevoArticulo: Articulo) {
-        if (articulos.size < this.espacio) {
-            articulos.add(nuevoArticulo)
+
+    fun guardarArticulo(nuevoArticulo: Articulo) : Boolean {
+        if (espacio <= 0 || nuevoArticulo.getUnidades() > espacio) {
+            return false
         }
+
+        articulos.add(nuevoArticulo)
+        espacio--
+        return true
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -26,6 +29,10 @@ class Mochila(espacio: Int, articulos: ArrayList<Articulo>) : Parcelable {
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun toString(): String {
+        return "Mochila(espacio=$espacio, articulos=$articulos)"
     }
 
     companion object CREATOR : Parcelable.Creator<Mochila> {

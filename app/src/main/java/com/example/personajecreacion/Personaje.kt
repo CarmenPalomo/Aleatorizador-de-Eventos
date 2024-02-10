@@ -92,6 +92,10 @@ data class Personaje(
         return 0
     }
 
+    override fun toString(): String {
+        return "Personaje(nombre=$nombre, estadoVital=$estadoVital, raza=$raza, clase=$clase, mochila=$mochila, experiencia=$experiencia, nivel=$nivel, salud=$salud, ataque=$ataque, defensa=$defensa)"
+    }
+
     companion object CREATOR : Parcelable.Creator<Personaje> {
         override fun createFromParcel(parcel: Parcel): Personaje {
             return Personaje(parcel)
