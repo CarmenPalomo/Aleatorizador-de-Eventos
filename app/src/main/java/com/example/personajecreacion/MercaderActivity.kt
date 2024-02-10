@@ -30,6 +30,7 @@ class MercaderActivity : AppCompatActivity() {
 
         val entradaUnidades: EditText = findViewById(R.id.unidadesArticulo)
         val sinArticulosVenta: TextView = findViewById(R.id.sinArticulosVenta)
+        val mensajeVender: TextView = findViewById(R.id.mensajeVender)
 
         botonContinuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
@@ -60,6 +61,7 @@ class MercaderActivity : AppCompatActivity() {
             entradaUnidades.visibility = View.INVISIBLE
             sinArticulosVenta.visibility = View.INVISIBLE
             precio.visibility = View.INVISIBLE
+            mensajeVender.visibility = View.INVISIBLE
             comprarActivado = false
             venderActivado = false
         }
@@ -109,8 +111,16 @@ class MercaderActivity : AppCompatActivity() {
                 botonContinuar.visibility = View.INVISIBLE
                 venderActivado = true
             } else {
-                //si es la segunda vez que le das, compras
-                //TODO: vender
+                //si es la segunda vez que le das, vendes
+                var unidades = 0
+                if (entradaUnidades.text.isDigitsOnly()) {
+                    unidades = entradaUnidades.text.toString().toInt()
+                }
+                val dineroObtenido = personaje!!.getMochila()!!.eliminarYDarPrecio(unidades)
+                personaje.getMochila()!!.guardarDinero(dineroObtenido)
+                mensajeVender.visibility = View.VISIBLE
+                botonVender.visibility = View.INVISIBLE
+                entradaUnidades.visibility = View.INVISIBLE
             }
         }
 

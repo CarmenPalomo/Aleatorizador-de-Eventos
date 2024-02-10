@@ -52,6 +52,12 @@ data class Articulo(
         return unidades
     }
 
+    fun reduceUnidades(aReducir: Int) {
+        val precioPorUnidad: Int = precio.div(unidades)
+        unidades -= aReducir
+        precio = precioPorUnidad * unidades
+    }
+
     fun setId(id: Int) {
         this.id = id
     }

@@ -22,32 +22,13 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
         return contador
     }
 
-    fun guardarArticulo(nuevoArticulo: Articulo) : Boolean {
+    fun guardarArticulo(nuevoArticulo: Articulo): Boolean {
         if (espacio <= 0 || nuevoArticulo.getUnidades() > espacio) {
             return false
         }
 
-        if (Articulo.TipoArt.ORO == nuevoArticulo.getTipo()) {
-            var indice = 0
-            var articulo: Articulo? = null
-            while (indice < articulos.size && articulo == null) {
-                if (articulos[indice].getTipo() == Articulo.TipoArt.ORO) {
-                    articulo = articulos[indice]
-                }
-                indice++
-            }
-
-            if (articulo == null) {
-                articulos.add(nuevoArticulo)
-                espacio--
-            } else {
-                articulo.sumaPrecio(nuevoArticulo.getPrecio())
-            }
-        } else {
-            articulos.add(nuevoArticulo)
-            espacio--
-        }
-
+        articulos.add(nuevoArticulo)
+        espacio--
         return true
     }
 
@@ -62,6 +43,58 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
 
     override fun toString(): String {
         return "Mochila(espacio=$espacio, articulos=$articulos)"
+    }
+
+    fun eliminarYDarPrecio(unidades: Int): Int {
+        var unidadesAReducir = unidades
+        var indice = 0
+        var unidadesArticulo = 0
+        var precio = 0
+        while (indice < articulos.size && unidadesAReducir > 0) {
+            if (Articulo.TipoArt.ORO != articulos[indice].getTipo()) {
+                if (articulos[indice].getUnidades() <= unidades) {
+                    unidadesArticulo = articulos[indice].getUnidades()
+                    unidadesAReducir -= unidadesArticulo
+                    precio += articulos[indice].getPrecio()
+                    articulos[indice].reduceUnidades(unidadesArticulo)
+                } else {
+                    val precioAntes = articulos[indice].getPrecio()
+                    articulos[indice].reduceUnidades(unidadesAReducir)
+                    unidadesAReducir = 0
+                    precio += (precioAntes - articulos[indice].getPrecio())
+                }
+            }
+            indice++
+        }
+
+        indice = 0
+        while (indice < articulos.size) {
+            if (articulos[indice].getUnidades() == 0) {
+                articulos.remove(articulos[indice])
+                espacio++
+            } else {
+                indice++
+            }
+        }
+        return precio;
+    }
+
+    fun guardarDinero(dineroObtenido: Int) {
+        var indice = 0
+        var articuloOro: Articulo? = null
+        while (indice < articulos.size && articuloOro == null) {
+            if (articulos[indice].getTipo() == Articulo.TipoArt.ORO) {
+                articuloOro = articulos[indice]
+            }
+            indice++
+        }
+
+        if (articuloOro != null) {
+            articuloOro.sumaPrecio(dineroObtenido)
+        } else {
+            articulos.add(Articulo("ORO", 0, Articulo.TipoArt.ORO, "oro", 1, dineroObtenido))
+            espacio--
+        }
     }
 
     companion object CREATOR : Parcelable.Creator<Mochila> {
