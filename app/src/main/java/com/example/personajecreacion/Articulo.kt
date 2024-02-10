@@ -24,6 +24,14 @@ data class Articulo(
         id = parcel.readInt()
     }
 
+    fun getPrecio(): Int {
+        return precio
+    }
+
+    fun sumaPrecio(valorASumar: Int) {
+        precio += valorASumar
+    }
+
     fun getNombre(): String? {
         return nombre
     }

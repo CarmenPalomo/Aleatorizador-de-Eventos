@@ -40,16 +40,16 @@ class MercaderDataBase(context: Context) :
             db.execSQL(createTable)
             val insertInto =
                 "INSERT INTO ${TABLA_MERCADER}(${COLUMN_NOMBRE}, ${COLUMN_TIPO}, ${COLUMN_PESO}, ${COLUMN_URL}, ${COLUMN_UNIDADES}, ${COLUMN_PRECIO}) " +
-                        "VALUES('YELMO', 'PROTECCION', 2, 'yelmo', 1, 3)," +
-                        "('POCION', 'PROTECCION', 1, 'pocion', 1, 3)," +
-                        "('MARTILLO', 'ARMA', 3, 'martillo', 1, 3)," +
-                        "('GARRAS', 'ARMA', 2, 'garras', 1, 3)," +
-                        "('ESPADA', 'ARMA', 3, 'espada', 1, 3)," +
-                        "('ESCUDO', 'PROTECCION', 1, 'escudo', 1, 3)," +
-                        "('DAGA', 'ARMA', 1, 'daga', 1, 1)," +
-                        "('COMIDA', 'OBJETO', 2, 'comida', 1, 3)," +
-                        "('COFRE', 'OBJETO', 3, 'cofre', 1, 3)," +
-                        "('CASCO', 'PROTECCION', 2, 'casco', 1, 3)"
+                        "VALUES('YELMO', 'PROTECCION', 2, 'yelmo', 1, 23)," +
+                        "('POCION', 'PROTECCION', 1, 'pocion', 10, 5)," +
+                        "('MARTILLO', 'ARMA', 3, 'martillo', 4, 18)," +
+                        "('GARRAS', 'ARMA', 2, 'garras', 3, 10)," +
+                        "('ESPADA', 'ARMA', 3, 'espada', 1, 20)," +
+                        "('ESCUDO', 'PROTECCION', 1, 'escudo', 1, 18)," +
+                        "('DAGA', 'ARMA', 1, 'daga', 7, 15)," +
+                        "('COMIDA', 'OBJETO', 2, 'comida', 20, 10)," +
+                        "('COFRE', 'OBJETO', 3, 'cofre', 1, 30)," +
+                        "('CASCO', 'PROTECCION', 2, 'casco', 1, 22)"
             db.execSQL(insertInto);
         }
 
