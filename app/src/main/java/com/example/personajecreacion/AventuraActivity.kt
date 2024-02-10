@@ -18,7 +18,7 @@ class AventuraActivity : AppCompatActivity() {
         var dado: ImageButton = findViewById(R.id.dado)
 
         dado.setOnClickListener {
-            var num = 3
+            var num = (1..4).random()
             val intent: Intent
             when (num) {
                 1 -> {

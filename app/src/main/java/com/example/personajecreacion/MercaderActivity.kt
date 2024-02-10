@@ -47,6 +47,10 @@ class MercaderActivity : AppCompatActivity() {
         }
 
         botonCancelar.setOnClickListener {
+            val idImagenArticulo =
+                resources.getIdentifier("mercader", "drawable", packageName)
+            imagenMercader.setImageResource(idImagenArticulo)
+
             botonComerciar.visibility = View.VISIBLE
             botonContinuar.visibility = View.VISIBLE
 
@@ -55,6 +59,7 @@ class MercaderActivity : AppCompatActivity() {
             botonCancelar.visibility = View.INVISIBLE
             entradaUnidades.visibility = View.INVISIBLE
             sinArticulosVenta.visibility = View.INVISIBLE
+            precio.visibility = View.INVISIBLE
             comprarActivado = false
             venderActivado = false
         }
@@ -72,12 +77,12 @@ class MercaderActivity : AppCompatActivity() {
                 entradaUnidades.visibility = View.VISIBLE
                 precio.visibility = View.VISIBLE
                 botonCancelar.visibility = View.VISIBLE
-                botonComprar.visibility = View.INVISIBLE
+
                 botonVender.visibility = View.INVISIBLE
                 botonComerciar.visibility = View.INVISIBLE
                 botonContinuar.visibility = View.INVISIBLE
 
-                precio.text = articulo.getPrecio().toString()
+                precio.text = "Precio: ${articulo.getPrecio()}"
                 comprarActivado = true
             } else {
                 //si es la segudna vez que le das, compras
@@ -96,7 +101,12 @@ class MercaderActivity : AppCompatActivity() {
                     entradaUnidades.visibility = View.VISIBLE
                 } else {
                     sinArticulosVenta.visibility = View.VISIBLE
+                    botonVender.visibility = View.INVISIBLE
                 }
+                botonCancelar.visibility = View.VISIBLE
+                botonComprar.visibility = View.INVISIBLE
+                botonComerciar.visibility = View.INVISIBLE
+                botonContinuar.visibility = View.INVISIBLE
                 venderActivado = true
             } else {
                 //si es la segunda vez que le das, compras

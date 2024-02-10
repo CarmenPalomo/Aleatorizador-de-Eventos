@@ -15,70 +15,76 @@
         android:src="@drawable/mercader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.081" />
+        app:layout_constraintVertical_bias="0.035" />
 
     <Button
         android:id="@+id/comprar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="108dp"
         android:text="@string/comprar"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/comerciar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mercaderF" />
+        app:layout_constraintTop_toBottomOf="@+id/mercaderF"
+        app:layout_constraintVertical_bias="0.219" />
 
     <Button
         android:id="@+id/vender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="36dp"
         android:text="@string/vender"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/continuarM"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
         app:layout_constraintStart_toEndOf="@id/comprar"
         app:layout_constraintTop_toBottomOf="@+id/mercaderF"
-        app:layout_constraintVertical_bias="0.006" />
+        app:layout_constraintVertical_bias="0.139" />
 
     <Button
         android:id="@+id/cancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="144dp"
         android:text="@string/cancelar"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/continuarM"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/vender"
         app:layout_constraintTop_toBottomOf="@+id/mercaderF"
-        app:layout_constraintVertical_bias="0.973" />
+        app:layout_constraintVertical_bias="0.219" />
 
     <Button
         android:id="@+id/comerciar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
         android:text="@string/comerciar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/continuarM"
-        app:layout_constraintHorizontal_bias="0.107"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mercaderF"
+        app:layout_constraintVertical_bias="0.844" />
 
     <Button
         android:id="@+id/continuarM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="136dp"
         android:text="@string/continuar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mercaderF"
+        app:layout_constraintVertical_bias="0.844" />
 
     <TextView
         android:id="@+id/precioObjetos"
@@ -89,43 +95,42 @@
         android:textSize="25dp"
         android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/continuarM"
-        app:layout_constraintEnd_toEndOf="@id/unidadesArticulo"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/unidadesArticulo"
+        app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mercaderF"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <TextView
         android:id="@+id/sinArticulosVenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="224dp"
-        android:visibility="invisible"
         android:text="No tienes articulos en la mochila"
         android:textAlignment="center"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mercaderF"
-        app:layout_constraintVertical_bias="0.959" />
+        app:layout_constraintVertical_bias="0.673" />
 
     <EditText
         android:id="@+id/unidadesArticulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="109dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="260dp"
-        android:visibility="invisible"
         android:text="0"
         android:textAlignment="center"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.731"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mercaderF"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.444" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
