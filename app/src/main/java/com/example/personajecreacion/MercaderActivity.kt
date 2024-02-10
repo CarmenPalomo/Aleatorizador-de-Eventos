@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 
 class MercaderActivity : AppCompatActivity() {
+    private var comprarActivado = false
+    private var venderActivado = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mercader)
@@ -52,38 +55,52 @@ class MercaderActivity : AppCompatActivity() {
             botonCancelar.visibility = View.INVISIBLE
             entradaUnidades.visibility = View.INVISIBLE
             sinArticulosVenta.visibility = View.INVISIBLE
+            comprarActivado = false
+            venderActivado = false
         }
 
         botonComprar.setOnClickListener {
-            val objetosMercader = MercaderDataBase(applicationContext)
-            val articulo = objetosMercader.getArticuloAleatorio()
-            val idImagenArticulo =
-                resources.getIdentifier(articulo.getImagen(), "drawable", packageName)
+            if (!comprarActivado) {
+                //si es la primera vez que le das muestras todo
+                val objetosMercader = MercaderDataBase(applicationContext)
+                val articulo = objetosMercader.getArticuloAleatorio()
+                val idImagenArticulo =
+                    resources.getIdentifier(articulo.getImagen(), "drawable", packageName)
 
-            imagenMercader.setImageResource(idImagenArticulo)
+                imagenMercader.setImageResource(idImagenArticulo)
 
-            entradaUnidades.visibility = View.VISIBLE
-            precio.visibility = View.VISIBLE
-            botonCancelar.visibility = View.VISIBLE
-            botonComprar.visibility = View.INVISIBLE
-            botonVender.visibility = View.INVISIBLE
-            botonComerciar.visibility = View.INVISIBLE
-            botonContinuar.visibility = View.INVISIBLE
+                entradaUnidades.visibility = View.VISIBLE
+                precio.visibility = View.VISIBLE
+                botonCancelar.visibility = View.VISIBLE
+                botonComprar.visibility = View.INVISIBLE
+                botonVender.visibility = View.INVISIBLE
+                botonComerciar.visibility = View.INVISIBLE
+                botonContinuar.visibility = View.INVISIBLE
 
-            precio.text = articulo.getPrecio().toString()
+                precio.text = articulo.getPrecio().toString()
+                comprarActivado = true
+            } else {
+                //si es la segudna vez que le das, compras
+                //TODO: comprar
+            }
 
         }
 
-
-
         botonVender.setOnClickListener {
-            val idImagenArticulo =
-                resources.getIdentifier("mochila", "drawable", packageName)
-            imagenMercader.setImageResource(idImagenArticulo)
-            if (personaje!!.getMochila()!!.numeroObjectos() > 0) {
-                entradaUnidades.visibility = View.VISIBLE
+            if (!venderActivado) {
+                //si es la primera vez que le das, muestras todo
+                val idImagenArticulo =
+                    resources.getIdentifier("mochila", "drawable", packageName)
+                imagenMercader.setImageResource(idImagenArticulo)
+                if (personaje!!.getMochila()!!.numeroObjectos() > 0) {
+                    entradaUnidades.visibility = View.VISIBLE
+                } else {
+                    sinArticulosVenta.visibility = View.VISIBLE
+                }
+                venderActivado = true
             } else {
-                sinArticulosVenta.visibility = View.VISIBLE
+                //si es la segunda vez que le das, compras
+                //TODO: vender
             }
         }
 
