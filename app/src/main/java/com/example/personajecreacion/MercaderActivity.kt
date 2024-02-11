@@ -9,8 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
+import java.util.logging.Logger
 
 class MercaderActivity : AppCompatActivity() {
+    private val log : Logger = Logger.getLogger("MercaderActivity")
+    private lateinit var articuloCompra: Articulo
     private var comprarActivado = false
     private var venderActivado = false
 
@@ -20,7 +23,7 @@ class MercaderActivity : AppCompatActivity() {
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val botonContinuar: Button = findViewById(R.id.continuarM)
         val botonComerciar: Button = findViewById(R.id.comerciar)
-        val precio: TextView = findViewById(R.id.precioObjetos)
+        val precioCompra: TextView = findViewById(R.id.precioObjetos)
 
         val imagenMercader: ImageView = findViewById(R.id.mercaderF)
 
@@ -31,8 +34,7 @@ class MercaderActivity : AppCompatActivity() {
         val entradaUnidades: EditText = findViewById(R.id.unidadesArticulo)
         val sinArticulosVenta: TextView = findViewById(R.id.sinArticulosVenta)
         val mensajeVender: TextView = findViewById(R.id.mensajeVender)
-        var mensajeComprar : TextView = findViewById(R.id.mensajeComprar)
-        var mensajeComprarInsuficiente: TextView = findViewById(R.id.mensajeComprarInsuficiente)
+        var mensajeComprar: TextView = findViewById(R.id.mensajeComprar)
 
         botonContinuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
@@ -58,87 +60,79 @@ class MercaderActivity : AppCompatActivity() {
             botonContinuar.visibility = View.VISIBLE
 
             mensajeComprar.visibility = View.INVISIBLE
-            mensajeComprarInsuficiente.visibility = View.INVISIBLE
             botonComprar.visibility = View.INVISIBLE
             botonVender.visibility = View.INVISIBLE
             botonCancelar.visibility = View.INVISIBLE
             entradaUnidades.visibility = View.INVISIBLE
             sinArticulosVenta.visibility = View.INVISIBLE
-            precio.visibility = View.INVISIBLE
+            precioCompra.visibility = View.INVISIBLE
             mensajeVender.visibility = View.INVISIBLE
             comprarActivado = false
             venderActivado = false
         }
 
         botonComprar.setOnClickListener {
-
-            val objetosMercader = MercaderDataBase(applicationContext)
-            val articulo = objetosMercader.getArticuloAleatorio()
-            val idImagenArticulo =
-                resources.getIdentifier(articulo.getImagen(), "drawable", packageName)
-
-            imagenMercader.setImageResource(idImagenArticulo)
-
             if (!comprarActivado) {
-                //si es la primera vez que le das muestras todo
-
-
+                //si es la primera vez que le das muestras las opciones y cambias la imagen
+                val objetosMercader = MercaderDataBase(applicationContext)
+                articuloCompra = objetosMercader.getArticuloAleatorio()
+                val idImagenArticulo =
+                    resources.getIdentifier(articuloCompra.getImagen(), "drawable", packageName)
+                log.info("articulo para comprar $articuloCompra")
+                imagenMercader.setImageResource(idImagenArticulo)
                 entradaUnidades.visibility = View.VISIBLE
-                precio.visibility = View.VISIBLE
-                botonCancelar.visibility = View.VISIBLE
-
+                precioCompra.visibility = View.VISIBLE
                 botonVender.visibility = View.INVISIBLE
-                botonComerciar.visibility = View.INVISIBLE
-                botonContinuar.visibility = View.INVISIBLE
-
-                precio.text = "Precio: ${articulo.getPrecio()}"
+                precioCompra.text = "Precio: ${articuloCompra.getPrecio()} unidades ${articuloCompra.getUnidades()}"
                 comprarActivado = true
             } else {
-                //si es la segudna vez que le das, compras
-                var unidades  = 0
-                if (entradaUnidades.text.isDigitsOnly()) {
-                    unidades = entradaUnidades.text.toString().toInt()
-                }
-
-                var precioArticulo = articulo.precioPorUnidad(unidades)
-                var dineroPersonaje = personaje!!.getMochila()!!.precioOro()
-
+                //si es la segunda vez que le das, compras
                 // Si el personaje tiene oro
-                if (personaje.getMochila()!!.objetoOror()){
+                if (personaje!!.getMochila()!!.tieneOro()) {
+                    var unidades = 0
+                    if (entradaUnidades.text.isDigitsOnly()) {
+                        unidades = entradaUnidades.text.toString().toInt()
+                    }
+                    val precioArticulo = articuloCompra.precioPorUnidad() * unidades
+                    val dineroPersonaje = personaje.getMochila()!!.devolverDinero()
                     // si el dinero que tiene el peronaje es mayor al precio del articulo
-                    if (dineroPersonaje >= precioArticulo){
-                        // restamos el dinero al personaje
-                        var restaDinero = dineroPersonaje - precioArticulo
-                        personaje.getMochila()!!.restarDinero(restaDinero)
-
+                    if (dineroPersonaje >= precioArticulo) {
+                        log.info("articulo que se quiere comprar $articuloCompra")
+                        log.info("precio del articulo $precioArticulo, dinero personaje $dineroPersonaje")
                         //guardamos el articulo
-                        personaje!!.getMochila()!!.guardarArticulo(articulo)
+                        if (personaje.getMochila()!!.guardarArticulo(articuloCompra)) {
+                            // restamos el dinero al personaje
+                            personaje.getMochila()!!.restarDinero(precioArticulo)
+                            articuloCompra.reduceUnidades(unidades)
+                            //TODO: actualizar la base de datos del mercader
+                            entradaUnidades.visibility = View.INVISIBLE
+                            botonComprar.visibility = View.INVISIBLE
+                            precioCompra.visibility = View.INVISIBLE
+                            mensajeComprar.text = "Objeto comprado"
+                            mensajeComprar.visibility = View.VISIBLE
+                        } else {
+                            entradaUnidades.visibility = View.INVISIBLE
+                            botonComprar.visibility = View.INVISIBLE
+                            precioCompra.visibility = View.INVISIBLE
+                            mensajeComprar.text = "No tienes espacio suficiente en la mochila"
+                            mensajeComprar.visibility = View.VISIBLE
+                        }
 
-                    }else{
-                        mensajeComprarInsuficiente.visibility = View.VISIBLE
+                    } else {
                         entradaUnidades.visibility = View.INVISIBLE
-                        precio.visibility = View.VISIBLE
-                        botonCancelar.visibility = View.VISIBLE
-                        botonVender.visibility = View.INVISIBLE
-                        botonComerciar.visibility = View.VISIBLE
-                        botonContinuar.visibility = View.VISIBLE
+                        botonComprar.visibility = View.INVISIBLE
+                        precioCompra.visibility = View.INVISIBLE
+                        mensajeComprar.text = "No tienes dinero para poder comprar"
+                        mensajeComprar.visibility = View.VISIBLE
                     }
 
-                }else{
+                } else {
                     entradaUnidades.visibility = View.INVISIBLE
-                    precio.visibility = View.VISIBLE
-                    botonCancelar.visibility = View.VISIBLE
-
-                    botonVender.visibility = View.INVISIBLE
-                    botonComerciar.visibility = View.VISIBLE
-                    botonContinuar.visibility = View.VISIBLE
-
+                    botonComprar.visibility = View.INVISIBLE
+                    precioCompra.visibility = View.INVISIBLE
+                    mensajeComprar.text = "No tienes dinero para poder comprar"
                     mensajeComprar.visibility = View.VISIBLE
                 }
-
-
-
-
 
 
             }

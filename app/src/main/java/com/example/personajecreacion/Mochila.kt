@@ -6,8 +6,6 @@ import android.os.Parcelable
 class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Parcelable {
 
 
-
-
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         (parcel.createTypedArrayList(Articulo.CREATOR)
@@ -16,39 +14,35 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
     }
 
 
-    fun restarDinero(dinero : Int) : Int{
-        var dinero = dinero
-        for (articulo in articulos) {
-            if (articulo.getTipo() == Articulo.TipoArt.ORO) {
-                dinero = articulo.restaPrecio(dinero)
-            }else{
-
+    fun restarDinero(dinero: Int) {
+        var indice = 0
+        var articuloOro: Articulo? = null
+        while (indice < articulos.size && articuloOro == null) {
+            if (articulos[indice].getTipo() == Articulo.TipoArt.ORO) {
+                articuloOro = articulos[indice]
             }
+            indice++
         }
-
-        return dinero
-    }
-    fun precioOro() : Int{
-        var dinero = 0
-        for (articulo in articulos) {
-            if (articulo.getTipo() == Articulo.TipoArt.ORO) {
-                dinero = articulo.getPrecio()
-            }else{
-
-            }
-        }
-
-        return dinero
+        articuloOro?.restaPrecio(dinero)
     }
 
-    fun objetoOror() : Boolean{
-        var valor = false
+    fun devolverDinero(): Int {
         for (articulo in articulos) {
             if (articulo.getTipo() == Articulo.TipoArt.ORO) {
-                valor = true
+                return articulo.getPrecio()
             }
         }
-        return valor
+
+        return 0
+    }
+
+    fun tieneOro(): Boolean {
+        for (articulo in articulos) {
+            if (articulo.getTipo() == Articulo.TipoArt.ORO) {
+                return true
+            }
+        }
+        return false
     }
 
 
@@ -136,7 +130,6 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
             espacio--
         }
     }
-
 
 
     companion object CREATOR : Parcelable.Creator<Mochila> {
