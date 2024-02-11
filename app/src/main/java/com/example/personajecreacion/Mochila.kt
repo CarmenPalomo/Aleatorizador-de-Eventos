@@ -5,12 +5,52 @@ import android.os.Parcelable
 
 class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Parcelable {
 
+
+
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         (parcel.createTypedArrayList(Articulo.CREATOR)
             ?: emptyList<Articulo>()) as ArrayList<Articulo>
     ) {
     }
+
+
+    fun restarDinero(dinero : Int) : Int{
+        var dinero = dinero
+        for (articulo in articulos) {
+            if (articulo.getTipo() == Articulo.TipoArt.ORO) {
+                dinero = articulo.restaPrecio(dinero)
+            }else{
+
+            }
+        }
+
+        return dinero
+    }
+    fun precioOro() : Int{
+        var dinero = 0
+        for (articulo in articulos) {
+            if (articulo.getTipo() == Articulo.TipoArt.ORO) {
+                dinero = articulo.getPrecio()
+            }else{
+
+            }
+        }
+
+        return dinero
+    }
+
+    fun objetoOror() : Boolean{
+        var valor = false
+        for (articulo in articulos) {
+            if (articulo.getTipo() == Articulo.TipoArt.ORO) {
+                valor = true
+            }
+        }
+        return valor
+    }
+
 
     fun numeroObjectos(): Int {
         var contador = 0
@@ -96,6 +136,8 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
             espacio--
         }
     }
+
+
 
     companion object CREATOR : Parcelable.Creator<Mochila> {
         override fun createFromParcel(parcel: Parcel): Mochila {

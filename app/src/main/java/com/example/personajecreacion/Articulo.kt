@@ -32,6 +32,20 @@ data class Articulo(
         precio += valorASumar
     }
 
+    fun restaPrecio(valoraRestar : Int) : Int{
+        precio -= valoraRestar
+
+        return precio
+    }
+
+    fun precioPorUnidad(unidades : Int) : Int{
+
+        val precioPorUnidad: Int = precio.div(unidades)
+
+        return precioPorUnidad
+
+    }
+
     fun getNombre(): String? {
         return nombre
     }

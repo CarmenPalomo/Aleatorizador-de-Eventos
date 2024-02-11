@@ -31,6 +31,8 @@ class MercaderActivity : AppCompatActivity() {
         val entradaUnidades: EditText = findViewById(R.id.unidadesArticulo)
         val sinArticulosVenta: TextView = findViewById(R.id.sinArticulosVenta)
         val mensajeVender: TextView = findViewById(R.id.mensajeVender)
+        var mensajeComprar : TextView = findViewById(R.id.mensajeComprar)
+        var mensajeComprarInsuficiente: TextView = findViewById(R.id.mensajeComprarInsuficiente)
 
         botonContinuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
@@ -55,6 +57,8 @@ class MercaderActivity : AppCompatActivity() {
             botonComerciar.visibility = View.VISIBLE
             botonContinuar.visibility = View.VISIBLE
 
+            mensajeComprar.visibility = View.INVISIBLE
+            mensajeComprarInsuficiente.visibility = View.INVISIBLE
             botonComprar.visibility = View.INVISIBLE
             botonVender.visibility = View.INVISIBLE
             botonCancelar.visibility = View.INVISIBLE
@@ -67,14 +71,17 @@ class MercaderActivity : AppCompatActivity() {
         }
 
         botonComprar.setOnClickListener {
+
+            val objetosMercader = MercaderDataBase(applicationContext)
+            val articulo = objetosMercader.getArticuloAleatorio()
+            val idImagenArticulo =
+                resources.getIdentifier(articulo.getImagen(), "drawable", packageName)
+
+            imagenMercader.setImageResource(idImagenArticulo)
+
             if (!comprarActivado) {
                 //si es la primera vez que le das muestras todo
-                val objetosMercader = MercaderDataBase(applicationContext)
-                val articulo = objetosMercader.getArticuloAleatorio()
-                val idImagenArticulo =
-                    resources.getIdentifier(articulo.getImagen(), "drawable", packageName)
 
-                imagenMercader.setImageResource(idImagenArticulo)
 
                 entradaUnidades.visibility = View.VISIBLE
                 precio.visibility = View.VISIBLE
@@ -88,7 +95,52 @@ class MercaderActivity : AppCompatActivity() {
                 comprarActivado = true
             } else {
                 //si es la segudna vez que le das, compras
-                //TODO: comprar
+                var unidades  = 0
+                if (entradaUnidades.text.isDigitsOnly()) {
+                    unidades = entradaUnidades.text.toString().toInt()
+                }
+
+                var precioArticulo = articulo.precioPorUnidad(unidades)
+                var dineroPersonaje = personaje!!.getMochila()!!.precioOro()
+
+                // Si el personaje tiene oro
+                if (personaje.getMochila()!!.objetoOror()){
+                    // si el dinero que tiene el peronaje es mayor al precio del articulo
+                    if (dineroPersonaje >= precioArticulo){
+                        // restamos el dinero al personaje
+                        var restaDinero = dineroPersonaje - precioArticulo
+                        personaje.getMochila()!!.restarDinero(restaDinero)
+
+                        //guardamos el articulo
+                        personaje!!.getMochila()!!.guardarArticulo(articulo)
+
+                    }else{
+                        mensajeComprarInsuficiente.visibility = View.VISIBLE
+                        entradaUnidades.visibility = View.INVISIBLE
+                        precio.visibility = View.VISIBLE
+                        botonCancelar.visibility = View.VISIBLE
+                        botonVender.visibility = View.INVISIBLE
+                        botonComerciar.visibility = View.VISIBLE
+                        botonContinuar.visibility = View.VISIBLE
+                    }
+
+                }else{
+                    entradaUnidades.visibility = View.INVISIBLE
+                    precio.visibility = View.VISIBLE
+                    botonCancelar.visibility = View.VISIBLE
+
+                    botonVender.visibility = View.INVISIBLE
+                    botonComerciar.visibility = View.VISIBLE
+                    botonContinuar.visibility = View.VISIBLE
+
+                    mensajeComprar.visibility = View.VISIBLE
+                }
+
+
+
+
+
+
             }
 
         }
