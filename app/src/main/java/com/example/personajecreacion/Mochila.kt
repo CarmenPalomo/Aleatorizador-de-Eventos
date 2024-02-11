@@ -79,23 +79,33 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
         return "Mochila(espacio=$espacio, articulos=$articulos)"
     }
 
-    fun eliminarYDarPrecio(unidades: Int): Int {
+    fun eliminarArticulos(unidades: Int): ArrayList<Articulo> {
+        var articulosEliminados: ArrayList<Articulo> = arrayListOf()
         var unidadesAReducir = unidades
         var indice = 0
         var unidadesArticulo = 0
-        var precio = 0
         while (indice < articulos.size && unidadesAReducir > 0) {
             if (Articulo.TipoArt.ORO != articulos[indice].getTipo()) {
-                if (articulos[indice].getUnidades() <= unidades) {
+                if (articulos[indice].getUnidades() <= unidadesAReducir) {
                     unidadesArticulo = articulos[indice].getUnidades()
                     unidadesAReducir -= unidadesArticulo
-                    precio += articulos[indice].getPrecio()
+                    articulosEliminados.add(
+                        Articulo(articulos[indice].getNombre(),
+                            articulos[indice].getPeso(), articulos[indice].getTipo(),
+                            articulos[indice].getImagen(), articulos[indice].getUnidades(),
+                            articulos[indice].getPrecio())
+                    )
                     articulos[indice].reduceUnidades(unidadesArticulo)
                 } else {
                     val precioAntes = articulos[indice].getPrecio()
                     articulos[indice].reduceUnidades(unidadesAReducir)
                     unidadesAReducir = 0
-                    precio += (precioAntes - articulos[indice].getPrecio())
+                    articulosEliminados.add(
+                        Articulo(articulos[indice].getNombre(),
+                            articulos[indice].getPeso(), articulos[indice].getTipo(),
+                            articulos[indice].getImagen(), unidadesAReducir,
+                            precioAntes - articulos[indice].getPrecio())
+                    )
                 }
             }
             indice++
@@ -110,7 +120,7 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
                 indice++
             }
         }
-        return precio;
+        return articulosEliminados;
     }
 
     fun guardarDinero(dineroObtenido: Int) {

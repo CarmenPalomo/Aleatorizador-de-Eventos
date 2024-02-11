@@ -11,7 +11,7 @@ class MercaderDataBase(context: Context) :
 
     companion object {
         // nombre, tipo, peso, url, unidades
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 6
         private const val DATABASE = "OBJETOS_MERCADER.db"
         private const val TABLA_MERCADER = "Mercader"
         private const val KEY_ID = "_id"
@@ -28,8 +28,7 @@ class MercaderDataBase(context: Context) :
 
         log.info("on create")
         val createTable = "CREATE TABLE $TABLA_MERCADER(" +
-                "$KEY_ID INTEGER PRIMARY KEY," +
-                "$COLUMN_NOMBRE TEXT, " +
+                "$COLUMN_NOMBRE TEXT PRIMARY KEY, " +
                 "$COLUMN_TIPO TEXT, " +
                 "$COLUMN_PESO INTEGER, " +
                 "$COLUMN_URL TEXT, " +
@@ -67,25 +66,6 @@ class MercaderDataBase(context: Context) :
         log.info("dropping table $TABLA_MERCADER")
         db?.execSQL("DROP TABLE IF EXISTS $TABLA_MERCADER")
         onUpgrade(db, oldVersion, newVersion)
-    }
-
-    fun insertarArticulos() {
-        val db = this.writableDatabase
-        val insertInto =
-            "INSERT INTO $TABLA_MERCADER($COLUMN_NOMBRE, $COLUMN_TIPO, $COLUMN_PESO, $COLUMN_URL, $COLUMN_UNIDADES ) " +
-                    "VALUES('YELMO', 'PROTECCION', 2, 'yelmo.jpg', 1)," +
-                    "('POCION', 'PROTECCION', 1, 'pocion.jpg', 1)," +
-                    "('MARTILLO', 'ARMA', 3, 'martillo.jpg', 1)," +
-                    "('GARRAS', 'ARMA', 2, 'garras.jpg', 1)," +
-                    "('ESPADA', 'ARMA', 3, 'espada.jpg', 1)," +
-                    "('ESCUDO', 'PROTECCION', 1, 'escudo.jpg', 1)," +
-                    "('DAGA', 'ARMA', 1, 'daga.jpg', 1)," +
-                    "('COMIDA', 'OBJETO', 2, 'comida.jpg', 1)," +
-                    "('COFRE', 'OBJETO', 3, 'cofre.jpg', 1)," +
-                    "('CASCO', 'PROTECCION', 2, 'casco.jpg', 1)"
-        db.execSQL(insertInto);
-        log.info("insertado los datos")
-        db.close()
     }
 
     fun getArticuloAleatorio(): Articulo {
@@ -134,11 +114,42 @@ class MercaderDataBase(context: Context) :
                 val peso = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PESO))
                 val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
                 val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
-                articulos.add(Articulo(nombre, peso, getTipoArt(tipo), url,unidades,0))
+                articulos.add(Articulo(nombre, peso, getTipoArt(tipo), url, unidades, 0))
             } while (cursor.moveToNext())
         }
         cursor.close()
         db.close()
         return articulos
+    }
+
+    fun actualizarUnidades(articulo: Articulo) {
+        val db = this.writableDatabase
+        val selectQuery = "UPDATE $TABLA_MERCADER " +
+                "SET $COLUMN_UNIDADES = ${articulo.getUnidades()}, $COLUMN_PRECIO = ${articulo.getPrecio()} " +
+                "WHERE $COLUMN_NOMBRE = '${articulo.getNombre()}'"
+        db.execSQL(selectQuery);
+        db.close()
+    }
+
+    fun sumarUnidades(articulos: ArrayList<Articulo>) {
+        for (articulo in articulos) {
+            val dbRead = this.readableDatabase
+            val selectSql =
+                "SELECT * FROM $TABLA_MERCADER WHERE $COLUMN_NOMBRE='${articulo.getNombre()}'"
+            val cursor = dbRead.rawQuery(selectSql, null)
+            if (cursor.moveToFirst()) {
+                val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
+                val tipo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIPO))
+                val peso = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PESO))
+                val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
+                val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
+                val precio = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRECIO))
+                val articuloEncontrado =
+                    Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio)
+                articuloEncontrado.sumaUnidades(articulo.getUnidades())
+                this.actualizarUnidades(articuloEncontrado)
+            }
+            dbRead.close()
+        }
     }
 }

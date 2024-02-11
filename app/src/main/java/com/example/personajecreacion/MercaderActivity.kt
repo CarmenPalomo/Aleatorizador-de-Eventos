@@ -12,7 +12,7 @@ import androidx.core.text.isDigitsOnly
 import java.util.logging.Logger
 
 class MercaderActivity : AppCompatActivity() {
-    private val log : Logger = Logger.getLogger("MercaderActivity")
+    private val log: Logger = Logger.getLogger("MercaderActivity")
     private lateinit var articuloCompra: Articulo
     private var comprarActivado = false
     private var venderActivado = false
@@ -24,6 +24,7 @@ class MercaderActivity : AppCompatActivity() {
         val botonContinuar: Button = findViewById(R.id.continuarM)
         val botonComerciar: Button = findViewById(R.id.comerciar)
         val precioCompra: TextView = findViewById(R.id.precioObjetos)
+        val objetosMercader = MercaderDataBase(applicationContext)
 
         val imagenMercader: ImageView = findViewById(R.id.mercaderF)
 
@@ -74,7 +75,6 @@ class MercaderActivity : AppCompatActivity() {
         botonComprar.setOnClickListener {
             if (!comprarActivado) {
                 //si es la primera vez que le das muestras las opciones y cambias la imagen
-                val objetosMercader = MercaderDataBase(applicationContext)
                 articuloCompra = objetosMercader.getArticuloAleatorio()
                 val idImagenArticulo =
                     resources.getIdentifier(articuloCompra.getImagen(), "drawable", packageName)
@@ -83,7 +83,8 @@ class MercaderActivity : AppCompatActivity() {
                 entradaUnidades.visibility = View.VISIBLE
                 precioCompra.visibility = View.VISIBLE
                 botonVender.visibility = View.INVISIBLE
-                precioCompra.text = "Precio: ${articuloCompra.getPrecio()} unidades ${articuloCompra.getUnidades()}"
+                precioCompra.text =
+                    "Precio: ${articuloCompra.getPrecio()} unidades ${articuloCompra.getUnidades()}"
                 comprarActivado = true
             } else {
                 //si es la segunda vez que le das, compras
@@ -100,11 +101,19 @@ class MercaderActivity : AppCompatActivity() {
                         log.info("articulo que se quiere comprar $articuloCompra")
                         log.info("precio del articulo $precioArticulo, dinero personaje $dineroPersonaje")
                         //guardamos el articulo
-                        if (personaje.getMochila()!!.guardarArticulo(articuloCompra)) {
+                        val copiaArticulo = Articulo(
+                            articuloCompra.getNombre(),
+                            articuloCompra.getPeso(), articuloCompra.getTipo(),
+                            articuloCompra.getImagen(), unidades, precioArticulo
+                        )
+
+                        if (personaje.getMochila()!!.guardarArticulo(copiaArticulo)) {
                             // restamos el dinero al personaje
                             personaje.getMochila()!!.restarDinero(precioArticulo)
                             articuloCompra.reduceUnidades(unidades)
-                            //TODO: actualizar la base de datos del mercader
+                            // actualizacion base de datos
+                            objetosMercader.actualizarUnidades(articuloCompra)
+
                             entradaUnidades.visibility = View.INVISIBLE
                             botonComprar.visibility = View.INVISIBLE
                             precioCompra.visibility = View.INVISIBLE
@@ -162,8 +171,13 @@ class MercaderActivity : AppCompatActivity() {
                 if (entradaUnidades.text.isDigitsOnly()) {
                     unidades = entradaUnidades.text.toString().toInt()
                 }
-                val dineroObtenido = personaje!!.getMochila()!!.eliminarYDarPrecio(unidades)
-                personaje.getMochila()!!.guardarDinero(dineroObtenido)
+                val elementosEliminados = personaje!!.getMochila()!!.eliminarArticulos(unidades)
+                var precioElementos = 0
+                for (elementosEliminado in elementosEliminados) {
+                    precioElementos += elementosEliminado.getPrecio()
+                }
+                personaje.getMochila()!!.guardarDinero(precioElementos)
+                objetosMercader.sumarUnidades(elementosEliminados)
                 mensajeVender.visibility = View.VISIBLE
                 botonVender.visibility = View.INVISIBLE
                 entradaUnidades.visibility = View.INVISIBLE

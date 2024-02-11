@@ -69,6 +69,12 @@ data class Articulo(
         precio = precioPorUnidad * unidades
     }
 
+    fun sumaUnidades(aSumar: Int) {
+        val precioPorUnidad: Int = precio.div(unidades)
+        unidades += aSumar
+        precio = precioPorUnidad * unidades
+    }
+
     fun setId(id: Int) {
         this.id = id
     }
