@@ -212,6 +212,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         }
                     }
                 }
+
                 "Maldito"->{
                     when(opcionSpinnerClase){
                         "Brujo"->{
