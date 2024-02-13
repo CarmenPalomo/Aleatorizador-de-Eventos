@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 
 class CiudadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,7 @@ class CiudadActivity : AppCompatActivity() {
         val continuar : Button = findViewById(R.id.continuar)
         val taberna : Button = findViewById(R.id.taberna)
         val herrero : Button = findViewById(R.id.herrero)
+        val textEntrada : TextView = findViewById(R.id.textoEntrada)
 
         entrar.setOnClickListener {
             var num = (1..2).random()
@@ -30,6 +32,7 @@ class CiudadActivity : AppCompatActivity() {
                     entrar.visibility = View.INVISIBLE
                     continuar.visibility = View.INVISIBLE
                     taberna.visibility = View.VISIBLE
+                    textEntrada.visibility = View.VISIBLE
                     herrero.visibility = View.VISIBLE
 
                 }
