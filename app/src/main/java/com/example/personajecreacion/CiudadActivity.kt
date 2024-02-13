@@ -11,6 +11,7 @@ class CiudadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ciudad)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val entrar: Button = findViewById(R.id.entrar)

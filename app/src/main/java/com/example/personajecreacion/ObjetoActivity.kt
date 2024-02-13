@@ -16,6 +16,7 @@ class ObjetoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_objeto)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         log.info("personaje obtenido $personaje")

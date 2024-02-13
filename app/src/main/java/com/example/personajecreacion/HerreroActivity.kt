@@ -14,6 +14,7 @@ class HerreroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_herrero)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         botonCrear = findViewById(R.id.crear)
         botonReparar = findViewById(R.id.reparar)

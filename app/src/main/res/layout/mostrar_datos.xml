@@ -15,17 +15,20 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintBottom_toTopOf="@+id/nombre_personaje"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
+        app:menu="@menu/menu_main"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Infromacion Personaje"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="Informacion Personaje"
+            android:textSize="25dp"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
