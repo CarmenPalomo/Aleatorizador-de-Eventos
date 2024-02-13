@@ -18,6 +18,7 @@
         app:title="Informacion del Personaje"
         app:titleMarginStart="90dp"
         app:titleTextColor="@color/white" />
+
     <TextView
         android:id="@+id/nombre_personaje"
         android:layout_width="291dp"
@@ -25,8 +26,10 @@
         android:layout_marginTop="340dp"
         android:text="Nombre"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/raza_personaje"
         android:layout_width="290dp"
