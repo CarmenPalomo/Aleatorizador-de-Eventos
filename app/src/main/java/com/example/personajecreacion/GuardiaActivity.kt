@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class Guardia : AppCompatActivity() {
-    private lateinit var boton : Button
+class GuardiaActivity : AppCompatActivity() {
+    private lateinit var boton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

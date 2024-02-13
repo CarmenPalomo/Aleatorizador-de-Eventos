@@ -15,20 +15,21 @@ class CiudadActivity : AppCompatActivity() {
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val entrar: Button = findViewById(R.id.entrar)
-        val continuar : Button = findViewById(R.id.continuar)
-        val taberna : Button = findViewById(R.id.taberna)
-        val herrero : Button = findViewById(R.id.herrero)
-        val textEntrada : TextView = findViewById(R.id.textoEntrada)
+        val continuar: Button = findViewById(R.id.continuar)
+        val taberna: Button = findViewById(R.id.taberna)
+        val herrero: Button = findViewById(R.id.herrero)
+        val textEntrada: TextView = findViewById(R.id.textoEntrada)
 
         entrar.setOnClickListener {
             var num = (1..2).random()
-            val intent : Intent
-            when(num){
+            val intent: Intent
+            when (num) {
                 1 -> {
-                    intent = Intent(this,Guardia::class.java)
+                    intent = Intent(this, GuardiaActivity::class.java)
                     intent.putExtra("Personaje", personaje)
                     startActivity(intent)
                 }
+
                 2 -> {
                     entrar.visibility = View.INVISIBLE
                     continuar.visibility = View.INVISIBLE
@@ -42,14 +43,14 @@ class CiudadActivity : AppCompatActivity() {
         }
 
         taberna.setOnClickListener {
-            val intent = Intent(this,TabernaActivity::class.java)
+            val intent = Intent(this, TabernaActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
 
         }
 
         herrero.setOnClickListener {
-            val intent = Intent(this,HerreroActivity::class.java)
+            val intent = Intent(this, HerreroActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
 
@@ -57,7 +58,7 @@ class CiudadActivity : AppCompatActivity() {
 
 
         continuar.setOnClickListener {
-            val intent = Intent(this,AventuraActivity::class.java)
+            val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }

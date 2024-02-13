@@ -19,7 +19,7 @@
             android:name=".TabernaActivity"
             android:exported="false" />
         <activity
-            android:name=".Guardia"
+            android:name=".GuardiaActivity"
             android:exported="false" />
         <activity
             android:name=".Register"
@@ -44,6 +44,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
