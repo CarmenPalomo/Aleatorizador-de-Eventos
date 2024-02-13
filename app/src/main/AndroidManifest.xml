@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PersonajeCreacion"
         tools:targetApi="31">
         <activity
+            android:name=".Pelea"
+            android:exported="false" />
+        <activity
             android:name=".TabernaActivity"
             android:exported="false" />
         <activity
