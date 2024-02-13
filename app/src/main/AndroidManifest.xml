@@ -25,9 +25,6 @@
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".Blanco"
             android:exported="false" />
         <activity
@@ -46,7 +43,7 @@
             android:name=".AventuraActivity"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

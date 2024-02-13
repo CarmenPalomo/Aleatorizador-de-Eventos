@@ -7,16 +7,39 @@
     android:background="@drawable/fondo"
     tools:context=".ObjetoActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="411dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/black"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Objeto"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:layout_gravity="center"/>
+    </androidx.appcompat.widget.Toolbar>
+
     <ImageView
         android:id="@+id/ImagenObjeto"
         android:layout_width="363dp"
         android:layout_height="338dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="268dp"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211" />
+        app:layout_constraintTop_toBottomOf="@+id/textoPrincipio"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/continuarOb"
@@ -25,10 +48,10 @@
         android:text="@string/continuar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintHorizontal_bias="0.836"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.672" />
+        app:layout_constraintVertical_bias="0.692" />
 
     <Button
         android:id="@+id/recoger"
@@ -38,15 +61,16 @@
         android:text="@string/recoger"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintHorizontal_bias="0.209"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.692" />
+        app:layout_constraintVertical_bias="0.713" />
 
     <TextView
         android:id="@+id/textoPrincipio"
         android:layout_width="332dp"
         android:layout_height="47dp"
+        android:layout_marginTop="7dp"
         android:text="¡Oh ,te acaba de aparecer un objeto! ¿Que quieres hacer?"
         android:textSize="17dp"
         android:textStyle="bold"
@@ -54,8 +78,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintVertical_bias="0.001" />
 
     <TextView
         android:id="@+id/textoConfirmacion"
