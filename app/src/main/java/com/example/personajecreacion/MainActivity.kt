@@ -47,12 +47,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
 
         botonPlay.setOnClickListener {
-            mediaplayer.start()
+            if(!mediaplayer.isPlaying){
+                mediaplayer.start()
+            }else{
+                mediaplayer.pause()
+            }
+
         }
+        /*
         botonStop.setOnClickListener {
             mediaplayer.pause()
         }
-
+        */
         boton.setOnClickListener {
             val intent = Intent(this@MainActivity, MostrarDatosActivity::class.java)
             intent.putExtra("raza",opcionSpinnerRaza)
