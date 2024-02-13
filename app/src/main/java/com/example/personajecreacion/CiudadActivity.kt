@@ -3,6 +3,7 @@ package com.example.personajecreacion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 
 class CiudadActivity : AppCompatActivity() {
@@ -13,12 +14,30 @@ class CiudadActivity : AppCompatActivity() {
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val entrar: Button = findViewById(R.id.entrar)
         val continuar : Button = findViewById(R.id.continuar)
+        val taberna : Button = findViewById(R.id.taberna)
+        val herrero : Button = findViewById(R.id.herrero)
 
         entrar.setOnClickListener {
-            val intent = Intent(this,Blanco::class.java)
-            intent.putExtra("Personaje", personaje)
-            startActivity(intent)
+            var num = (1..2).random()
+            val intent : Intent
+            when(num){
+                1 -> {
+                    intent = Intent(this,Guardia::class.java)
+                    intent.putExtra("Personaje", personaje)
+                    startActivity(intent)
+                }
+                2 -> {
+                    entrar.visibility = View.INVISIBLE
+                    continuar.visibility = View.INVISIBLE
+                    taberna.visibility = View.VISIBLE
+                    herrero.visibility = View.VISIBLE
+
+                }
+            }
+
         }
+
+
 
         continuar.setOnClickListener {
             val intent = Intent(this,AventuraActivity::class.java)
