@@ -37,6 +37,19 @@ class CiudadActivity : AppCompatActivity() {
 
         }
 
+        taberna.setOnClickListener {
+            val intent = Intent(this,TabernaActivity::class.java)
+            intent.putExtra("Personaje", personaje)
+            startActivity(intent)
+
+        }
+
+        herrero.setOnClickListener {
+            val intent = Intent(this,HerreroActivity::class.java)
+            intent.putExtra("Personaje", personaje)
+            startActivity(intent)
+
+        }
 
 
         continuar.setOnClickListener {
