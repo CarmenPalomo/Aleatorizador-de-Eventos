@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Personaje(
+    private var idPersonaje: String?,
     private var nombre: String?,
     private var estadoVital: String?,
     private var raza: String?,
@@ -18,6 +19,7 @@ data class Personaje(
     private var defensa: Int
 
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -39,6 +41,28 @@ data class Personaje(
         defensa = 4
     }
 
+
+    fun getIdPersonaje(): String? {
+        return idPersonaje
+    }
+    fun getExperiencia(): Int? {
+        return experiencia
+    }
+    fun getSalud(): Int? {
+        return salud
+    }
+
+    fun getAtaque(): Int? {
+        return ataque
+    }
+
+    fun getNivel(): Int? {
+        return nivel
+    }
+
+    fun getDefensa(): Int? {
+        return defensa
+    }
     fun getNombre(): String? {
         return nombre
     }
@@ -76,6 +100,7 @@ data class Personaje(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(idPersonaje)
         parcel.writeString(nombre)
         parcel.writeString(estadoVital)
         parcel.writeString(raza)

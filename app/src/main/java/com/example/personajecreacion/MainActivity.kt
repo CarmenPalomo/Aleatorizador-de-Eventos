@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         // Creacion de variables
         nombreEditText = findViewById(R.id.nombre)
-        val boton: Button = findViewById(R.id.boton_siguiente)
+        val botonSiguiente: Button = findViewById(R.id.boton_siguiente)
         val spinnerRaza: Spinner = findViewById(R.id.spinner_raza)
         val spinnerClase: Spinner = findViewById(R.id.spinner_clase)
         val spinnerEdad: Spinner = findViewById(R.id.spinner_edad)
@@ -60,12 +60,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             mediaplayer.pause()
         }
         */
-        boton.setOnClickListener {
+        botonSiguiente.setOnClickListener {
             val intent = Intent(this@MainActivity, MostrarDatosActivity::class.java)
             intent.putExtra("raza",opcionSpinnerRaza)
             intent.putExtra("clase",opcionSpinnerClase)
             intent.putExtra("edad",opcionSpinnerEdad)
             intent.putExtra("nombre",nombreEditText.text.toString())
+            intent.putExtra("userId", intent.getStringExtra("userId"))
             startActivity(intent)
         }
 

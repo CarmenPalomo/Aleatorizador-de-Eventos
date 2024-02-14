@@ -11,7 +11,7 @@ data class Articulo(
     private var unidades: Int,
     private var precio: Int
 ) : Parcelable {
-    private var id: Int = 0
+    private var idArticulo: Int? = null
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -21,7 +21,7 @@ data class Articulo(
         parcel.readInt(),
         parcel.readInt()
     ) {
-        id = parcel.readInt()
+        idArticulo = parcel.readInt()
     }
 
     fun getPrecio(): Int {
@@ -75,8 +75,8 @@ data class Articulo(
         precio = precioPorUnidad * unidades
     }
 
-    fun setId(id: Int) {
-        this.id = id
+    fun setId(idArticulo: Int) {
+        this.idArticulo= idArticulo
     }
 
     enum class TipoArt(val tipo: String) {
@@ -93,7 +93,7 @@ data class Articulo(
         parcel.writeString(imagen)
         parcel.writeInt(unidades)
         parcel.writeInt(precio)
-        parcel.writeInt(id)
+        parcel.writeInt(idArticulo!!)
     }
 
     override fun describeContents(): Int {
@@ -101,7 +101,7 @@ data class Articulo(
     }
 
     override fun toString(): String {
-        return "Articulo(nombre=$nombre, peso=$peso, tipo=$tipo, imagen=$imagen, unidades=$unidades, precio=$precio, id=$id)"
+        return "Articulo(nombre=$nombre, peso=$peso, tipo=$tipo, imagen=$imagen, unidades=$unidades, precio=$precio, id=$idArticulo)"
     }
 
     companion object CREATOR : Parcelable.Creator<Articulo> {

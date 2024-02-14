@@ -15,18 +15,20 @@ class MostrarDatosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mostrar_datos)
+
+        val PersonajeDataBase = PersonajeDataBase(applicationContext)
         var personaje: Personaje
         val botonSiguiente: Button = findViewById(R.id.boton_siguiente2)
         val botonAtras: Button = findViewById(R.id.boton_atras1)
-        val nombre_personaje: TextView = findViewById<TextView>(R.id.nombre_personaje)
+        val nombre_personaje: TextView = findViewById(R.id.nombre_personaje)
         val raza_personaje: TextView = findViewById(R.id.raza_personaje)
         val clase_personaje: TextView = findViewById(R.id.clase_personaje)
         val edad_personaje: TextView = findViewById(R.id.edad_personaje)
         textToSpeechBtn = findViewById(R.id.textToSpeechBnt)
-        var raza = intent.getStringExtra("raza")
-        var clase = intent.getStringExtra("clase")
-        var edad = intent.getStringExtra("edad")
-        var nombre = intent.getStringExtra("nombre")
+        val raza = intent.getStringExtra("raza")
+        val clase = intent.getStringExtra("clase")
+        val edad = intent.getStringExtra("edad")
+        val nombre = intent.getStringExtra("nombre")
         textToSpeech = TextToSpeech(this) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 val resultado = textToSpeech.setLanguage(Locale.getDefault())
@@ -79,9 +81,12 @@ class MostrarDatosActivity : AppCompatActivity() {
         }
 
         personaje = Personaje(
+            intent.getStringExtra("userId"),
             nombre, edad, raza, clase,
             Mochila(9, ArrayList())
         )
+
+
 
         botonAtras.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -90,6 +95,7 @@ class MostrarDatosActivity : AppCompatActivity() {
         botonSiguiente.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            PersonajeDataBase.insertarPersonaje(personaje)
             startActivity(intent)
         }
     }

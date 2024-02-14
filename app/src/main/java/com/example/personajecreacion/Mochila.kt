@@ -3,14 +3,19 @@ package com.example.personajecreacion
 import android.os.Parcel
 import android.os.Parcelable
 
-class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Parcelable {
+class Mochila(
 
+    private var espacio: Int,
+    private val articulos: ArrayList<Articulo>
+) : Parcelable {
+    private var idMochila: Int? = null
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         (parcel.createTypedArrayList(Articulo.CREATOR)
             ?: emptyList<Articulo>()) as ArrayList<Articulo>
     ) {
+        idMochila = parcel.readInt()
     }
 
 
@@ -69,6 +74,7 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(espacio)
         parcel.writeTypedList(articulos)
+        parcel.writeInt(idMochila!!)
     }
 
     override fun describeContents(): Int {
@@ -90,10 +96,12 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
                     unidadesArticulo = articulos[indice].getUnidades()
                     unidadesAReducir -= unidadesArticulo
                     articulosEliminados.add(
-                        Articulo(articulos[indice].getNombre(),
+                        Articulo(
+                            articulos[indice].getNombre(),
                             articulos[indice].getPeso(), articulos[indice].getTipo(),
                             articulos[indice].getImagen(), articulos[indice].getUnidades(),
-                            articulos[indice].getPrecio())
+                            articulos[indice].getPrecio()
+                        )
                     )
                     articulos[indice].reduceUnidades(unidadesArticulo)
                 } else {
@@ -101,10 +109,12 @@ class Mochila(var espacio: Int, private val articulos: ArrayList<Articulo>) : Pa
                     articulos[indice].reduceUnidades(unidadesAReducir)
                     unidadesAReducir = 0
                     articulosEliminados.add(
-                        Articulo(articulos[indice].getNombre(),
+                        Articulo(
+                            articulos[indice].getNombre(),
                             articulos[indice].getPeso(), articulos[indice].getTipo(),
                             articulos[indice].getImagen(), unidadesAReducir,
-                            precioAntes - articulos[indice].getPrecio())
+                            precioAntes - articulos[indice].getPrecio()
+                        )
                     )
                 }
             }
