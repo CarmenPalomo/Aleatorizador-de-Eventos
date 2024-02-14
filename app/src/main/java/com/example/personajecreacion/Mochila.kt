@@ -8,16 +8,23 @@ class Mochila(
     private var espacio: Int,
     private val articulos: ArrayList<Articulo>
 ) : Parcelable {
-    private var idMochila: Int? = null
+    private var idMochila: Long? = null
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         (parcel.createTypedArrayList(Articulo.CREATOR)
             ?: emptyList<Articulo>()) as ArrayList<Articulo>
     ) {
-        idMochila = parcel.readInt()
+        idMochila = parcel.readLong()
     }
 
+    fun getEspacio(): Int {
+        return espacio
+    }
+
+    fun setIdMochila(id: Long) {
+        idMochila = id
+    }
 
     fun restarDinero(dinero: Int) {
         var indice = 0
@@ -74,7 +81,7 @@ class Mochila(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(espacio)
         parcel.writeTypedList(articulos)
-        parcel.writeInt(idMochila!!)
+        parcel.writeLong(idMochila!!)
     }
 
     override fun describeContents(): Int {

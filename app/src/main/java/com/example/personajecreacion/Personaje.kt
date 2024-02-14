@@ -99,6 +99,23 @@ data class Personaje(
         return this.mochila
     }
 
+    fun setExperiencia(experiencia: Int) {
+        this.experiencia = experiencia
+    }
+    fun setNivel(nivel: Int) {
+        this.nivel = nivel
+    }
+    fun setSalud(salud: Int) {
+        this.salud = salud
+    }
+    fun setAtaque(ataque: Int) {
+        this.ataque = ataque
+    }
+    fun setDefensa(defensa: Int) {
+        this.defensa = defensa
+    }
+
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(idPersonaje)
         parcel.writeString(nombre)

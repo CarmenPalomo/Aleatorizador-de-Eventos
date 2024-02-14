@@ -61,9 +61,13 @@ class Login : AppCompatActivity() {
                     pass.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        val usuario = auth.currentUser
                         val logged = Intent(this, MainActivity::class.java)
                         logged.putExtra("email", email.text.toString())
-                        logged.putExtra("userId", it.result.user!!.uid)
+                        if (usuario != null){
+                            logged.putExtra("userId", usuario.uid)
+                        }
+
                         startActivity(logged)
                     } else {
                         showAlert()

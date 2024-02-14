@@ -11,7 +11,7 @@ data class Articulo(
     private var unidades: Int,
     private var precio: Int
 ) : Parcelable {
-    private var idArticulo: Int? = null
+    private var idArticulo: Long? = null
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -21,7 +21,11 @@ data class Articulo(
         parcel.readInt(),
         parcel.readInt()
     ) {
-        idArticulo = parcel.readInt()
+        idArticulo = parcel.readLong()
+    }
+
+    fun setIdArticulo(idArticulo: Long) {
+        this.idArticulo = idArticulo
     }
 
     fun getPrecio(): Int {
@@ -75,10 +79,6 @@ data class Articulo(
         precio = precioPorUnidad * unidades
     }
 
-    fun setId(idArticulo: Int) {
-        this.idArticulo= idArticulo
-    }
-
     enum class TipoArt(val tipo: String) {
         ARMA("arma"),
         PROTECCION("proteccion"),
@@ -93,7 +93,7 @@ data class Articulo(
         parcel.writeString(imagen)
         parcel.writeInt(unidades)
         parcel.writeInt(precio)
-        parcel.writeInt(idArticulo!!)
+        parcel.writeLong(idArticulo!!)
     }
 
     override fun describeContents(): Int {

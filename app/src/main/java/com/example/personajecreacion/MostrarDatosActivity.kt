@@ -17,7 +17,6 @@ class MostrarDatosActivity : AppCompatActivity() {
         setContentView(R.layout.mostrar_datos)
 
         val PersonajeDataBase = PersonajeDataBase(applicationContext)
-        var personaje: Personaje
         val botonSiguiente: Button = findViewById(R.id.boton_siguiente2)
         val botonAtras: Button = findViewById(R.id.boton_atras1)
         val nombre_personaje: TextView = findViewById(R.id.nombre_personaje)
@@ -80,22 +79,25 @@ class MostrarDatosActivity : AppCompatActivity() {
             }
         }
 
-        personaje = Personaje(
-            intent.getStringExtra("userId"),
-            nombre, edad, raza, clase,
-            Mochila(9, ArrayList())
-        )
-
-
-
         botonAtras.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         botonSiguiente.setOnClickListener {
+            var personaje = Personaje(
+                intent.getStringExtra("userId"),
+                nombre, edad, raza, clase,
+                Mochila(9, ArrayList())
+            )
+
+            if (PersonajeDataBase.personajeRegistrado(personaje)) {
+                personaje = PersonajeDataBase.getPersonaje(personaje.getIdPersonaje())!!
+            } else {
+                PersonajeDataBase.insertarPersonaje(personaje)
+            }
+
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
-            PersonajeDataBase.insertarPersonaje(personaje)
             startActivity(intent)
         }
     }
