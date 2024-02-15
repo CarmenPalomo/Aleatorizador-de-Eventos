@@ -62,10 +62,14 @@ class Login : AppCompatActivity() {
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
                         val usuario = auth.currentUser
-                        val logged = Intent(this, MainActivity::class.java)
-                        logged.putExtra("email", email.text.toString())
+                        val logged : Intent? = null
                         if (usuario != null){
+                            val logged = Intent(this, AventuraActivity::class.java)
                             logged.putExtra("userId", usuario.uid)
+                        }else{
+
+                            val logged = Intent(this, MainActivity::class.java)
+                            logged.putExtra("email", email.text.toString())
                         }
 
                         startActivity(logged)
