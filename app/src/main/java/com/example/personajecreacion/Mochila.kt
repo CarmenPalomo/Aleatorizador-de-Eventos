@@ -58,6 +58,8 @@ class Mochila(
     }
 
 
+
+
     fun numeroObjectos(): Int {
         var contador = 0
         for (articulo in articulos) {
