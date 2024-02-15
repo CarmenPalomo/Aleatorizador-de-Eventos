@@ -12,6 +12,7 @@
         android:layout_height="68dp"
         android:layout_alignParentTop="true"
         android:background="@color/black"
+        app:title="Informacion Personaje"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintBottom_toTopOf="@+id/nombre_personaje"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,14 +22,6 @@
         app:layout_constraintVertical_bias="0.0"
         app:menu="@menu/menu_main"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Informacion Personaje"
-            android:textSize="25dp"
-            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
@@ -41,6 +34,8 @@
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <TextView
         android:id="@+id/raza_personaje"
@@ -103,4 +98,17 @@
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imagenPersonaje"
+        android:layout_width="213dp"
+        android:layout_height="182dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/nombre_personaje"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintVertical_bias="0.09"
+        app:srcCompat="@drawable/ic_launcher_background" />
 </androidx.constraintlayout.widget.ConstraintLayout>

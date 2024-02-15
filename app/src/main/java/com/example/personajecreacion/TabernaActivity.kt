@@ -38,11 +38,27 @@ class TabernaActivity : AppCompatActivity() {
         }
 
         pagar.setOnClickListener {
-            entrar.visibility = View.INVISIBLE
-            pagar.visibility = View.INVISIBLE
-            marcharse.visibility = View.VISIBLE
-            textoPagar.visibility = View.VISIBLE
-            textoPrecio.visibility = View.INVISIBLE
+
+            if (personaje!!.getMochila()!!.tieneOro()){
+
+
+                personaje.getMochila()
+                entrar.visibility = View.INVISIBLE
+                pagar.visibility = View.INVISIBLE
+                marcharse.visibility = View.VISIBLE
+                textoPagar.visibility = View.VISIBLE
+                textoPrecio.visibility = View.INVISIBLE
+
+            }else{
+
+                entrar.visibility = View.INVISIBLE
+                pagar.visibility = View.INVISIBLE
+                marcharse.visibility = View.VISIBLE
+                textoPagar.visibility = View.VISIBLE
+                textoPrecio.visibility = View.INVISIBLE
+
+            }
+
         }
 
 

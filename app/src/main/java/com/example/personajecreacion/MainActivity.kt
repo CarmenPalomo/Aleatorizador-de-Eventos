@@ -67,6 +67,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             intent.putExtra("edad",opcionSpinnerEdad)
             intent.putExtra("nombre",nombreEditText.text.toString())
             intent.putExtra("userId", intent.getStringExtra("userId"))
+            intent.putExtra("imagen", opcionImagen)
+
             startActivity(intent)
         }
 
@@ -152,12 +154,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Mago"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "elfo_mago_anciano"
                                     imageView.setImageResource(R.drawable.elfo_mago_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "elfo_mago_adulto"
                                     imageView.setImageResource(R.drawable.elfo_mago_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "elfo_mago_joven"
                                     imageView.setImageResource(R.drawable.elfo_mago_joven)
                                 }
                             }
@@ -165,12 +170,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Guerrero"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "elfo_guerrero_anciano"
                                     imageView.setImageResource(R.drawable.elfo_guerrero_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "elfo_guerrero_adulto"
                                     imageView.setImageResource(R.drawable.elfo_guerrero_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "elfo_guerrero_joven"
                                     imageView.setImageResource(R.drawable.elfo_guerrero_joven)
                                 }
                             }
@@ -182,12 +190,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Brujo"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "enano_brujo_anciano"
                                     imageView.setImageResource(R.drawable.enano_brujo_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "enano_brujo_adulto"
                                     imageView.setImageResource(R.drawable.enano_brujo_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "enano_brujo_joven"
                                     imageView.setImageResource(R.drawable.enano_brujo_joven)
                                 }
                             }
@@ -195,12 +206,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Mago"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "enano_mago_anciano"
                                     imageView.setImageResource(R.drawable.enano_mago_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "enano_mago_adulto"
                                     imageView.setImageResource(R.drawable.enano_mago_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "enano_mago_joven"
                                     imageView.setImageResource(R.drawable.enano_mago_joven)
                                 }
                             }
@@ -208,12 +222,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Guerrero"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "enano_guerrero_anciano"
                                     imageView.setImageResource(R.drawable.enano_guerrero_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "enano_guerrero_adulto"
                                     imageView.setImageResource(R.drawable.enano_guerrero_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "enano_guerrero_joven"
                                     imageView.setImageResource(R.drawable.enano_guerrero_joven)
                                 }
                             }
@@ -226,12 +243,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Brujo"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "maldito_brujo_anciano"
                                     imageView.setImageResource(R.drawable.maldito_brujo_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "maldito_brujo_adulto"
                                     imageView.setImageResource(R.drawable.maldito_brujo_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "maldito_brujo_adolescente"
                                     imageView.setImageResource(R.drawable.maldito_brujo_adolescente)
                                 }
                             }
@@ -239,12 +259,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Mago"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "maldito_mago_anciano"
                                     imageView.setImageResource(R.drawable.maldito_mago_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "maldito_mago_adulto"
                                     imageView.setImageResource(R.drawable.maldito_mago_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "maldito_mago_adolescente"
                                     imageView.setImageResource(R.drawable.maldito_mago_adolescente)
                                 }
                             }
@@ -252,12 +275,15 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         "Guerrero"->{
                             when(opcionSpinnerEdad){
                                 "Anciano"->{
+                                    opcionImagen = "maldito_guerrero_anciano"
                                     imageView.setImageResource(R.drawable.maldito_guerrero_anciano)
                                 }
                                 "Adulto"->{
+                                    opcionImagen = "maldito_guerrero_adulto"
                                     imageView.setImageResource(R.drawable.maldito_guerrero_adulto)
                                 }
                                 "Joven"->{
+                                    opcionImagen = "maldito_guerrero_adolescente"
                                     imageView.setImageResource(R.drawable.maldito_guerrero_adolescente)
                                 }
                             }

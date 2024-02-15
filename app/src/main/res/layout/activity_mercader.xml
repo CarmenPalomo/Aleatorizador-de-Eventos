@@ -13,18 +13,13 @@
         android:layout_alignParentTop="true"
         android:background="@color/black"
         app:menu="@menu/menu_main"
+        app:title="Mercader"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mercader"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:layout_gravity="center"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
