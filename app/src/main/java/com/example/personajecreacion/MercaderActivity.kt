@@ -107,6 +107,7 @@ class MercaderActivity : AppCompatActivity() {
                             articuloCompra.getPeso(), articuloCompra.getTipo(),
                             articuloCompra.getImagen(), unidades, precioArticulo
                         )
+                        copiaArticulo.setIdArticulo(articuloCompra.getIdArticulo()!!)
 
                         if (personaje.getMochila()!!.guardarArticulo(copiaArticulo)) {
                             // restamos el dinero al personaje

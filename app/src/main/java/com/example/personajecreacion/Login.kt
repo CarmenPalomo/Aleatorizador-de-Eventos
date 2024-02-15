@@ -68,6 +68,7 @@ class Login : AppCompatActivity() {
 
                         if (personajeRegistrado != null) {
                             siguienteIntent = Intent(this, AventuraActivity::class.java)
+                            siguienteIntent.putExtra("Personaje", personajeRegistrado)
                         } else {
                             siguienteIntent = Intent(this, MainActivity::class.java)
                         }

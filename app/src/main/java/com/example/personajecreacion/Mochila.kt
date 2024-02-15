@@ -155,7 +155,9 @@ class Mochila(
         if (articuloOro != null) {
             articuloOro.sumaPrecio(dineroObtenido)
         } else {
-            articulos.add(Articulo("ORO", 0, Articulo.TipoArt.ORO, "oro", 1, dineroObtenido))
+            articuloOro = Articulo("ORO", 0, Articulo.TipoArt.ORO, "oro", 1, dineroObtenido)
+            articuloOro.setIdArticulo(9999)
+            articulos.add(articuloOro)
             espacio--
         }
     }
