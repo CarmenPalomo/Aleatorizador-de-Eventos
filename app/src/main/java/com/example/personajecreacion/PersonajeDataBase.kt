@@ -202,4 +202,26 @@ class PersonajeDataBase(context: Context) :
     }
 
 
+    fun actualizarPersonaje(personaje: Personaje?){
+       val db = this.readableDatabase
+
+        val valoresActualizar: ContentValues? = null
+
+        valoresActualizar!!.put(COLUMN_NOMBRE, personaje!!.getNombre())
+        valoresActualizar!!.put(COLUMN_ESTADOVITAL, personaje!!.getEstadoVital())
+        valoresActualizar!!.put(COLUMN_RAZA, personaje!!.getRaza())
+        valoresActualizar!!.put(COLUMN_CLASE, personaje!!.getClase())
+        valoresActualizar!!.put(COLUMN_EXPERIENCIA,personaje!!.getExperiencia())
+        valoresActualizar!!.put(COLUMN_NIVEL, personaje!!.getNivel())
+        valoresActualizar!!.put(COLUMN_SALUD, personaje!!.getSalud())
+        valoresActualizar!!.put(COLUMN_ATAQUE, personaje!!.getAtaque())
+        valoresActualizar!!.put(COLUMN_DEFENSA, personaje!!.getDefensa())
+
+
+
+        val actualizacion = db.update("$TABLA_PERSONAJE", valoresActualizar,"id=" + personaje.getIdPersonaje(), null)
+        db.close()
+    }
+
+
 }

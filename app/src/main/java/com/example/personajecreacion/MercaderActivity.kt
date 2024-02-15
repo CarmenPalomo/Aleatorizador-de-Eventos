@@ -20,7 +20,6 @@ class MercaderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mercader)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val botonContinuar: Button = findViewById(R.id.continuarM)
         val botonComerciar: Button = findViewById(R.id.comerciar)

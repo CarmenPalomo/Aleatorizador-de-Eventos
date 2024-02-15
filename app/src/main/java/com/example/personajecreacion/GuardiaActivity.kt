@@ -11,7 +11,6 @@ class GuardiaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guardia)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         boton = findViewById(R.id.botonEchado)
 

@@ -3,18 +3,21 @@ package com.example.personajecreacion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageButton
 import java.util.logging.Logger
 
 class AventuraActivity : AppCompatActivity() {
     private val log = Logger.getLogger("AventuraActivity")
+    val personaje: Personaje? = intent.getParcelableExtra("Personaje")
+    val personajeDataBase = PersonajeDataBase(applicationContext)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aventura)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        val personaje: Personaje? = intent.getParcelableExtra("Personaje")
+
         log.info("personaje obtenido $personaje")
         var dado: ImageButton = findViewById(R.id.dado)
 
@@ -51,4 +54,20 @@ class AventuraActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.botonGuardar -> {
+                personajeDataBase.actualizarPersonaje(personaje)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }
