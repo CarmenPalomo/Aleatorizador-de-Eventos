@@ -40,42 +40,18 @@ class MostrarDatosActivity : AppCompatActivity() {
         raza_personaje.text = "La raza del personaje es: $raza"
         clase_personaje.text = "La clase del personaje es: $clase"
         edad_personaje.text = "La edad del personaje es: $edad"
+
+        var textazo = nombre_personaje.text.toString() +" "+ raza_personaje.text.toString() +" "+ clase_personaje.text.toString() +" "+ edad_personaje.text.toString()
         textToSpeechBtn.setOnClickListener {
             if (nombre_personaje.text.toString().isNotEmpty()) {
                 textToSpeech.speak(
-                    nombre_personaje.text.toString().trim(),
+                    textazo.trim(),
                     TextToSpeech.QUEUE_FLUSH,
                     null,
                     null
                 )
             } else {
-            }
-            if (raza_personaje.text.toString().isNotEmpty()) {
-                textToSpeech.speak(
-                    raza_personaje.text.toString().trim(),
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
-            } else {
-            }
-            if (clase_personaje.text.toString().isNotEmpty()) {
-                textToSpeech.speak(
-                    clase_personaje.text.toString().trim(),
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
-            } else {
-            }
-            if (edad_personaje.text.toString().isNotEmpty()) {
-                textToSpeech.speak(
-                    edad_personaje.text.toString().trim(),
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
-            } else {
+
             }
         }
 
