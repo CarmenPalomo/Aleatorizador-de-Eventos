@@ -17,7 +17,7 @@ class PersonajeDataBase(context: Context) :
     val log = Logger.getLogger("DataBaseHelper")
 
     companion object {
-        private const val DATABASE_VERSION = 3
+        private const val DATABASE_VERSION = 7
         private const val DATABASE = "Personaje.db"
         private const val TABLA_PERSONAJE = "Personaje"
         private const val ID_USUARIO = "idUsuario"
@@ -79,8 +79,6 @@ class PersonajeDataBase(context: Context) :
                 "$COLUMN_PRECIO INTEGER," +
                 "$ID_MOCHILA INTEGER," +
                 "FOREIGN KEY ($ID_MOCHILA) REFERENCES $TABLA_MOCHILA($ID_MOCHILA))"
-
-
         if (db != null) {
             db.execSQL(createTablePersonaje)
             db.execSQL(createTableMochila)
@@ -117,14 +115,6 @@ class PersonajeDataBase(context: Context) :
         personaje.getMochila()!!.setIdMochila(mochilaId)
     }
 
-
-    fun personajeRegistrado(id: Personaje): Boolean {
-        val db = this.readableDatabase
-        val selectQuery = "SELECT $ID_USUARIO FROM ${TABLA_PERSONAJE} WHERE $ID_USUARIO = $id"
-        val cursor = db.rawQuery(selectQuery, null)
-        return cursor.count >= 1
-    }
-
     fun getPersonaje(idPersonaje: String?): Personaje? {
         var personaje: Personaje? = null
         val selectQuery = "SELECT * FROM $TABLA_PERSONAJE WHERE ${ID_USUARIO} = '${idPersonaje}'"
@@ -140,9 +130,7 @@ class PersonajeDataBase(context: Context) :
             val salud = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SALUD))
             val ataque = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ATAQUE))
             val defensa = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_DEFENSA))
-            cursor.close()
-            dbRead.close()
-            val mochila = obtenerMochila(idPersonaje)
+            val mochila = obtenerMochila(idPersonaje, dbRead)
             personaje = Personaje(idPersonaje, nombre, estadoVital, raza, clase, mochila)
             personaje.setExperiencia(experiencia)
             personaje.setNivel(nivel)
@@ -154,36 +142,31 @@ class PersonajeDataBase(context: Context) :
             dbRead.close()
         }
 
+        log.info("personaje sacado de bbdd $personaje")
         return personaje
     }
 
-    private fun obtenerMochila(idPersonaje: String?): Mochila? {
-        val dbRead = this.readableDatabase
+    private fun obtenerMochila(idPersonaje: String?, dbRead: SQLiteDatabase): Mochila? {
         var mochilaResultado: Mochila? = null
         val selectQuery = "SELECT * FROM $TABLA_MOCHILA WHERE ${ID_USUARIO} = '${idPersonaje}'"
         val cursor = dbRead.rawQuery(selectQuery, null)
         if (cursor.moveToFirst()) {
             val espacio = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ESPACIO_MOCHILA))
             val idMochila = cursor.getLong(cursor.getColumnIndexOrThrow(ID_MOCHILA))
-            cursor.close()
-            dbRead.close()
-            val articulos = obtenerArticulos(idMochila)
+            val articulos = obtenerArticulos(idMochila, dbRead)
             mochilaResultado = Mochila(espacio, articulos)
             mochilaResultado.setIdMochila(idMochila)
-        } else {
-            cursor.close()
-            dbRead.close()
         }
         return mochilaResultado
     }
 
-    private fun obtenerArticulos(idMochila: Long): ArrayList<Articulo> {
-        val dbRead = this.readableDatabase
+    private fun obtenerArticulos(idMochila: Long, dbRead: SQLiteDatabase): ArrayList<Articulo> {
         val listaArticulos = arrayListOf<Articulo>()
         val selectQuery = "SELECT * FROM $TABLA_ARTICULO WHERE ${ID_MOCHILA} = '${idMochila}'"
         val cursor = dbRead.rawQuery(selectQuery, null)
         if (cursor.moveToFirst()) {
             do {
+                log.info("sacando articulos de la mochia con id $idMochila")
                 val idArticulo = cursor.getLong(cursor.getColumnIndexOrThrow(ID_ARTICULO))
                 val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE_ARTICULO))
                 val peso = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PESO))
@@ -197,15 +180,13 @@ class PersonajeDataBase(context: Context) :
                 listaArticulos.add(articuloNuevo)
             } while (cursor.moveToNext())
         }
-        cursor.close()
-        dbRead.close()
         return listaArticulos
     }
 
 
     fun actualizarPersonaje(personaje: Personaje?) {
-        val db = this.readableDatabase
-
+        val db = this.writableDatabase
+        log.info("personaje para actualizar $personaje")
         var valoresActualizar = ContentValues()
         valoresActualizar.put(COLUMN_NOMBRE, personaje!!.getNombre())
         valoresActualizar.put(COLUMN_ESTADOVITAL, personaje.getEstadoVital())
@@ -216,23 +197,41 @@ class PersonajeDataBase(context: Context) :
         valoresActualizar.put(COLUMN_SALUD, personaje.getSalud())
         valoresActualizar.put(COLUMN_ATAQUE, personaje.getAtaque())
         valoresActualizar.put(COLUMN_DEFENSA, personaje.getDefensa())
-        db.update(TABLA_PERSONAJE, valoresActualizar, "$ID_USUARIO = '${personaje.getIdPersonaje()}'" , null)
+        db.update(
+            TABLA_PERSONAJE,
+            valoresActualizar,
+            "$ID_USUARIO = '${personaje.getIdPersonaje()}'",
+            null
+        )
 
         valoresActualizar = ContentValues()
         valoresActualizar.put(COLUMN_ESPACIO_MOCHILA, personaje.getMochila()!!.getEspacio())
-        db.update(TABLA_MOCHILA,valoresActualizar,"$ID_MOCHILA = '${personaje.getMochila()!!.getIdMochila()}'"  , null)
-
+        db.update(
+            TABLA_MOCHILA,
+            valoresActualizar,
+            "$ID_MOCHILA = '${personaje.getMochila()!!.getIdMochila()}'",
+            null
+        )
 
         //Borramos los articulos
-        db.delete(TABLA_ARTICULO,"$ID_MOCHILA = '${personaje.getMochila()!!.getIdMochila()}'",   null)
-        valoresActualizar = ContentValues()
-
-
-
-
-
+        db.delete(
+            TABLA_ARTICULO,
+            "$ID_MOCHILA = '${personaje.getMochila()!!.getIdMochila()}'",
+            null
+        )
+        for (articulo in personaje.getMochila()!!.getArticulos()) {
+            val insertInto =
+                "INSERT INTO ${TABLA_ARTICULO}(" +
+                        "${COLUMN_NOMBRE_ARTICULO}, ${COLUMN_PESO}, ${COLUMN_TIPO}, " +
+                        "${COLUMN_IMAGEN}, ${COLUMN_PRECIO}, ${COLUMN_UNIDADES}, ${
+                            ID_MOCHILA})" +
+                        "VALUES ('${articulo.getNombre()}'," +
+                        "'${articulo.getPeso()}', '${articulo.getTipo()!!.name}'," +
+                        "'${articulo.getImagen()}', '${articulo.getPrecio()}', " +
+                        "'${articulo.getUnidades()}', '${personaje.getMochila()!!.getIdMochila()}')"
+            db.execSQL(insertInto)
+        }
         db.close()
-
     }
 
 

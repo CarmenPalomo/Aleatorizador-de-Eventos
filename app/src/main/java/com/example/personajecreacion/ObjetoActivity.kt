@@ -2,6 +2,8 @@ package com.example.personajecreacion
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 
 import android.view.View
 import android.widget.Button
@@ -12,12 +14,17 @@ import java.util.logging.Logger
 
 class ObjetoActivity : AppCompatActivity() {
     val log = Logger.getLogger("ObjectoActivity")
+    private lateinit var personaje: Personaje
+    private lateinit var personajeDataBase: PersonajeDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_objeto)
 
-        val personaje: Personaje? = intent.getParcelableExtra("Personaje")
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+
+        personajeDataBase = PersonajeDataBase(applicationContext)
+        personaje = intent.getParcelableExtra("Personaje")!!
         log.info("personaje obtenido $personaje")
         var dbHelper = ObjectosDataBase(applicationContext)
         val articulo = dbHelper.getArticuloAleatorio()
@@ -47,6 +54,21 @@ class ObjetoActivity : AppCompatActivity() {
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.botonGuardar -> {
+                personajeDataBase.actualizarPersonaje(personaje)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

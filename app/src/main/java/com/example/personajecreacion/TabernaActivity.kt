@@ -3,15 +3,23 @@ package com.example.personajecreacion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
 class TabernaActivity : AppCompatActivity() {
+    private lateinit var personaje: Personaje
+    private lateinit var personajeDataBase: PersonajeDataBase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_taberna)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
+        personajeDataBase = PersonajeDataBase(applicationContext)
+        personaje = intent.getParcelableExtra("Personaje")!!
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val entrar : Button = findViewById(R.id.entrar)
@@ -66,5 +74,20 @@ class TabernaActivity : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.botonGuardar -> {
+                personajeDataBase.actualizarPersonaje(personaje)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

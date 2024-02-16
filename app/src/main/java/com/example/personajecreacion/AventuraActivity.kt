@@ -16,6 +16,7 @@ class AventuraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aventura)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         personajeDataBase = PersonajeDataBase(applicationContext)
         personaje = intent.getParcelableExtra("Personaje")!!
