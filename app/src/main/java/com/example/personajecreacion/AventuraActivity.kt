@@ -10,14 +10,15 @@ import java.util.logging.Logger
 
 class AventuraActivity : AppCompatActivity() {
     private val log = Logger.getLogger("AventuraActivity")
-    val personaje: Personaje? = intent.getParcelableExtra("Personaje")
-    val personajeDataBase = PersonajeDataBase(applicationContext)
+    private lateinit var personaje: Personaje
+    private lateinit var personajeDataBase: PersonajeDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aventura)
 
-
+        personajeDataBase = PersonajeDataBase(applicationContext)
+        personaje = intent.getParcelableExtra("Personaje")!!
         log.info("personaje obtenido $personaje")
         var dado: ImageButton = findViewById(R.id.dado)
 
