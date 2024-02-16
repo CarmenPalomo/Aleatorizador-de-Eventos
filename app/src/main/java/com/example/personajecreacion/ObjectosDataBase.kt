@@ -28,7 +28,7 @@ class ObjectosDataBase(context: Context) :
 
         log.info("on create")
         val createTable = "CREATE TABLE $TABLA_OBJETOS(" +
-                "$KEY_ID INTEGER PRIMARY KEY," +
+                "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$COLUMN_NOMBRE TEXT, " +
                 "$COLUMN_TIPO TEXT, " +
                 "$COLUMN_PESO INTEGER, " +
@@ -96,13 +96,16 @@ class ObjectosDataBase(context: Context) :
         if (cursor.moveToFirst()) {
             log.info("obtenemos articulos")
             do {
+                val idArticulo  = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID))
                 val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
                 val tipo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIPO))
                 val peso = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PESO))
                 val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
                 val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
                 val precio = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRECIO))
-                objeto.add(Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio))
+                val element = Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio)
+                element.setIdArticulo(idArticulo)
+                objeto.add(element)
             } while (cursor.moveToNext())
         }
         cursor.close()

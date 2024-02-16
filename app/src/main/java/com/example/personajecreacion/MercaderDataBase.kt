@@ -11,7 +11,7 @@ class MercaderDataBase(context: Context) :
 
     companion object {
         // nombre, tipo, peso, url, unidades
-        private const val DATABASE_VERSION = 6
+        private const val DATABASE_VERSION = 7
         private const val DATABASE = "OBJETOS_MERCADER.db"
         private const val TABLA_MERCADER = "Mercader"
         private const val KEY_ID = "_id"
@@ -28,7 +28,8 @@ class MercaderDataBase(context: Context) :
 
         log.info("on create")
         val createTable = "CREATE TABLE $TABLA_MERCADER(" +
-                "$COLUMN_NOMBRE TEXT PRIMARY KEY, " +
+                "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "$COLUMN_NOMBRE TEXT, " +
                 "$COLUMN_TIPO TEXT, " +
                 "$COLUMN_PESO INTEGER, " +
                 "$COLUMN_URL TEXT, " +
@@ -76,13 +77,16 @@ class MercaderDataBase(context: Context) :
         if (cursor.moveToFirst()) {
             log.info("obtenemos articulos")
             do {
+                val idArticulo = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID))
                 val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
                 val tipo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIPO))
                 val peso = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PESO))
                 val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
                 val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
                 val precio = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRECIO))
-                objeto.add(Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio))
+                var element = Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio)
+                element.setIdArticulo(idArticulo)
+                objeto.add(element)
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -99,27 +103,6 @@ class MercaderDataBase(context: Context) :
             Articulo.TipoArt.PROTECCION.name -> Articulo.TipoArt.PROTECCION
             else -> null
         }
-    }
-
-
-    fun getArticulos(): ArrayList<Articulo> {
-        val articulos = ArrayList<Articulo>()
-        val selectQuery = "SELECT * FROM $TABLA_MERCADER"
-        val db = this.readableDatabase
-        val cursor = db.rawQuery(selectQuery, null)
-        if (cursor.moveToFirst()) {
-            do {
-                val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
-                val tipo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIPO))
-                val peso = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PESO))
-                val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
-                val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
-                articulos.add(Articulo(nombre, peso, getTipoArt(tipo), url, unidades, 0))
-            } while (cursor.moveToNext())
-        }
-        cursor.close()
-        db.close()
-        return articulos
     }
 
     fun actualizarUnidades(articulo: Articulo) {

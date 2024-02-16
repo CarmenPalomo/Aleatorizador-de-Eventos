@@ -24,6 +24,10 @@ data class Articulo(
         idArticulo = parcel.readLong()
     }
 
+    fun getIdArticulo(): Long? {
+        return idArticulo
+    }
+
     fun setIdArticulo(idArticulo: Long) {
         this.idArticulo = idArticulo
     }

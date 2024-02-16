@@ -15,9 +15,10 @@ import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import java.util.logging.Logger
 
 class Login : AppCompatActivity() {
-
+    private val log: Logger = Logger.getLogger("Login")
     private lateinit var crearCuenta: TextView
     private lateinit var continua: Button
     private lateinit var auth: FirebaseAuth
@@ -45,7 +46,7 @@ class Login : AppCompatActivity() {
 
 
     private fun acceder() {
-
+        val personajeDataBase = PersonajeDataBase(applicationContext)
         crearCuenta = findViewById(R.id.crearCuenta)
         continua = findViewById(R.id.continuarInicio)
 
@@ -62,16 +63,19 @@ class Login : AppCompatActivity() {
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
                         val usuario = auth.currentUser
-                        var logged : Intent? = null
-                         logged = Intent(this, MainActivity::class.java)
-                         logged.putExtra("email", email.text.toString())
+                        var siguienteIntent: Intent? = null
+                        val personajeRegistrado = personajeDataBase.getPersonaje(usuario!!.uid)
 
-                        if (usuario != null){
-                            val logged = Intent(this, AventuraActivity::class.java)
-                            logged.putExtra("userId", usuario.uid)
+                        if (personajeRegistrado != null) {
+                            siguienteIntent = Intent(this, AventuraActivity::class.java)
+                            siguienteIntent.putExtra("Personaje", personajeRegistrado)
+                        } else {
+                            siguienteIntent = Intent(this, MainActivity::class.java)
                         }
 
-                        startActivity(logged)
+                        siguienteIntent.putExtra("userId", usuario.uid)
+                        log.info("usuario con id ${usuario.uid}")
+                        startActivity(siguienteIntent)
                     } else {
                         showAlert()
                     }

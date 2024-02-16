@@ -9,7 +9,6 @@ class EnemigoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enemigo)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val luchar: Button = findViewById(R.id.luchar)

@@ -11,7 +11,6 @@ class TabernaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_taberna)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
 
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
@@ -20,6 +19,7 @@ class TabernaActivity : AppCompatActivity() {
         val pagar : Button = findViewById(R.id.pagar)
         val textoPagar : TextView = findViewById(R.id.textoPagar)
         val textoPrecio : TextView = findViewById(R.id.textoPrecio)
+        val textoNoPagar : TextView = findViewById(R.id.textoNoPagar)
 
 
         entrar.setOnClickListener {
@@ -27,6 +27,7 @@ class TabernaActivity : AppCompatActivity() {
             pagar.visibility = View.VISIBLE
             marcharse.visibility = View.VISIBLE
             textoPagar.visibility = View.INVISIBLE
+            textoNoPagar.visibility = View.INVISIBLE
             textoPrecio.visibility = View.VISIBLE
 
         }
@@ -41,12 +42,12 @@ class TabernaActivity : AppCompatActivity() {
 
             if (personaje!!.getMochila()!!.tieneOro()){
 
-
-                personaje.getMochila()
+                personaje.getMochila()!!.restarDinero(5)
                 entrar.visibility = View.INVISIBLE
                 pagar.visibility = View.INVISIBLE
                 marcharse.visibility = View.VISIBLE
                 textoPagar.visibility = View.VISIBLE
+                textoNoPagar.visibility = View.INVISIBLE
                 textoPrecio.visibility = View.INVISIBLE
 
             }else{
@@ -54,7 +55,8 @@ class TabernaActivity : AppCompatActivity() {
                 entrar.visibility = View.INVISIBLE
                 pagar.visibility = View.INVISIBLE
                 marcharse.visibility = View.VISIBLE
-                textoPagar.visibility = View.VISIBLE
+                textoPagar.visibility = View.INVISIBLE
+                textoNoPagar.visibility = View.VISIBLE
                 textoPrecio.visibility = View.INVISIBLE
 
             }
