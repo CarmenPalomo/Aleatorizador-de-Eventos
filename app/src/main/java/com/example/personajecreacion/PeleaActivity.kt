@@ -12,6 +12,7 @@ class PeleaActivity : AppCompatActivity() {
     private lateinit var vidaJugador: ProgressBar
     private lateinit var atacarButton: Button
     private var vidaJ : Int = 0
+    val personaje: Personaje? = intent.getParcelableExtra("Personaje")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pelea)
@@ -20,9 +21,9 @@ class PeleaActivity : AppCompatActivity() {
         vidaJugador = findViewById(R.id.vidaJugador)
         atacarButton = findViewById(R.id.atacarButton)
 
-            atacarButton.setOnClickListener {
-                performAttack()
-            }
+        atacarButton.setOnClickListener {
+            performAttack()
+        }
     }
 
 
