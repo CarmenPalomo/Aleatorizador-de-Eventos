@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         botonPlay = findViewById(R.id.suenaM)
         botonStop = findViewById(R.id.paraM)
         mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
         nombreEditText = findViewById(R.id.nombre)
 
         // Se esta asociando a quien tiene que llamar el Spinner cuando ocurre el evento onItemSelected.
@@ -48,18 +49,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
 
         botonPlay.setOnClickListener {
-            if(!mediaplayer.isPlaying){
-                mediaplayer.start()
-            }else{
-                mediaplayer.pause()
-            }
-
+            mediaplayer.start()
         }
-        /*
+
         botonStop.setOnClickListener {
             mediaplayer.pause()
         }
-        */
+
         botonSiguiente.setOnClickListener {
             val intent = Intent(this@MainActivity, MostrarDatosActivity::class.java)
             intent.putExtra("raza",opcionSpinnerRaza)
