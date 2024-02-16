@@ -15,7 +15,7 @@ class EnemigoActivity : AppCompatActivity() {
         val huir : Button = findViewById(R.id.huir)
 
         luchar.setOnClickListener {
-            val intent = Intent(this,Blanco::class.java)
+            val intent = Intent(this,PeleaActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
