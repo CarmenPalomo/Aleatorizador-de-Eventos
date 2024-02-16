@@ -22,6 +22,13 @@ class Mochila(
         return espacio
     }
 
+    fun getArticulos(): ArrayList<Articulo>{
+        return articulos
+    }
+    fun getIdMochila(): Long?{
+        return idMochila
+    }
+
     fun setIdMochila(id: Long) {
         idMochila = id
     }
