@@ -65,6 +65,11 @@ class MostrarDatosActivity : AppCompatActivity() {
 
             }
         }
+        val personaje = Personaje(
+            idPersonaje,
+            nombre, edad, raza, clase,
+            Mochila(9, ArrayList())
+        )
 
         botonAtras.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -72,16 +77,14 @@ class MostrarDatosActivity : AppCompatActivity() {
             startActivity(intent)
         }
         botonSiguiente.setOnClickListener {
-            val personaje = Personaje(
-                idPersonaje,
-                nombre, edad, raza, clase,
-                Mochila(9, ArrayList())
-            )
+
             val personajeDataBase = PersonajeDataBase(applicationContext)
             personajeDataBase.insertarPersonaje(personaje)
+            personajeDataBase.getPersonaje(personaje.getIdPersonaje())
 
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            log.info("Se ha pasado el personaje ${personaje.getIdPersonaje()}, ${personaje.getNombre()}")
             startActivity(intent)
         }
     }

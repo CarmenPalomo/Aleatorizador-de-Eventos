@@ -10,6 +10,8 @@ import java.util.logging.Logger
 
 class AventuraActivity : AppCompatActivity() {
     private val log = Logger.getLogger("AventuraActivity")
+
+
     val personaje: Personaje? = intent.getParcelableExtra("Personaje")
     val personajeDataBase = PersonajeDataBase(applicationContext)
 
