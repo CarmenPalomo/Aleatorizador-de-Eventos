@@ -11,11 +11,14 @@ class PeleaActivity : AppCompatActivity() {
     private lateinit var vidaMonstruo: ProgressBar
     private lateinit var vidaJugador: ProgressBar
     private lateinit var atacarButton: Button
-    private var vidaJ : Int = 0
+
     val personaje: Personaje? = intent.getParcelableExtra("Personaje")
+    val monstruo: Monstruo? = intent.getParcelableExtra("Monstruo")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pelea)
+
+
 
         vidaMonstruo = findViewById(R.id.vidaMonstruo)
         vidaJugador = findViewById(R.id.vidaJugador)
@@ -29,10 +32,10 @@ class PeleaActivity : AppCompatActivity() {
 
     private fun performAttack() {
 
-        if (monster.getSalud() > 0 && player.getSalud() > 0) {
+        if (monstruo!!.getSalud() > 0 && personaje!! .getSalud()!! > 0) {
             reduceMonsterHealth()
 
-            if (monster.getSalud() > 0) {
+            if (monstruo.getSalud() > 0) {
                 reducePlayerHealth()
             }
         }
@@ -41,23 +44,29 @@ class PeleaActivity : AppCompatActivity() {
     }
 
     private fun reduceMonsterHealth() {
-        val currentHealth = vidaMonstruo.progress
-        monster.setSalud() = monster.getSalud() - player.damage
-        val newHealth = monster.getSalud()
-        vidaMonstruo.progress = if (newHealth < 0) 0 else newHealth
+        var currentHealth: Int = vidaMonstruo.progress
+        currentHealth = monstruo?.getSalud()!! - personaje?.getAtaque()!!
+        monstruo?.setSalud(currentHealth)
+        val newHealth = monstruo?.getSalud()
+        if (newHealth != null) {
+            vidaMonstruo.progress = if (newHealth < 0) 0 else newHealth
+        }
     }
 
     private fun reducePlayerHealth() {
-        val currentHealth = vidaJugador.progress
-        player.setSalud() = player.getSalud() - monster.getDamage()
-        val newHealth = player.getSalud()
-        vidaJugador.progress = if (newHealth < 0) 0 else newHealth
+        var currentHealth = vidaJugador.progress
+        currentHealth = personaje?.getSalud()!! - monstruo?.getAtaque()!!
+        personaje.setSalud(currentHealth)
+        val newHealth = personaje?.getSalud()
+        if (newHealth != null) {
+            vidaJugador.progress = if (newHealth < 0) 0 else newHealth
+        }
     }
 
     private fun checkBattleResult() {
-        if (monster.getSalud() <= 0) {
+        if (monstruo?.getSalud()!! <= 0) {
             Toast.makeText(this, "Has derrotado al monstruo", Toast.LENGTH_SHORT).show()
-        } else if (player.setSalud() <= 0) {
+        } else if (personaje?.getSalud()!! <= 0) {
             Toast.makeText(this, "El monstruo te ha derrotado", Toast.LENGTH_SHORT).show()
         }
     }
