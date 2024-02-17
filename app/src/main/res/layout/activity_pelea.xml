@@ -76,12 +76,13 @@
         android:id="@+id/atacarButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="176dp"
         android:text="Atacar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vidaJugador" />
+        app:layout_constraintTop_toBottomOf="@+id/imagenPersonaje"
+        app:layout_constraintVertical_bias="0.276" />
 
     <Button
         android:id="@+id/continuar"
