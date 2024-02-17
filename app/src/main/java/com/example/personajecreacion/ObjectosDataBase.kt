@@ -108,7 +108,7 @@ class ObjectosDataBase(context: Context) :
                 val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
                 val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
                 val precio = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRECIO))
-                val element = Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio)
+                val element = Articulo(nombre, peso, Articulo.TipoArt.valueOf(tipo), url, unidades, precio)
                 element.setIdArticulo(idArticulo)
                 objeto.add(element)
             } while (cursor.moveToNext())
@@ -134,7 +134,7 @@ class ObjectosDataBase(context: Context) :
                 val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
                 val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
                 val precio = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRECIO))
-                val element = Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio)
+                val element = Articulo(nombre, peso, Articulo.TipoArt.valueOf(tipo), url, unidades, precio)
                 element.setIdArticulo(idArticulo)
                 objeto.add(element)
             } while (cursor.moveToNext())
@@ -144,15 +144,4 @@ class ObjectosDataBase(context: Context) :
         val num = (0..<objeto.size).random()
         return objeto[num]
     }
-
-    fun getTipoArt(tipo: String): Articulo.TipoArt? {
-        return when (tipo) {
-            Articulo.TipoArt.ARMA.name -> Articulo.TipoArt.ARMA
-            Articulo.TipoArt.OBJETO.name -> Articulo.TipoArt.OBJETO
-            Articulo.TipoArt.ORO.name -> Articulo.TipoArt.ORO
-            Articulo.TipoArt.PROTECCION.name -> Articulo.TipoArt.PROTECCION
-            else -> null
-        }
-    }
-
 }
