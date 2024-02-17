@@ -27,7 +27,7 @@ class CiudadActivity : AppCompatActivity() {
         val textEntrada: TextView = findViewById(R.id.textoEntrada)
 
         entrar.setOnClickListener {
-            var num = (1..2).random()
+            var num = (1..3).random()
             val intent: Intent
             when (num) {
                 1 -> {
@@ -37,6 +37,14 @@ class CiudadActivity : AppCompatActivity() {
                 }
 
                 2 -> {
+                    entrar.visibility = View.INVISIBLE
+                    continuar.visibility = View.INVISIBLE
+                    taberna.visibility = View.VISIBLE
+                    textEntrada.visibility = View.VISIBLE
+                    herrero.visibility = View.VISIBLE
+
+                }
+                3 -> {
                     entrar.visibility = View.INVISIBLE
                     continuar.visibility = View.INVISIBLE
                     taberna.visibility = View.VISIBLE
