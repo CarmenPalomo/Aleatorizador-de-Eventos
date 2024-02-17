@@ -16,7 +16,7 @@ class PeleaActivity : AppCompatActivity() {
     private lateinit var vidaJugador: ProgressBar
     private lateinit var atacarButton: Button
 
-    private lateinit var  personaje: Personaje
+    private lateinit var personaje: Personaje
     private lateinit var monstruo: Monstruo
     private lateinit var imageView : ImageView
     private lateinit var continuar : Button
@@ -35,7 +35,7 @@ class PeleaActivity : AppCompatActivity() {
         continuar = findViewById(R.id.continuar)
 
         atacarButton.setOnClickListener {
-            performAttack()
+            Ataques()
         }
 
         continuar.setOnClickListener {
@@ -224,20 +224,20 @@ class PeleaActivity : AppCompatActivity() {
         }
     }
 
-    private fun performAttack() {
+    private fun Ataques() {
 
         if (monstruo.getSalud() > 0 && personaje .getSalud()!! > 0) {
-            reduceMonsterHealth()
+            dañoAlMonstruo()
 
             if (monstruo.getSalud() > 0) {
-                reducePlayerHealth()
+                dañoAlPersonaje()
             }
         }
 
-        checkBattleResult()
+        resultadoPelea()
     }
 
-    private fun reduceMonsterHealth() {
+    private fun dañoAlMonstruo() {
         var currentHealth: Int = vidaMonstruo.progress
         currentHealth = monstruo.getSalud() - personaje.getAtaque()!!
         monstruo.setSalud(currentHealth)
@@ -247,7 +247,7 @@ class PeleaActivity : AppCompatActivity() {
         }
     }
 
-    private fun reducePlayerHealth() {
+    private fun dañoAlPersonaje() {
         var currentHealth = vidaJugador.progress
         currentHealth = personaje.getSalud()!! - monstruo.getAtaque()
         personaje.setSalud(currentHealth)
@@ -257,7 +257,7 @@ class PeleaActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkBattleResult() {
+    private fun resultadoPelea() {
         if (monstruo.getSalud() <= 0) {
             Toast.makeText(this, "Has derrotado al monstruo", Toast.LENGTH_SHORT).show()
             atacarButton.visibility = View.INVISIBLE
