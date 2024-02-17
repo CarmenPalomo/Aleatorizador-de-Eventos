@@ -1,13 +1,14 @@
 package com.example.personajecreacion
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 
 class PeleaActivity : AppCompatActivity() {
 
@@ -37,10 +38,11 @@ class PeleaActivity : AppCompatActivity() {
             performAttack()
         }
 
-
-
-
-
+        continuar.setOnClickListener {
+            val intent = Intent(this, AventuraActivity::class.java)
+            intent.putExtra("Personaje", personaje)
+            startActivity(intent)
+        }
 
         if (personaje.getClase() != null && personaje.getRaza() != null && personaje.getEstadoVital() != null) {
             when(personaje.getRaza()) {
@@ -221,7 +223,6 @@ class PeleaActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun performAttack() {
 
