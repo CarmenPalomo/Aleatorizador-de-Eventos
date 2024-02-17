@@ -72,6 +72,10 @@ class Dialogflow : AppCompatActivity() {
             false
         }
 
+        atras.setOnClickListener{
+            var intent = Intent(this,AventuraActivity::class.java)
+            startActivity(intent)
+        }
         // Pasamos un setOnClickListener al botón para enviar mensajes llamando al
         // método enviarMensaje() el cual crearemos más adelante
         enviar.setOnClickListener(this::enviarMensaje)
