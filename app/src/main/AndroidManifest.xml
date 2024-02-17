@@ -16,6 +16,9 @@
             android:name=".Dialogflow"
             android:exported="false" />
         <activity
+            android:name=".HerreroActivity"
+            android:exported="false" />
+        <activity
             android:name=".PeleaActivity"
             android:exported="false" />
         <activity

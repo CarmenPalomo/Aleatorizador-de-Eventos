@@ -29,7 +29,7 @@ class HerreroActivity : AppCompatActivity() {
         botonMercader = findViewById(R.id.mercader)
 
         var lista = personaje.getMochila()?.getArticulos()
-        var lista_esp: ArrayList<Articulo>? = null
+        var lista_esp: ArrayList<Articulo>? = ArrayList()
 
         botonPelea.visibility = View.INVISIBLE
         lista?.forEach { articulo ->
