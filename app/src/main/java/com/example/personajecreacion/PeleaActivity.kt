@@ -12,19 +12,22 @@ import androidx.appcompat.app.AppCompatActivity
 
 class PeleaActivity : AppCompatActivity() {
 
+    private lateinit var objDataBase: ObjectosDataBase
     private lateinit var vidaMonstruo: ProgressBar
     private lateinit var vidaJugador: ProgressBar
     private lateinit var atacarButton: Button
-
+    private var entra : Boolean = false
     private lateinit var personaje: Personaje
     private lateinit var monstruo: Monstruo
     private lateinit var imageView : ImageView
     private lateinit var continuar : Button
+    private lateinit var mercader : Button
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pelea)
 
+        objDataBase = ObjectosDataBase(applicationContext)
         personaje = intent.getParcelableExtra("Personaje")!!
         monstruo = intent.getParcelableExtra("Monstruo") !!
 
@@ -33,9 +36,17 @@ class PeleaActivity : AppCompatActivity() {
         atacarButton = findViewById(R.id.atacarButton)
         imageView = findViewById(R.id.imagenPersonaje)
         continuar = findViewById(R.id.continuar)
+        mercader = findViewById(R.id.mercaderP)
+
 
         atacarButton.setOnClickListener {
             Ataques()
+        }
+
+        mercader.setOnClickListener {
+            val intent = Intent(this, MercaderActivity::class.java)
+            intent.putExtra("Personaje", personaje)
+            startActivity(intent)
         }
 
         continuar.setOnClickListener {
@@ -262,6 +273,12 @@ class PeleaActivity : AppCompatActivity() {
             Toast.makeText(this, "Has derrotado al monstruo", Toast.LENGTH_SHORT).show()
             atacarButton.visibility = View.INVISIBLE
             continuar.visibility= View.VISIBLE
+            var articulo : Articulo = objDataBase.getArticuloAleatorioMonstruo()
+            entra = personaje.getMochila()!!.guardarArticulo(articulo)
+            if (!entra){
+                mercader.visibility = View.VISIBLE
+            }
+
         } else if (personaje.getSalud()!! <= 0) {
             Toast.makeText(this, "El monstruo te ha derrotado", Toast.LENGTH_SHORT).show()
             atacarButton.visibility = View.INVISIBLE

@@ -37,4 +37,5 @@
 
     <string name="placeholder">Ingresa tu mensaje. </string>
     <string name="ingresa_mensaje"> Por Favor, ingresa un mensaje. </string>
+    <string name="mercader">mercader</string>
 </resources>
