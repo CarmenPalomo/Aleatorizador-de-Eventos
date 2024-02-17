@@ -278,11 +278,14 @@ class PeleaActivity : AppCompatActivity() {
             if (!entra){
                 mercader.visibility = View.VISIBLE
             }
+            Toast.makeText(this, articulo.toString(), Toast.LENGTH_SHORT).show()
 
         } else if (personaje.getSalud()!! <= 0) {
-            Toast.makeText(this, "El monstruo te ha derrotado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "El monstruo te ha derrotado pero te resucitaré", Toast.LENGTH_SHORT).show()
             atacarButton.visibility = View.INVISIBLE
             continuar.visibility= View.VISIBLE
+            personaje = Personaje(personaje.getIdPersonaje(),personaje.getNombre(),personaje.getEstadoVital(),personaje.getRaza(),personaje.getClase(),personaje.getMochila())
+
         }
     }
 }

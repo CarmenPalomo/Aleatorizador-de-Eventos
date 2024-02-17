@@ -1,5 +1,6 @@
 package com.example.personajecreacion
 
+
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,15 +32,16 @@ import com.google.cloud.dialogflow.v2.*
 
 
 
+
 class Dialogflow : AppCompatActivity() {
 
     val USUARIO = 0
     val BOT = 1
     // Variables
 
-    private lateinit var enviar: ImageButton
+    private lateinit var enviar: ImageView
 
-    private lateinit var atras: ImageButton
+    private lateinit var atras: ImageView
     private lateinit var cajadetexto : EditText
 
     private var cliente: SessionsClient? = null
@@ -47,6 +49,7 @@ class Dialogflow : AppCompatActivity() {
     private lateinit var uuid: String
     private var asistente_voz: TextToSpeech? = null
     private lateinit var linear_chat : LinearLayout
+    private lateinit var personaje: Personaje
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +59,7 @@ class Dialogflow : AppCompatActivity() {
         atras =  findViewById(R.id.boton_atras1)
         cajadetexto  = findViewById(R.id.cajadetexto)
         uuid =  UUID.randomUUID().toString()
+        personaje = intent.getParcelableExtra("Personaje")!!
 
         linear_chat = findViewById(R.id.linear_chat)
 
@@ -81,6 +85,7 @@ class Dialogflow : AppCompatActivity() {
 
         atras.setOnClickListener{
             var intent = Intent(this,AventuraActivity::class.java)
+            intent.putExtra("Personaje",personaje)
             startActivity(intent)
         }
         // Pasamos un setOnClickListener al botón para enviar mensajes llamando al
