@@ -68,6 +68,10 @@ class AventuraActivity : AppCompatActivity() {
                 personajeDataBase.actualizarPersonaje(personaje)
                 true
             }
+            R.id.botonDialogFlow->{
+
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

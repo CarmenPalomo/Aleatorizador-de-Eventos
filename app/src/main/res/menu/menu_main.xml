@@ -8,5 +8,10 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:orderInCategory="1"
         app:showAsAction="never"/>
+    <item android:id="@+id/botonDialogFlow"
+        android:title="Dialogflow"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
 
 </menu>

@@ -34,4 +34,7 @@
         <item name="Adulto">Adulto</item>
 
     </string-array>
+
+    <string name="placeholder">Ingresa tu mensaje. </string>
+    <string name="ingresa_mensaje"> Por Favor, ingresa un mensaje. </string>
 </resources>

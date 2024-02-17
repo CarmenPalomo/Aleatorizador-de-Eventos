@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "hablarbot-414118",
+  "private_key_id": "e03e749cb2831b09d47010ab4a36505786b8baa2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCWxCcg0kdKIqbs\nLO8uVnFJ9IX2RO/ywWZXphxkj4Dsh4Bmo4u7ff1EY/JYmFAIgwqfN5nwan2zI+5W\n0oa+0QgOIW/GwX5BxMIzg9fwMsA7qq2aGM1sognpNxC6Yxy4Qn0o1YCHmbakYfYV\n0XEX+0Zmz0n6cA+W72dvQ7+2CoCPUarUNoF+dLzVniL7rJpJDqzrAKuLTsQ4yAZv\ntwNjj0d4iyjByIEKmiPF8RyQSpHcxeqyeNE8CbjOG+SLpQMUJ63Qdi2pYrLP3rJk\nDneNtmW5GAWMw63tbcUFJsoqP0vdKNEzp/JLwefYk/219fmvy8DjXZFR7LdSKYXC\ny/hWXl+FAgMBAAECggEAQkgCG7/Wb5VEZVhr3qdKLwU9T8OG6eZ0o9v3Z45fU51O\nqdEEwWzmR4bZKHHt3ZAev1imaLeog3Usdyce7gzfybaReYPfifKCnjs8V/E36gNj\nRvfYeAXU7Z6zz/16xtcURzt1wiel0CbxFS561dw2W0SOdXeGowilJJlYUyPS2S6V\nbBib/DLJqju0TkXHTJmJxgh5YTUzHsK8G5o86wGiAmYM4IZfx03EzTKCjwTvdsno\nGjV0wrpsH48MjpRJlSU0aEFyPz1+98RIKfXUoPPUkzUFy0ex01kCaSaxtsdh0o2n\n+PLwj/UwuUnPqN1btO4u0REXNvKT5P8EIr9Q930mEQKBgQDJcbGsfuuAEPRRnJX6\nBV/7AIT3x8IvJoTaypCP5WARDJ4UYQW8Q0WmoXWRre4ZcRn83T6j1bWmYWNqO/eW\n8tYv6I8FTktVcW6vLtaj1zpXZxusf+ipXXmdQd3VJo1KSExI9chz2VL4e2OdT7pZ\nZrzGrvVXudUcpUmKndamqD6olwKBgQC/mOnowG0290v3vOW+WKTdWb3HFUUbYVL1\n7BquunBZiRrBgnXI4u5zTpGmqdsdlLV/1VHtfu4LcOv5rMBLB2t+bQ7DafwxJR3z\nFodYHOiwwAF08m9/SwPZRQjQ7W/lIbbND5vPmKjcQbGF8TAtSm2Em2ewekHximj7\nBabY/pHAQwKBgHtzbKI8qdAzE7dMEfFGB/sH53T9+3fv0C1RRGSa+lOYeuwcRWqJ\ng47JlgZwI+F9maKIZ9H5rzfGqSk6lNHyAeccS0HCKJK1UFKVjr6bsMpNiv0c6hWZ\nDmWcLvloheAHDJEN5wlwHtPesj5+1MHjHz9Xi012ui6y8K29awV5R+UDAoGACb54\nHusyYro+9dF4ia6ua8d1nFtbkWHouzMPxFUdA6CyaKb+4IGSCPE0/RnkV+PJO0AZ\nE5ACATjz91WuzeIJuHtJZezM857koAlERtnph5usN0thGkMxZepZ4W5B45BMYK9r\niCpGZDU/FwXGIneHjFfu9Q2yrtsQLbwC2URRG0sCgYBlGd90NPffIkdBp3nVTRix\ntNfwcZvzIrC7Jus8zYnqNtkRqzcNjEl5cytg5/sybRkNUg3FB3qq0ruhpjn8h2Fb\n3dW3WI/1Ti0DehpLb01/n45NCWL+aknd/f8GglwcOO/FtoYM02FVF+kKU0lCDSbu\n9F6O0UMHHSb9rTu4qKXZVw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "hablarbot@hablarbot-414118.iam.gserviceaccount.com",
+  "client_id": "108616309013023625069",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hablarbot%40hablarbot-414118.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
