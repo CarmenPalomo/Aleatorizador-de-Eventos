@@ -12,13 +12,14 @@ class PeleaActivity : AppCompatActivity() {
     private lateinit var vidaJugador: ProgressBar
     private lateinit var atacarButton: Button
 
-    val personaje: Personaje? = intent.getParcelableExtra("Personaje")
-    val monstruo: Monstruo? = intent.getParcelableExtra("Monstruo")
+    private lateinit var  personaje: Personaje
+    private lateinit var monstruo: Monstruo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pelea)
 
-
+        personaje = intent.getParcelableExtra("Personaje")!!
+        monstruo = intent.getParcelableExtra("Monstruo") !!
 
         vidaMonstruo = findViewById(R.id.vidaMonstruo)
         vidaJugador = findViewById(R.id.vidaJugador)
