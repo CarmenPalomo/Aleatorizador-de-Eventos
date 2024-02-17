@@ -28,6 +28,7 @@ data class Articulo(
         return idArticulo
     }
 
+
     fun setIdArticulo(idArticulo: Long) {
         this.idArticulo = idArticulo
     }

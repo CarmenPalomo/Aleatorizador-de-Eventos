@@ -184,6 +184,8 @@ class PersonajeDataBase(context: Context) :
     }
 
 
+
+
     fun actualizarPersonaje(personaje: Personaje?) {
         val db = this.writableDatabase
         log.info("personaje para actualizar $personaje")

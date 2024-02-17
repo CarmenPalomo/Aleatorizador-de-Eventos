@@ -144,4 +144,6 @@ class ObjectosDataBase(context: Context) :
         val num = (0..<objeto.size).random()
         return objeto[num]
     }
+
+
 }

@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
 
 class HerreroActivity : AppCompatActivity() {
     private lateinit var botonPelea : Button
@@ -27,48 +29,71 @@ class HerreroActivity : AppCompatActivity() {
         botonReparar = findViewById(R.id.reparar)
         botonPelea = findViewById(R.id.pelea)
         botonMercader = findViewById(R.id.mercader)
+        var ImagenMartillo : ImageView = findViewById(R.id.ImagenMartillo)
+        var ImagenHerrero : ImageView = findViewById(R.id.ImagenHerrero)
 
         var lista = personaje.getMochila()?.getArticulos()
-        var lista_esp: ArrayList<Articulo>? = ArrayList()
 
         botonPelea.visibility = View.INVISIBLE
-        lista?.forEach { articulo ->
 
-            if (articulo.getNombre() == "OBJETOMONSTUO"){
-                lista_esp!!.add(articulo)
+        var numeroUnidades = 0
+        for(articulo in lista!!){
+            if (articulo.getTipo() == Articulo.TipoArt.OBJETOMONSTRUO){
+                numeroUnidades += articulo.getUnidades()
             }
         }
 
+
         botonCrear.setOnClickListener {
-            if (lista_esp.isNullOrEmpty()){
+            if (numeroUnidades == 0){
                 botonPelea.visibility = View.VISIBLE
                 botonMercader.visibility = View.VISIBLE
                 botonCrear.visibility = View.INVISIBLE
                 botonReparar.visibility = View.INVISIBLE
 
             }else{
+                if (numeroUnidades >= 3){
+
+                    personaje.getMochila()!!.eliminarArticulosMonstruo(3)
+                    ImagenMartillo.visibility = View.VISIBLE
+                    ImagenHerrero.visibility = View.INVISIBLE
+                    Toast.makeText(this, "Se ha creado un martillo", Toast.LENGTH_SHORT).show()
+                    personaje!!.getMochila()!!.guardarArticulo(Articulo("MARTILLO",3,Articulo.TipoArt.ARMA,"martillo",3,3))
+
+                }else{
+                    Toast.makeText(this, "No tienes suficinetes objetos para crear un arma", Toast.LENGTH_SHORT).show()
+                    botonPelea.visibility = View.VISIBLE
+                    botonMercader.visibility = View.VISIBLE
+                    botonCrear.visibility = View.INVISIBLE
+                    botonReparar.visibility = View.INVISIBLE
+                }
+
 
             }
         }
 
         botonReparar.setOnClickListener {
-            if (lista_esp.isNullOrEmpty()){
+            if (numeroUnidades == 0){
                 botonPelea.visibility = View.VISIBLE
                 botonMercader.visibility = View.VISIBLE
                 botonCrear.visibility = View.INVISIBLE
                 botonReparar.visibility = View.INVISIBLE
             }else{
+
+
 
             }
         }
 
         botonPelea.setOnClickListener {
             var intent = Intent(this, EnemigoActivity::class.java)
+            intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
 
         botonMercader.setOnClickListener {
             var intent : Intent = Intent(this,MercaderActivity::class.java)
+            intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
 

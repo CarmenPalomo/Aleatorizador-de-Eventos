@@ -22,10 +22,11 @@ class Mochila(
         return espacio
     }
 
-    fun getArticulos(): ArrayList<Articulo>{
+    fun getArticulos(): ArrayList<Articulo> {
         return articulos
     }
-    fun getIdMochila(): Long?{
+
+    fun getIdMochila(): Long? {
         return idMochila
     }
 
@@ -65,6 +66,14 @@ class Mochila(
     }
 
 
+    fun tieneObjetosMonstruo(): Boolean {
+        for (articulo in articulos) {
+            if (articulo.getTipo() == Articulo.TipoArt.OBJETOMONSTRUO) {
+                return true
+            }
+        }
+        return false
+    }
 
 
     fun numeroObjectos(): Int {
@@ -99,6 +108,35 @@ class Mochila(
 
     override fun toString(): String {
         return "Mochila(espacio=$espacio, articulos=$articulos)"
+    }
+
+    fun eliminarArticulosMonstruo(unidades: Int) {
+        var unidadesAReducir = unidades
+        var indice = 0
+        var unidadesArticulo = 0
+        while (indice < articulos.size && unidadesAReducir > 0) {
+            if (Articulo.TipoArt.OBJETOMONSTRUO == articulos[indice].getTipo()) {
+                if (articulos[indice].getUnidades() <= unidadesAReducir) {
+                    unidadesArticulo = articulos[indice].getUnidades()
+                    unidadesAReducir -= unidadesArticulo
+                    articulos[indice].reduceUnidades(unidadesArticulo)
+                } else {
+                    articulos[indice].reduceUnidades(unidadesAReducir)
+                    unidadesAReducir = 0
+                }
+            }
+            indice++
+        }
+
+        indice = 0
+        while (indice < articulos.size) {
+            if (articulos[indice].getUnidades() == 0) {
+                articulos.remove(articulos[indice])
+                espacio++
+            } else {
+                indice++
+            }
+        }
     }
 
     fun eliminarArticulos(unidades: Int): ArrayList<Articulo> {
