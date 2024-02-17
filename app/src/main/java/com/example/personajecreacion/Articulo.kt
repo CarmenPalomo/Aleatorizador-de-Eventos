@@ -87,6 +87,7 @@ data class Articulo(
         ARMA("arma"),
         PROTECCION("proteccion"),
         OBJETO("objeto"),
+        OBJETOMONSTRUO("objetomonstruo"),
         ORO("oro")
     }
 

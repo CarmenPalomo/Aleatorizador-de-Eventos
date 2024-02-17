@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 
 class HerreroActivity : AppCompatActivity() {
@@ -27,16 +28,41 @@ class HerreroActivity : AppCompatActivity() {
         botonPelea = findViewById(R.id.pelea)
         botonMercader = findViewById(R.id.mercader)
 
-        botonCrear.setOnClickListener {
+        var lista = personaje.getMochila()?.getArticulos()
+        var lista_esp: ArrayList<Articulo>? = null
 
+        botonPelea.visibility = View.INVISIBLE
+        lista?.forEach { articulo ->
+
+            if (articulo.getNombre() == "OBJETOMONSTUO"){
+                lista_esp!!.add(articulo)
+            }
+        }
+
+        botonCrear.setOnClickListener {
+            if (lista_esp == null){
+                botonPelea.visibility = View.VISIBLE
+                botonCrear.visibility = View.INVISIBLE
+                botonReparar.visibility = View.INVISIBLE
+
+            }else{
+
+            }
         }
 
         botonReparar.setOnClickListener {
+            if (lista_esp == null){
+                botonPelea.visibility = View.VISIBLE
+                botonCrear.visibility = View.INVISIBLE
+                botonReparar.visibility = View.INVISIBLE
+            }else{
 
+            }
         }
 
         botonPelea.setOnClickListener {
-
+            var intent = Intent(this, EnemigoActivity::class.java)
+            startActivity(intent)
         }
 
         botonMercader.setOnClickListener {

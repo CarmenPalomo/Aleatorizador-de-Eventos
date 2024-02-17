@@ -41,11 +41,11 @@ class ObjectosDataBase(context: Context) :
             db.execSQL(createTableObjetosMonstruo)
             val insertInto =
                 "INSERT INTO $TABLA_OBJETOS_MONSTRUO($COLUMN_NOMBRE, $COLUMN_TIPO, $COLUMN_PESO, $COLUMN_URL, $COLUMN_UNIDADES, $COLUMN_PRECIO) " +
-                        "VALUES('GARRAS_MONSTRUO', 'OBJETO', 2, 'garras_monstruo', 1, 3)," +
-                        "('PELO', 'OBJETO', 1, 'pelo', 1, 3)," +
-                        "('BRONCE', 'OBJETO', 3, 'bronce', 1, 3)," +
-                        "('ORO', 'OBJETO', 2, 'oro', 1, 3)," +
-                        "('HIERRO', 'OBJETO', 3, 'hierro', 1, 3)"
+                        "VALUES('GARRAS_MONSTRUO', 'OBJETOMONSTRUO', 2, 'garras_monstruo', 1, 3)," +
+                        "('PELO', 'OBJETOMONSTRUO', 1, 'pelo', 1, 3)," +
+                        "('BRONCE', 'OBJETOMONSTRUO', 3, 'bronce', 1, 3)," +
+                        "('ORO', 'OBJETOMONSTRUO', 2, 'oro', 1, 3)," +
+                        "('HIERRO', 'OBJETOMONSTRUO', 3, 'hierro', 1, 3)"
             db.execSQL(insertInto);
         }
 
