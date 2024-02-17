@@ -11,9 +11,10 @@ class ObjectosDataBase(context: Context) :
 
     companion object {
         // nombre, tipo, peso, url, unidades
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 6
         private const val DATABASE = "OBJETOS_ALEATORIOS.db"
         private const val TABLA_OBJETOS = "Objeto"
+        private const val TABLA_OBJETOS_MONSTRUO = "Monstruo"
         private const val KEY_ID = "_id"
         private const val COLUMN_NOMBRE = "nombre"
         private const val COLUMN_TIPO = "tipo"
@@ -27,6 +28,27 @@ class ObjectosDataBase(context: Context) :
     override fun onCreate(db: SQLiteDatabase?) {
 
         log.info("on create")
+        val createTableObjetosMonstruo = "CREATE TABLE $TABLA_OBJETOS_MONSTRUO(" +
+                "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "$COLUMN_NOMBRE TEXT, " +
+                "$COLUMN_TIPO TEXT, " +
+                "$COLUMN_PESO INTEGER, " +
+                "$COLUMN_URL TEXT, " +
+                "$COLUMN_UNIDADES INTEGER," +
+                "$COLUMN_PRECIO INTEGER)"
+        if (db != null) {
+            log.info("creating table $createTableObjetosMonstruo")
+            db.execSQL(createTableObjetosMonstruo)
+            val insertInto =
+                "INSERT INTO $TABLA_OBJETOS_MONSTRUO($COLUMN_NOMBRE, $COLUMN_TIPO, $COLUMN_PESO, $COLUMN_URL, $COLUMN_UNIDADES, $COLUMN_PRECIO) " +
+                        "VALUES('GARRAS_MONSTRUO', 'OBJETO', 2, 'garras_monstruo', 1, 3)," +
+                        "('PELO', 'OBJETO', 1, 'pelo', 1, 3)," +
+                        "('BRONCE', 'OBJETO', 3, 'bronce', 1, 3)," +
+                        "('ORO', 'OBJETO', 2, 'oro', 1, 3)," +
+                        "('HIERRO', 'OBJETO', 3, 'hierro', 1, 3)"
+            db.execSQL(insertInto);
+        }
+
         val createTable = "CREATE TABLE $TABLA_OBJETOS(" +
                 "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$COLUMN_NOMBRE TEXT, " +
@@ -69,28 +91,37 @@ class ObjectosDataBase(context: Context) :
         onUpgrade(db, oldVersion, newVersion)
     }
 
-    fun insertarArticulos() {
-        val db = this.writableDatabase
-        val insertInto =
-            "INSERT INTO $TABLA_OBJETOS($COLUMN_NOMBRE, $COLUMN_TIPO, $COLUMN_PESO, $COLUMN_URL, $COLUMN_UNIDADES ) " +
-                    "VALUES('YELMO', 'PROTECCION', 2, 'yelmo.jpg', 1)," +
-                    "('POCION', 'PROTECCION', 1, 'pocion.jpg', 1)," +
-                    "('MARTILLO', 'ARMA', 3, 'martillo.jpg', 1)," +
-                    "('GARRAS', 'ARMA', 2, 'garras.jpg', 1)," +
-                    "('ESPADA', 'ARMA', 3, 'espada.jpg', 1)," +
-                    "('ESCUDO', 'PROTECCION', 1, 'escudo.jpg', 1)," +
-                    "('DAGA', 'ARMA', 1, 'daga.jpg', 1)," +
-                    "('COMIDA', 'OBJETO', 2, 'comida.jpg', 1)," +
-                    "('COFRE', 'OBJETO', 3, 'cofre.jpg', 1)," +
-                    "('CASCO', 'PROTECCION', 2, 'casco.jpg', 1)"
-        db.execSQL(insertInto);
-        log.info("insertado los datos")
-        db.close()
-    }
+
 
     fun getArticuloAleatorio(): Articulo {
         val objeto = ArrayList<Articulo>()
         val selectQuery = "SELECT * FROM $TABLA_OBJETOS"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
+        if (cursor.moveToFirst()) {
+            log.info("obtenemos articulos")
+            do {
+                val idArticulo  = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_ID))
+                val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
+                val tipo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIPO))
+                val peso = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PESO))
+                val url = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_URL))
+                val unidades = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_UNIDADES))
+                val precio = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRECIO))
+                val element = Articulo(nombre, peso, getTipoArt(tipo), url, unidades, precio)
+                element.setIdArticulo(idArticulo)
+                objeto.add(element)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        val num = (0..<objeto.size).random()
+        return objeto[num]
+    }
+
+    fun getArticuloAleatorioMonstruo(): Articulo {
+        val objeto = ArrayList<Articulo>()
+        val selectQuery = "SELECT * FROM $TABLA_OBJETOS_MONSTRUO"
         val db = this.readableDatabase
         val cursor = db.rawQuery(selectQuery, null)
         if (cursor.moveToFirst()) {
