@@ -1,7 +1,6 @@
 package com.example.personajecreacion
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -41,11 +40,7 @@ class PeleaActivity : AppCompatActivity() {
 
 
 
-        continuar.setOnClickListener {
-            val intent = Intent(this, AventuraActivity::class.java)
-            intent.putExtra("Personaje", personaje)
-            startActivity(intent)
-        }
+
 
         if (personaje.getClase() != null && personaje.getRaza() != null && personaje.getEstadoVital() != null) {
             when(personaje.getRaza()) {
