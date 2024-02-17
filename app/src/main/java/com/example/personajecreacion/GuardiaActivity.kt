@@ -22,6 +22,7 @@ class GuardiaActivity : AppCompatActivity() {
 
         boton.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
+            intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
     }
