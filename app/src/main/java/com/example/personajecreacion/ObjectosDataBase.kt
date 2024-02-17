@@ -11,7 +11,7 @@ class ObjectosDataBase(context: Context) :
 
     companion object {
         // nombre, tipo, peso, url, unidades
-        private const val DATABASE_VERSION = 6
+        private const val DATABASE_VERSION = 9
         private const val DATABASE = "OBJETOS_ALEATORIOS.db"
         private const val TABLA_OBJETOS = "Objeto"
         private const val TABLA_OBJETOS_MONSTRUO = "Monstruo"
@@ -44,7 +44,7 @@ class ObjectosDataBase(context: Context) :
                         "VALUES('GARRAS_MONSTRUO', 'OBJETOMONSTRUO', 2, 'garras_monstruo', 1, 3)," +
                         "('PELO', 'OBJETOMONSTRUO', 1, 'pelo', 1, 3)," +
                         "('BRONCE', 'OBJETOMONSTRUO', 3, 'bronce', 1, 3)," +
-                        "('ORO', 'OBJETOMONSTRUO', 2, 'oro', 1, 3)," +
+                        "('LINGOTE', 'OBJETOMONSTRUO', 2, 'oro', 1, 3)," +
                         "('HIERRO', 'OBJETOMONSTRUO', 3, 'hierro', 1, 3)"
             db.execSQL(insertInto);
         }
@@ -81,13 +81,13 @@ class ObjectosDataBase(context: Context) :
         if (db != null) {
             log.info("dropping table $TABLA_OBJETOS")
             db.execSQL("DROP TABLE IF EXISTS $TABLA_OBJETOS")
+            db.execSQL("DROP TABLE IF EXISTS $TABLA_OBJETOS_MONSTRUO")
             onCreate(db)
         }
     }
 
     override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         log.info("dropping table $TABLA_OBJETOS")
-        db?.execSQL("DROP TABLE IF EXISTS $TABLA_OBJETOS")
         onUpgrade(db, oldVersion, newVersion)
     }
 

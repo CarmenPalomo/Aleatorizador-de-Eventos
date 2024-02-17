@@ -9,17 +9,20 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
-        android:layout_width="421dp"
+        android:layout_width="match_parent"
         android:layout_height="68dp"
         android:layout_alignParentTop="true"
         android:background="@color/black"
-        app:menu="@menu/menu_main"
-        app:title="Herrero"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:layout_constraintVertical_bias="0.0"
+        app:menu="@menu/menu_main"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Herrero">
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -33,6 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
         app:layout_constraintVertical_bias="0.095" />
+
     <ImageView
         android:id="@+id/ImagenMartillo"
         android:layout_width="363dp"
@@ -78,23 +82,34 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
-        app:layout_constraintVertical_bias="0.329" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.758" />
 
     <Button
         android:id="@+id/mercader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="164dp"
         android:text="Mercader"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/crear"
-        app:layout_constraintHorizontal_bias="0.385"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
-        app:layout_constraintVertical_bias="0.987" />
+        app:layout_constraintVertical_bias="0.329" />
+
+    <Button
+        android:id="@+id/marcharse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="Marcharse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

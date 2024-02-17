@@ -66,14 +66,6 @@ class Mochila(
     }
 
 
-    fun tieneObjetosMonstruo(): Boolean {
-        for (articulo in articulos) {
-            if (articulo.getTipo() == Articulo.TipoArt.OBJETOMONSTRUO) {
-                return true
-            }
-        }
-        return false
-    }
 
 
     fun numeroObjectos(): Int {
