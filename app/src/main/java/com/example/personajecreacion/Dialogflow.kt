@@ -36,21 +36,28 @@ class Dialogflow : AppCompatActivity() {
     val USUARIO = 0
     val BOT = 1
     // Variables
-    @SuppressLint("WrongViewCast")
-    private var enviar: ImageButton = findViewById(R.id.enviar)
-    @SuppressLint("WrongViewCast")
-    private var atras: ImageButton = findViewById(R.id.boton_atras1)
-    private var cajadetexto : EditText = findViewById(R.id.cajadetexto)
+
+    private lateinit var enviar: ImageButton
+
+    private lateinit var atras: ImageButton
+    private lateinit var cajadetexto : EditText
 
     private var cliente: SessionsClient? = null
     private var sesion: SessionName? = null
-    private val uuid: String = UUID.randomUUID().toString()
-    private var asistente_voz: TextToSpeech?=null
-    private var linear_chat : LinearLayout = findViewById(R.id.linear_chat)
+    private lateinit var uuid: String
+    private var asistente_voz: TextToSpeech? = null
+    private lateinit var linear_chat : LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialogflow)
+
+        enviar = findViewById(R.id.enviar)
+        atras =  findViewById(R.id.boton_atras1)
+        cajadetexto  = findViewById(R.id.cajadetexto)
+        uuid =  UUID.randomUUID().toString()
+
+        linear_chat = findViewById(R.id.linear_chat)
 
         val scrollview = findViewById<ScrollView>(R.id.scroll_chat)
         scrollview.post {
