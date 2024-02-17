@@ -38,6 +38,9 @@ class PeleaActivity : AppCompatActivity() {
             performAttack()
         }
 
+
+
+
         continuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
