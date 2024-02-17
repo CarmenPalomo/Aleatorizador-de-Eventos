@@ -107,12 +107,20 @@ data class Personaje(
         this.nivel = nivel
     }
 
-
     fun setSalud(salud: Int) {
         this.salud = salud
     }
     fun setAtaque(ataque: Int) {
         this.ataque = ataque
+    }
+    fun AumentoSalud(salud: Int) {
+        this.salud += salud
+    }
+    fun ReduceSalud(salud: Int) {
+        this.salud -= salud
+    }
+    fun ReduceAtaque(ataque: Int) {
+        this.ataque -= ataque
     }
     fun setDefensa(defensa: Int) {
         this.defensa = defensa

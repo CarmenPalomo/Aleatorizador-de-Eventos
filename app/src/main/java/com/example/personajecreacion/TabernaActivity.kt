@@ -7,7 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
 class TabernaActivity : AppCompatActivity() {
     private lateinit var personaje: Personaje
@@ -28,11 +30,13 @@ class TabernaActivity : AppCompatActivity() {
         val textoPagar : TextView = findViewById(R.id.textoPagar)
         val textoPrecio : TextView = findViewById(R.id.textoPrecio)
         val textoNoPagar : TextView = findViewById(R.id.textoNoPagar)
+        val imagenTabernaInterior : ImageView = findViewById(R.id.imagenTabernaInterior)
 
 
         entrar.setOnClickListener {
             entrar.visibility = View.INVISIBLE
             pagar.visibility = View.VISIBLE
+            imagenTabernaInterior.visibility = View.VISIBLE
             marcharse.visibility = View.VISIBLE
             textoPagar.visibility = View.INVISIBLE
             textoNoPagar.visibility = View.INVISIBLE
@@ -41,6 +45,13 @@ class TabernaActivity : AppCompatActivity() {
         }
 
         marcharse.setOnClickListener {
+
+            var numAtaque = (1..4).random()
+            personaje!!.ReduceAtaque(numAtaque)
+            var numVida = (1..4).random()
+            personaje!!.ReduceSalud(numVida)
+
+            Toast.makeText(this, "Has perdido $numAtaque de ataque y $numVida de vida. Ahora tu personaje tiene ${personaje.getAtaque()} de ataque y  ${personaje.getSalud()} de vida}}", Toast.LENGTH_SHORT).show()
             val intent = Intent(this,AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
@@ -49,6 +60,9 @@ class TabernaActivity : AppCompatActivity() {
         pagar.setOnClickListener {
 
             if (personaje!!.getMochila()!!.tieneOro()){
+                var num = (1..4).random()
+                personaje.AumentoSalud(num)
+                Toast.makeText(this, "Has aumentado la salud un $num ahora tu personaje tiene ${personaje.getSalud()} de salud", Toast.LENGTH_SHORT).show()
 
                 personaje.getMochila()!!.restarDinero(5)
                 entrar.visibility = View.INVISIBLE
