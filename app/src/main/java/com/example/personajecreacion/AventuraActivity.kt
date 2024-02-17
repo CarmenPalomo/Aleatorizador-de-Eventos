@@ -69,7 +69,8 @@ class AventuraActivity : AppCompatActivity() {
                 true
             }
             R.id.botonDialogFlow->{
-
+                var intent = Intent(this,Dialogflow::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
