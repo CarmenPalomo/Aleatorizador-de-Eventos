@@ -40,8 +40,9 @@ class HerreroActivity : AppCompatActivity() {
         }
 
         botonCrear.setOnClickListener {
-            if (lista_esp == null){
+            if (lista_esp.isNullOrEmpty()){
                 botonPelea.visibility = View.VISIBLE
+                botonMercader.visibility = View.VISIBLE
                 botonCrear.visibility = View.INVISIBLE
                 botonReparar.visibility = View.INVISIBLE
 
@@ -51,8 +52,9 @@ class HerreroActivity : AppCompatActivity() {
         }
 
         botonReparar.setOnClickListener {
-            if (lista_esp == null){
+            if (lista_esp.isNullOrEmpty()){
                 botonPelea.visibility = View.VISIBLE
+                botonMercader.visibility = View.VISIBLE
                 botonCrear.visibility = View.INVISIBLE
                 botonReparar.visibility = View.INVISIBLE
             }else{
@@ -66,7 +68,7 @@ class HerreroActivity : AppCompatActivity() {
         }
 
         botonMercader.setOnClickListener {
-            var intent : Intent = Intent(this,AventuraActivity::class.java)
+            var intent : Intent = Intent(this,MercaderActivity::class.java)
             startActivity(intent)
         }
 
