@@ -39,8 +39,8 @@ class MonstruoDataBase(context: Context) :
             val insertInto =
                 "INSERT INTO $TABLA_MONSTRUO ($COLUMN_NOMBRE, $COLUMN_NIVEL, $COLUMN_SALUD, $COLUMN_ATAQUE) " +
                         "VALUES('IT', 1, 100, 5)," +
-                        "('IT', 2, 125, 10)," +
-                        "('IT', 3, 150, 15)"
+                        "('IT2', 2, 125, 10)," +
+                        "('IT3', 3, 150, 15)"
             db.execSQL(insertInto);
 
         }
@@ -51,5 +51,29 @@ class MonstruoDataBase(context: Context) :
             db.execSQL("DROP TABLE IF EXISTS ${TABLA_MONSTRUO}")
             onCreate(db)
         }
+    }
+
+    fun getPersonaje(nombre: String?): Monstruo? {
+        var monstruo: Monstruo? = null
+        val selectQuery = "SELECT * FROM $TABLA_MONSTRUO WHERE $COLUMN_NOMBRE = '$nombre'"
+        val dbRead = this.readableDatabase
+        val cursor = dbRead.rawQuery(selectQuery, null)
+        if (cursor.moveToFirst()) {
+            val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
+            val nivel = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NIVEL))
+            val salud = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SALUD))
+            val ataque = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ATAQUE ))
+
+
+            monstruo = Monstruo(nombre, nivel)
+            monstruo.setSalud(salud)
+            monstruo.setAtaque(ataque)
+        } else {
+            cursor.close()
+            dbRead.close()
+        }
+
+        log.info("personaje sacado de bbdd $monstruo")
+        return monstruo
     }
 }
