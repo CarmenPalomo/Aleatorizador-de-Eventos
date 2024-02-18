@@ -1,8 +1,11 @@
 package com.example.personajecreacion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +18,7 @@ class MostrarDatosActivity : AppCompatActivity() {
     private val log: Logger = Logger.getLogger("MostrarDatosActivity")
     private lateinit var textToSpeech: TextToSpeech
     private lateinit var textToSpeechBtn: Button
+    private lateinit var mediaplayer : MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mostrar_datos)
@@ -25,6 +29,8 @@ class MostrarDatosActivity : AppCompatActivity() {
         val raza_personaje: TextView = findViewById(R.id.raza_personaje)
         val clase_personaje: TextView = findViewById(R.id.clase_personaje)
         val edad_personaje: TextView = findViewById(R.id.edad_personaje)
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
 
         val imagenPesonaje: ImageView = findViewById(R.id.imagenPersonaje)
         textToSpeechBtn = findViewById(R.id.textToSpeechBnt)
@@ -36,6 +42,12 @@ class MostrarDatosActivity : AppCompatActivity() {
         val idPersonaje = intent.getStringExtra("userId")
         log.info("El personaje tiene $raza, $clase, $edad, $nombre, $imagen, $idPersonaje")
 
+        val musicaMin = intent.getIntExtra("musicaMin",0)
+        val estadoM = intent.getBooleanExtra("estadoM",false)
+        mediaplayer.seekTo(musicaMin)
+        if (estadoM){
+            mediaplayer.start()
+        }
         imagenPesonaje.setImageResource(imagen)
         textToSpeech = TextToSpeech(this) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -86,6 +98,26 @@ class MostrarDatosActivity : AppCompatActivity() {
             intent.putExtra("Personaje", personaje)
             log.info("Se ha pasado el personaje ${personaje.getIdPersonaje()}, ${personaje.getNombre()}")
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.suenaM -> {
+                mediaplayer.start()
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

@@ -25,27 +25,6 @@
         app:menu="@menu/menu_main"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="Creacion Personaje"></androidx.appcompat.widget.Toolbar>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/suenaM"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginLeft="20dp"
-            app:srcCompat="@android:drawable/ic_media_play" />
-
-        <ImageButton
-            android:id="@+id/paraM"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="260dp"
-            app:srcCompat="@android:drawable/ic_media_pause" />
-
-    </LinearLayout>
 
 
 
@@ -150,7 +129,7 @@
             android:layout_marginLeft="200dp"
             android:layout_marginTop="27dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="121dp"
+            android:layout_marginBottom="110dp"
             android:text="@string/siguiente"
             app:cornerRadius="5dp" />
     </RelativeLayout>
