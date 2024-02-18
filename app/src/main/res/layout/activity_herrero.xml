@@ -78,7 +78,20 @@
         android:text="Crear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
+        app:layout_constraintVertical_bias="0.329" />
+
+    <Button
+        android:id="@+id/espada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Espada Infernal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
         app:layout_constraintVertical_bias="0.329" />
@@ -91,10 +104,36 @@
         android:text="Reparar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/crear"
-        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
         app:layout_constraintVertical_bias="0.358" />
+    <Button
+        android:id="@+id/martillo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Martillo"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/crear"
+        app:layout_constraintHorizontal_bias="0.097"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
+        app:layout_constraintVertical_bias="0.358" />
+
+    <Button
+        android:id="@+id/yelmo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yelmo"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/marcharse"
+        app:layout_constraintEnd_toStartOf="@+id/espada"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toEndOf="@+id/mercader"
+        app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
+        app:layout_constraintVertical_bias="0.743" />
 
     <Button
         android:id="@+id/pelea"
@@ -104,10 +143,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.804"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.869" />
 
     <Button
         android:id="@+id/mercader"
@@ -117,10 +156,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImagenHerrero"
-        app:layout_constraintVertical_bias="0.329" />
+        app:layout_constraintVertical_bias="0.638" />
 
     <Button
         android:id="@+id/marcharse"
@@ -130,8 +169,9 @@
         android:text="Marcharse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="0.849" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

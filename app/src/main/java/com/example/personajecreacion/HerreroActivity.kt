@@ -11,10 +11,10 @@ import android.widget.ImageView
 import android.widget.Toast
 
 class HerreroActivity : AppCompatActivity() {
-    private lateinit var botonPelea : Button
-    private lateinit var botonMercader : Button
-    private lateinit var botonReparar : Button
-    private lateinit var botonCrear : Button
+    private lateinit var botonPelea: Button
+    private lateinit var botonMercader: Button
+    private lateinit var botonReparar: Button
+    private lateinit var botonCrear: Button
     private lateinit var personaje: Personaje
     private lateinit var personajeDataBase: PersonajeDataBase
 
@@ -29,11 +29,14 @@ class HerreroActivity : AppCompatActivity() {
         botonReparar = findViewById(R.id.reparar)
         botonPelea = findViewById(R.id.pelea)
         botonMercader = findViewById(R.id.mercader)
-        var ImagenMartillo : ImageView = findViewById(R.id.ImagenMartillo)
-        var ImagenYelmo : ImageView = findViewById(R.id.ImagenYelmo)
-        var ImagenEspada : ImageView = findViewById(R.id.ImagenEspada)
-        var ImagenHerrero : ImageView = findViewById(R.id.ImagenHerrero)
+        var ImagenMartillo: ImageView = findViewById(R.id.ImagenMartillo)
+        var ImagenYelmo: ImageView = findViewById(R.id.ImagenYelmo)
+        var ImagenEspada: ImageView = findViewById(R.id.ImagenEspada)
+        var ImagenHerrero: ImageView = findViewById(R.id.ImagenHerrero)
         var marcharse: Button = findViewById(R.id.marcharse)
+        var martillo: Button = findViewById(R.id.martillo)
+        var yelmo: Button = findViewById(R.id.yelmo)
+        var espada_infernal: Button = findViewById(R.id.espada)
 
         var lista = personaje.getMochila()?.getArticulos()
 
@@ -46,8 +49,8 @@ class HerreroActivity : AppCompatActivity() {
         botonPelea.visibility = View.INVISIBLE
 
         var numeroUnidades = 0
-        for(articulo in lista!!){
-            if (articulo.getTipo() == Articulo.TipoArt.OBJETOMONSTRUO){
+        for (articulo in lista!!) {
+            if (articulo.getTipo() == Articulo.TipoArt.OBJETOMONSTRUO) {
                 numeroUnidades += articulo.getUnidades()
             }
         }
@@ -68,6 +71,16 @@ class HerreroActivity : AppCompatActivity() {
 
 
         botonCrear.setOnClickListener {
+
+
+            botonCrear.visibility = View.INVISIBLE
+            botonReparar.visibility = View.INVISIBLE
+            martillo.visibility = View.VISIBLE
+            yelmo.visibility = View.VISIBLE
+            espada_infernal.visibility = View.VISIBLE
+        }
+
+        martillo.setOnClickListener {
             if (garra >= 1 && hierro >= 1) {
                 var martillo: Articulo? = null
                 var indice = 0
@@ -91,8 +104,25 @@ class HerreroActivity : AppCompatActivity() {
                 personaje.getMochila()!!.eliminarArticuloMonstruoHierro(1)
                 ImagenMartillo.visibility = View.VISIBLE
                 ImagenHerrero.visibility = View.INVISIBLE
+            } else {
+                Toast.makeText(
+                    this,
+                    "No tienes suficinetes objetos para crear un martillo",
+                    Toast.LENGTH_SHORT
+                ).show()
+                botonPelea.visibility = View.VISIBLE
+                botonMercader.visibility = View.VISIBLE
+                botonCrear.visibility = View.INVISIBLE
+                botonReparar.visibility = View.INVISIBLE
+                martillo.visibility = View.INVISIBLE
+                yelmo.visibility = View.VISIBLE
+                espada_infernal.visibility = View.VISIBLE
             }
-            else if(lingote >= 1){
+        }
+
+
+        yelmo.setOnClickListener {
+            if (lingote >= 1) {
                 var yelmo: Articulo? = null
                 var indice = 0
                 while (indice < lista.size && yelmo == null) {
@@ -114,7 +144,24 @@ class HerreroActivity : AppCompatActivity() {
                 personaje.getMochila()!!.eliminarArticuloMonstruoLingote(1)
                 ImagenYelmo.visibility = View.VISIBLE
                 ImagenHerrero.visibility = View.INVISIBLE
-            }else if(garra >= 1 && pelo >= 1 && hierro >= 1){
+            } else {
+                Toast.makeText(
+                    this,
+                    "No tienes suficinetes objetos para crear un yelmo",
+                    Toast.LENGTH_SHORT
+                ).show()
+                botonPelea.visibility = View.VISIBLE
+                botonMercader.visibility = View.VISIBLE
+                botonCrear.visibility = View.INVISIBLE
+                botonReparar.visibility = View.INVISIBLE
+                martillo.visibility = View.VISIBLE
+                yelmo.visibility = View.INVISIBLE
+                espada_infernal.visibility = View.VISIBLE
+            }
+        }
+
+        espada_infernal.setOnClickListener {
+            if (garra >= 1 && pelo >= 1 && hierro >= 1) {
                 var estada_infernal: Articulo? = null
                 var indice = 0
                 while (indice < lista.size && estada_infernal == null) {
@@ -139,21 +186,28 @@ class HerreroActivity : AppCompatActivity() {
                 ImagenEspada.visibility = View.VISIBLE
                 ImagenHerrero.visibility = View.INVISIBLE
 
-            } else{
+            } else {
                 Toast.makeText(
                     this,
-                    "No tienes suficinetes objetos para crear un arma",
+                    "No tienes suficinetes objetos para crear una espada infernal",
                     Toast.LENGTH_SHORT
                 ).show()
                 botonPelea.visibility = View.VISIBLE
                 botonMercader.visibility = View.VISIBLE
                 botonCrear.visibility = View.INVISIBLE
                 botonReparar.visibility = View.INVISIBLE
+                martillo.visibility = View.VISIBLE
+                yelmo.visibility = View.INVISIBLE
+                espada_infernal.visibility = View.VISIBLE
             }
         }
 
+
+
+
+
         botonReparar.setOnClickListener {
-            if (numeroUnidades == 0){
+            if (numeroUnidades == 0) {
                 botonPelea.visibility = View.VISIBLE
                 botonMercader.visibility = View.VISIBLE
                 botonCrear.visibility = View.INVISIBLE
@@ -168,7 +222,7 @@ class HerreroActivity : AppCompatActivity() {
         }
 
         botonMercader.setOnClickListener {
-            var intent : Intent = Intent(this,MercaderActivity::class.java)
+            var intent: Intent = Intent(this, MercaderActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
         }
@@ -193,12 +247,14 @@ class HerreroActivity : AppCompatActivity() {
                 personajeDataBase.actualizarPersonaje(personaje)
                 true
             }
-            R.id.botonDialogFlow->{
-                var intent = Intent(this,Dialogflow::class.java)
+
+            R.id.botonDialogFlow -> {
+                var intent = Intent(this, Dialogflow::class.java)
                 intent.putExtra("Personaje", personaje)
                 startActivity(intent)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
