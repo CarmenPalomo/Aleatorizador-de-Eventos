@@ -4,6 +4,8 @@ import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
@@ -20,8 +22,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private var opcionSpinnerEdad: String? = null
     private var opcionImagen: Int = 0
     private lateinit var nombreEditText: EditText
-    private lateinit var botonPlay:ImageButton
-    private lateinit var botonStop:ImageButton
     private lateinit var mediaplayer : MediaPlayer
 
 
@@ -36,8 +36,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val spinnerRaza: Spinner = findViewById(R.id.spinner_raza)
         val spinnerClase: Spinner = findViewById(R.id.spinner_clase)
         val spinnerEdad: Spinner = findViewById(R.id.spinner_edad)
-        botonPlay = findViewById(R.id.suenaM)
-        botonStop = findViewById(R.id.paraM)
         mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
         mediaplayer.setLooping(true);
         nombreEditText = findViewById(R.id.nombre)
@@ -48,13 +46,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         spinnerClase.onItemSelectedListener = this
 
 
-        botonPlay.setOnClickListener {
-            mediaplayer.start()
-        }
-
-        botonStop.setOnClickListener {
-            mediaplayer.pause()
-        }
 
         botonSiguiente.setOnClickListener {
             val intent = Intent(this@MainActivity, MostrarDatosActivity::class.java)
@@ -65,6 +56,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             intent.putExtra("userId", userId)
             intent.putExtra("imagen", opcionImagen)
 
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
             startActivity(intent)
         }
 
@@ -302,6 +295,26 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.suenaM -> {
+                mediaplayer.start()
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     

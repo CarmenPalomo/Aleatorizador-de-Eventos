@@ -13,5 +13,15 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:orderInCategory="1"
         app:showAsAction="never"/>
+    <item android:id="@+id/suenaM"
+        android:title="Reproducir"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
+    <item android:id="@+id/paraM"
+        android:title="Parar"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
 
 </menu>
