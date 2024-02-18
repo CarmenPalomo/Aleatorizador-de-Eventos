@@ -35,6 +35,12 @@ class HerreroActivity : AppCompatActivity() {
 
         var lista = personaje.getMochila()?.getArticulos()
 
+        var garra = 0
+        var pelo = 0
+        var bronce = 0
+        var hierro = 0
+        var lingote = 0
+
         botonPelea.visibility = View.INVISIBLE
 
         var numeroUnidades = 0
@@ -43,10 +49,28 @@ class HerreroActivity : AppCompatActivity() {
                 numeroUnidades += articulo.getUnidades()
             }
         }
+        for(articulo in lista!!){
+            if (articulo.getNombre() == "GARRAS_MONSTRUO"){
+                garra += 1
+
+            }else if (articulo.getNombre() == "BRONCE"){
+                bronce+= 1
+
+            }else if (articulo.getNombre() == "PELO"){
+                pelo+= 1
+
+            }else if (articulo.getNombre() == "HIERRO"){
+                hierro+= 1
+
+            }else if(articulo.getNombre() == "LINGOTE"){
+                lingote+= 1
+
+            }
+        }
 
 
         botonCrear.setOnClickListener {
-            if (numeroUnidades >= 3) {
+            if (garra >= 1 && hierro >= 1) {
                 var martillo: Articulo? = null
                 var indice = 0
                 while (indice < lista.size && martillo == null) {
@@ -65,7 +89,8 @@ class HerreroActivity : AppCompatActivity() {
                     martillo.sumaUnidades(1)
                 }
                 Toast.makeText(this, "Se ha creado un martillo", Toast.LENGTH_LONG).show()
-                personaje.getMochila()!!.eliminarArticulosMonstruo(3)
+                personaje.getMochila()!!.eliminarArticuloMonstruoGarra(1)
+                personaje.getMochila()!!.eliminarArticuloMonstruoHierro(1)
                 ImagenMartillo.visibility = View.VISIBLE
                 ImagenHerrero.visibility = View.INVISIBLE
             } else {
@@ -120,6 +145,12 @@ class HerreroActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.botonGuardar -> {
                 personajeDataBase.actualizarPersonaje(personaje)
+                true
+            }
+            R.id.botonDialogFlow->{
+                var intent = Intent(this,Dialogflow::class.java)
+                intent.putExtra("Personaje", personaje)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

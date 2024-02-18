@@ -48,6 +48,12 @@ class EnemigoActivity : AppCompatActivity() {
                 personajeDataBase.actualizarPersonaje(personaje)
                 true
             }
+            R.id.botonDialogFlow->{
+                var intent = Intent(this,Dialogflow::class.java)
+                intent.putExtra("Personaje", personaje)
+                startActivity(intent)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
