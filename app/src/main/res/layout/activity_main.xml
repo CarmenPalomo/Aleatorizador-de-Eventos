@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    android:background="@drawable/fondo5"
     android:orientation="vertical"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         android:layout_height="306dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/fondo"
+        android:background="@drawable/fondo5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -62,10 +62,13 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="167dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:background="@android:color/holo_orange_light"
             android:text="@string/escoge_la_clase"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <Spinner
@@ -75,17 +78,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:layout_marginRight="250dp"
-            android:background="@color/white"
+            android:background="@android:color/holo_orange_light"
             android:entries="@array/clase"
             android:padding="15dp" />
 
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="158dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
+            android:background="@android:color/holo_orange_light"
             android:text="@string/escoge_la_raza"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <Spinner
@@ -94,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="160dp"
             android:layout_marginRight="250dp"
-            android:background="#FCFCFF"
+            android:background="@android:color/holo_orange_light"
             android:entries="@array/raza"
             android:padding="15dp"
             android:textAlignment="center" />
@@ -102,11 +108,14 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="190dp"
             android:layout_marginTop="30dp"
+            android:background="@android:color/holo_orange_light"
             android:text="@string/escoge_la_edad"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <Spinner
@@ -115,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="60dp"
-            android:background="#FCFCFF"
+            android:background="@android:color/holo_orange_light"
             android:entries="@array/EstadoVital"
             android:padding="15dp"
             android:textAlignment="center" />
@@ -127,10 +136,13 @@
             android:layout_below="@+id/spinner_edad"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="200dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="51dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="110dp"
+            android:layout_marginBottom="87dp"
+            android:backgroundTint="@android:color/holo_orange_light"
             android:text="@string/siguiente"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             app:cornerRadius="5dp" />
     </RelativeLayout>
 
