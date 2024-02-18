@@ -1,6 +1,7 @@
 package com.example.personajecreacion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -20,6 +21,7 @@ class MercaderActivity : AppCompatActivity() {
     private var venderActivado = false
     private lateinit var personaje: Personaje
     private lateinit var personajeDataBase: PersonajeDataBase
+    private lateinit var mediaplayer : MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,17 @@ class MercaderActivity : AppCompatActivity() {
         val sinArticulosVenta: TextView = findViewById(R.id.sinArticulosVenta)
         val mensajeVender: TextView = findViewById(R.id.mensajeVender)
         var mensajeComprar: TextView = findViewById(R.id.mensajeComprar)
+
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
+
+
+        val musicaMin = intent.getIntExtra("musicaMin",0)
+        val estadoM = intent.getBooleanExtra("estadoM",false)
+        mediaplayer.seekTo(musicaMin)
+        if (estadoM){
+            mediaplayer.start()
+        }
 
         botonContinuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
@@ -210,6 +223,16 @@ class MercaderActivity : AppCompatActivity() {
                 var intent = Intent(this,Dialogflow::class.java)
                 intent.putExtra("Personaje", personaje)
                 startActivity(intent)
+                true
+            }
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
                 true
             }
             else -> super.onOptionsItemSelected(item)

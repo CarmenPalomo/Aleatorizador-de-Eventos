@@ -96,6 +96,8 @@ class MostrarDatosActivity : AppCompatActivity() {
 
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
             log.info("Se ha pasado el personaje ${personaje.getIdPersonaje()}, ${personaje.getNombre()}")
             startActivity(intent)
         }
@@ -110,13 +112,14 @@ class MostrarDatosActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.suenaM -> {
                 mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
                 true
             }
             R.id.paraM ->{
                 mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
