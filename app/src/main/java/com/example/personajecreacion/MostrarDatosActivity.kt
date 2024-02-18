@@ -14,11 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import java.util.Locale
 import java.util.logging.Logger
 
+
 class MostrarDatosActivity : AppCompatActivity() {
     private val log: Logger = Logger.getLogger("MostrarDatosActivity")
     private lateinit var textToSpeech: TextToSpeech
-    private lateinit var textToSpeechBtn: Button
     private lateinit var mediaplayer : MediaPlayer
+    private var textazo = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mostrar_datos)
@@ -33,7 +34,6 @@ class MostrarDatosActivity : AppCompatActivity() {
         mediaplayer.setLooping(true);
 
         val imagenPesonaje: ImageView = findViewById(R.id.imagenPersonaje)
-        textToSpeechBtn = findViewById(R.id.textToSpeechBnt)
         val raza = intent.getStringExtra("raza")
         val clase = intent.getStringExtra("clase")
         val edad = intent.getStringExtra("edad")
@@ -63,20 +63,9 @@ class MostrarDatosActivity : AppCompatActivity() {
         edad_personaje.text = "La edad del personaje es: $edad"
 
 
-        var textazo =
+        textazo =
             nombre_personaje.text.toString() + " " + raza_personaje.text.toString() + " " + clase_personaje.text.toString() + " " + edad_personaje.text.toString()
-        textToSpeechBtn.setOnClickListener {
-            if (nombre_personaje.text.toString().isNotEmpty()) {
-                textToSpeech.speak(
-                    textazo.trim(),
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
-            } else {
 
-            }
-        }
         val personaje = Personaje(
             idPersonaje,
             nombre, edad, raza, clase,
@@ -118,6 +107,24 @@ class MostrarDatosActivity : AppCompatActivity() {
             R.id.paraM ->{
                 mediaplayer.pause()
                 log.info("Musica parada valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.textToSpeechBtn -> {
+                    textToSpeech.speak(
+                        textazo.trim(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null)
                 true
             }
             else -> super.onOptionsItemSelected(item)

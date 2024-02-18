@@ -108,17 +108,17 @@
         android:id="@+id/continuarM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/continuar"
         android:backgroundTint="@android:color/holo_orange_light"
+        android:text="@string/continuar"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.803"
+        app:layout_constraintHorizontal_bias="0.806"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mercaderF"
-        app:layout_constraintVertical_bias="0.767" />
+        app:layout_constraintVertical_bias="0.768" />
 
     <TextView
         android:id="@+id/precioObjetos"
@@ -204,10 +204,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.679"
+        app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintVertical_bias="0.602" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

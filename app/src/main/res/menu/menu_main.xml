@@ -23,5 +23,10 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:orderInCategory="1"
         app:showAsAction="never"/>
+    <item android:id="@+id/textToSpeechBtn"
+        android:title="TextToSpeech"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
 
 </menu>

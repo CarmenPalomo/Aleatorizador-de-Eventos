@@ -3,6 +3,7 @@ package com.example.personajecreacion
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.util.ArrayList
 import java.util.logging.Logger
 
 class MonstruoDataBase(context: Context) :
@@ -53,7 +54,7 @@ class MonstruoDataBase(context: Context) :
         }
     }
 
-    fun getPersonaje(nombre: String?): Monstruo? {
+    fun getMonstruo(nombre: String?): Monstruo? {
         var monstruo: Monstruo? = null
         val selectQuery = "SELECT * FROM $TABLA_MONSTRUO WHERE $COLUMN_NOMBRE = '$nombre'"
         val dbRead = this.readableDatabase
@@ -75,5 +76,29 @@ class MonstruoDataBase(context: Context) :
 
         log.info("personaje sacado de bbdd $monstruo")
         return monstruo
+    }
+
+    fun getMonstruoAleatorio(): Monstruo {
+        val objeto = ArrayList<Monstruo>()
+        val selectQuery = "SELECT * FROM $TABLA_MONSTRUO"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
+        if (cursor.moveToFirst()) {
+            log.info("obtenemos articulos")
+            do {
+                val nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE))
+                val nivel = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NIVEL))
+                val salud = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SALUD))
+                val ataque = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ATAQUE ))
+                val element = Monstruo(nombre, nivel)
+                element.setSalud(salud)
+                element.setAtaque(ataque)
+                objeto.add(element)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        val num = (0..<objeto.size).random()
+        return objeto[num]
     }
 }

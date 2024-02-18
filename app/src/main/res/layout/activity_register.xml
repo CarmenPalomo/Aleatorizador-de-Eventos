@@ -25,18 +25,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/mail"
         android:layout_width="376dp"
         android:layout_height="60dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="88dp"
         android:background="#e9ebf0"
         android:ems="10"
         android:hint="Correo electronico"
         android:inputType="textEmailAddress"
         android:textColorHint="#7f8186"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -51,10 +52,9 @@
         android:inputType="text"
         android:textColorHint="#7f8186"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mail" />
-
 
     <EditText
         android:id="@+id/contra"
@@ -69,8 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario"
-        app:layout_constraintVertical_bias="0.009" />
+        app:layout_constraintTop_toBottomOf="@+id/usuario" />
 
     <Button
         android:id="@+id/continuarInicio"

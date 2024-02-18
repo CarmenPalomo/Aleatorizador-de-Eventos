@@ -37,7 +37,6 @@ class Dialogflow : AppCompatActivity() {
 
     val USUARIO = 0
     val BOT = 1
-    // Variables
 
     private lateinit var enviar: ImageView
 
@@ -88,35 +87,26 @@ class Dialogflow : AppCompatActivity() {
             intent.putExtra("Personaje",personaje)
             startActivity(intent)
         }
-        // Pasamos un setOnClickListener al botón para enviar mensajes llamando al
-        // método enviarMensaje() el cual crearemos más adelante
         enviar.setOnClickListener(this::enviarMensaje)
 
-        // Llamamos al método iniciarAsistente() el cual crearemos más adelante
         iniciarAsistente()
 
-        // Llamamos al método iniciarAsistenteVoz() el cual crearemos más adelante
         iniciarAsistenteVoz()
 
     }
 
-    // Función inicarAsistente
     private fun iniciarAsistente() {
         try {
-            // Archivo JSON de configuración de la cuenta de Dialogflow (Google Cloud Platform)
+
             val config = resources.openRawResource(R.raw.credenciales)
 
-            // Leemos las credenciales de la cuenta de Dialogflow (Google Cloud Platform)
             val credenciales = GoogleCredentials.fromStream(config)
                 .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"))
 
-            // Leemos el 'projectId' el cual se encuentra en el archivo 'credenciales.json'
             val projectId = (credenciales as ServiceAccountCredentials).projectId
 
-            // Construimos una configuración para acceder al servicio de Dialogflow (Google Cloud Platform)
             val generarConfiguracion: SessionsSettings.Builder = SessionsSettings.newBuilder()
 
-            // Configuramos las sesiones que usaremos en la aplicación
             val configurarSesiones: SessionsSettings =
                 generarConfiguracion.setCredentialsProvider(FixedCredentialsProvider.create(credenciales))
                     .build()
@@ -129,7 +119,6 @@ class Dialogflow : AppCompatActivity() {
 
     }
 
-    // Función iniciarAsistenteVoz
     private fun iniciarAsistenteVoz() {
 
         asistente_voz = TextToSpeech(applicationContext,object : TextToSpeech.OnInitListener {
@@ -145,21 +134,21 @@ class Dialogflow : AppCompatActivity() {
 
     private fun enviarMensaje(view: View) {
 
-        // Obtenemos el mensaje de la caja de texto y lo pasamos a String
-        val mensaje = cajadetexto.text.toString()
+        var mensaje = cajadetexto.text.toString()
 
-        // Si el usuario no ha escrito un mensaje en la caja de texto y presiona el botón enviar, le mostramos
-        // un Toast con un mensaje 'Ingresa tu mensaje ...'
         if (mensaje.trim { it <= ' ' }.isEmpty()) {
             Toast.makeText(this@Dialogflow, getString(R.string.placeholder), Toast.LENGTH_LONG).show()
         }
 
-        // Si el usuario agrego un mensaje a la caja de texto, llamamos al método agregarTexto()
         else {
             agregarTexto(mensaje, USUARIO)
             cajadetexto.setText("")
 
-            // Enviamos la consulta del usuario al Bot
+            if (mensaje == personaje.getNombre()){
+                mensaje = "Tenemos el mismo nombre"
+            }
+
+
             val ingresarConsulta =
                 QueryInput.newBuilder().setText(TextInput.newBuilder().setText(mensaje).setLanguageCode("es")).build()
             solicitarTarea(this@Dialogflow, sesion!!, cliente!!, ingresarConsulta).execute()
@@ -168,47 +157,34 @@ class Dialogflow : AppCompatActivity() {
 
     private fun agregarTexto(mensaje: String, type: Int) {
 
-        // Coloco el FramLayout dentro de la variable layoutFrm
         val layoutFrm: FrameLayout
-
-        // Según sea el rol, le cargamos el FrameLayout y llamamos a un método respectivo
-        // Los métodos agregarTextoUsuario() y agregarTextoBot() los crearé más adelante
         when (type) {
             USUARIO -> layoutFrm = agregarTextoUsuario()
             BOT -> layoutFrm = agregarTextoBot()
             else -> layoutFrm = agregarTextoBot()
         }
 
-        // Si el usuario hace clic en la caja de texto
         layoutFrm.isFocusableInTouchMode = true
 
-        // Pasamos un LinearLayout
         linear_chat.addView(layoutFrm)
 
-        // Mostramos los textos de los mensajes en un TextView
         val textview = layoutFrm.findViewById<TextView>(R.id.msg_chat)
         textview.setText(mensaje)
 
 
-        // Enfocamos el TextView Automáticamente
         layoutFrm.requestFocus()
 
-        // Volvemos a cambiar el enfoque para editar el texto y continuar escribiendo
         cajadetexto.requestFocus()
 
-        // Si es un cliente el que envía un mensaje al Bot, cargamos el método 'TexToSpeech'
-        // 'TexToSpeech' junto a otras métodos procesa los mensajes de voz que seran enviados al Bot
         if(type!= USUARIO) asistente_voz?.speak(mensaje,TextToSpeech.QUEUE_FLUSH,null)
 
     }
 
-    // Colocamos los mensajes del Usuario en el layout 'mensaje_usuario'
     fun agregarTextoUsuario(): FrameLayout {
         val inflater = LayoutInflater.from(this@Dialogflow)
         return inflater.inflate(R.layout.mensaje_usuario, null) as FrameLayout
     }
 
-    // Colocamos los mensajes del Bot en el layout 'mensaje_bot'
     fun agregarTextoBot(): FrameLayout {
         val inflater = LayoutInflater.from(this@Dialogflow)
         return inflater.inflate(R.layout.mensaje_bot, null) as FrameLayout
@@ -218,8 +194,6 @@ class Dialogflow : AppCompatActivity() {
         try {
             if (response != null) {
 
-                // fulfillmentText retorna un String (Texto) al usuario en la pantalla
-                // fulfillmentMessagesList (Objeto) retorna una lista de objetos
                 var respuestaBot: String = ""
 
                 if(response.queryResult.fulfillmentText==" ")
@@ -232,14 +206,12 @@ class Dialogflow : AppCompatActivity() {
 
             }
         }catch (e:Exception){
-            // Mostramos al usuario el texto 'Por Favor, ingresa un mensaje'
             agregarTexto(getString(R.string.ingresa_mensaje), BOT)
         }
     }
     override fun onDestroy() {
         super.onDestroy()
 
-        // Si la aplicación es cerrada, detenemos el asistente de voz
         if(asistente_voz !=null){
             asistente_voz?.stop()
             asistente_voz?.shutdown()
@@ -249,13 +221,11 @@ class Dialogflow : AppCompatActivity() {
 
     class solicitarTarea : AsyncTask<Void, Void, DetectIntentResponse> {
 
-        // Declaramos estas variables
         var actividad: Activity? = null
         private var sesion: SessionName? = null
         private var sesionesCliente: SessionsClient? = null
         private var entradaConsulta: QueryInput? = null
 
-        // Usamos las variables en un constructor
         constructor(actividad: Activity, sesion: SessionName, sesionesCliente: SessionsClient, entradaConsulta: com.google.cloud.dialogflow.v2.QueryInput){
             this.actividad = actividad
             this.sesion = sesion
@@ -263,10 +233,8 @@ class Dialogflow : AppCompatActivity() {
             this.entradaConsulta = entradaConsulta
         }
 
-        // Ejecutamos las tareas de fondo con el método de Android 'doInBackground'
         override fun doInBackground(vararg params: Void?): DetectIntentResponse? {
 
-            // Usamos 'try' para realizar las tareas de fondo
             try {
                 val detectarIntentosolicitarTarea = DetectIntentRequest.newBuilder()
                     .setSession(sesion.toString())
@@ -274,17 +242,12 @@ class Dialogflow : AppCompatActivity() {
                     .build()
                 return sesionesCliente?.detectIntent(detectarIntentosolicitarTarea)
             }
-            // Si hay algún error, devolvemos una exception en 'catch'
             catch (e: Exception) {
                 e.printStackTrace()
             }
             return null
         }
-
-        // El método de Android 'onPostExecute' ejecuta determinados hilos de la interface luego que se ejecutó
-        // el método anterior llamado 'doInBackground'
         override fun onPostExecute(result: DetectIntentResponse?) {
-            //Pasamos el resultado al método validar() que se encuentra en la actividad principal 'MainActivity'
             (actividad as Dialogflow).validar(result)
         }
 

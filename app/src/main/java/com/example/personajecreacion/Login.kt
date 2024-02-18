@@ -8,7 +8,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.content.ContentValues
+import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.Firebase
@@ -19,7 +22,7 @@ import java.util.logging.Logger
 
 class Login : AppCompatActivity() {
     private val log: Logger = Logger.getLogger("Login")
-    private lateinit var crearCuenta: TextView
+    private lateinit var crearCuenta: Button
     private lateinit var continua: Button
     private lateinit var auth: FirebaseAuth
 
@@ -30,7 +33,6 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
 
         auth = Firebase.auth
 

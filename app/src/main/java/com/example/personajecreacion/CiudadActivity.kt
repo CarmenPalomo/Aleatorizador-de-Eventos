@@ -4,11 +4,15 @@ import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isVisible
+import java.util.Locale
 import java.util.logging.Logger
 
 class CiudadActivity : AppCompatActivity() {
@@ -16,6 +20,9 @@ class CiudadActivity : AppCompatActivity() {
     private lateinit var personajeDataBase: PersonajeDataBase
     private lateinit var mediaplayer : MediaPlayer
     val log = Logger.getLogger("CiudadActivity")
+    private lateinit var textToSpeech: TextToSpeech
+    private lateinit var textazo : String
+    private lateinit var textEntrada: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ciudad)
@@ -27,7 +34,19 @@ class CiudadActivity : AppCompatActivity() {
         val continuar: Button = findViewById(R.id.continuar)
         val taberna: Button = findViewById(R.id.taberna)
         val herrero: Button = findViewById(R.id.herrero)
-        val textEntrada: TextView = findViewById(R.id.textoEntrada)
+        textEntrada = findViewById(R.id.textoEntrada)
+
+        textazo = textEntrada.text.toString()
+
+        textToSpeech = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val resultado = textToSpeech.setLanguage(Locale.getDefault())
+                if (resultado == TextToSpeech.LANG_MISSING_DATA || resultado == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "lenguaje no soportado", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
         mediaplayer.setLooping(true);
 
@@ -73,7 +92,7 @@ class CiudadActivity : AppCompatActivity() {
             }
 
         }
-//hacer
+
         taberna.setOnClickListener {
             val intent = Intent(this, TabernaActivity::class.java)
             intent.putExtra("Personaje", personaje)
@@ -84,7 +103,8 @@ class CiudadActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
-//hacer
+
+
         herrero.setOnClickListener {
             val intent = Intent(this, HerreroActivity::class.java)
             intent.putExtra("Personaje", personaje)
@@ -95,7 +115,6 @@ class CiudadActivity : AppCompatActivity() {
 
         }
 
-//hacer
         continuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
@@ -133,6 +152,16 @@ class CiudadActivity : AppCompatActivity() {
             R.id.paraM ->{
                 mediaplayer.pause()
                 log.info("Musica parada valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.textToSpeechBtn -> {
+                if (textEntrada.isVisible){
+                    textToSpeech.speak(
+                        textazo.trim(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)

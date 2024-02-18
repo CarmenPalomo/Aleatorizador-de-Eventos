@@ -4,6 +4,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,6 +12,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
+import java.util.Locale
 import java.util.logging.Logger
 
 class TabernaActivity : AppCompatActivity() {
@@ -18,26 +21,45 @@ class TabernaActivity : AppCompatActivity() {
     private lateinit var personajeDataBase: PersonajeDataBase
     private lateinit var mediaplayer : MediaPlayer
     val log = Logger.getLogger("TabernaActivity")
+    private lateinit var textazo : String
+    private lateinit var textazo2 : String
+    private lateinit var textazo3 : String
+    private lateinit var textToSpeech: TextToSpeech
+    private lateinit var textoPagar : TextView
+    private lateinit var textoNoPagar : TextView
+    private lateinit var textoPrecio : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_taberna)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        personajeDataBase = PersonajeDataBase(applicationContext)
         personaje = intent.getParcelableExtra("Personaje")!!
 
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
         val entrar : Button = findViewById(R.id.entrar)
         val marcharse : Button = findViewById(R.id.irse)
         val pagar : Button = findViewById(R.id.pagar)
-        val textoPagar : TextView = findViewById(R.id.textoPagar)
-        val textoPrecio : TextView = findViewById(R.id.textoPrecio)
-        val textoNoPagar : TextView = findViewById(R.id.textoNoPagar)
+        textoPagar = findViewById(R.id.textoPagar)
+        textoPrecio = findViewById(R.id.textoPrecio)
+        textoNoPagar = findViewById(R.id.textoNoPagar)
         val imagenTabernaInterior : ImageView = findViewById(R.id.imagenTabernaInterior)
         mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
         mediaplayer.setLooping(true);
 
+
+        textazo = textoPagar.text.toString()
+        textazo2 = textoNoPagar.text.toString()
+        textazo3 = textoPrecio.text.toString()
+
+        textToSpeech = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val resultado = textToSpeech.setLanguage(Locale.getDefault())
+                if (resultado == TextToSpeech.LANG_MISSING_DATA || resultado == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "lenguaje no soportado", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
 
         val musicaMin = intent.getIntExtra("musicaMin",0)
         val estadoM = intent.getBooleanExtra("estadoM",false)
@@ -80,7 +102,7 @@ class TabernaActivity : AppCompatActivity() {
             if (personaje!!.getMochila()!!.tieneOro()){
                 var num = (1..4).random()
                 personaje.AumentoSalud(num)
-                Toast.makeText(this, "Has aumentado la salud un $num ahora tu personaje tiene ${personaje.getSalud()} de salud", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Has aumentado la salud un $num ahora tu personaje tiene ${personaje.getSalud()} de salud", Toast.LENGTH_LONG).show()
 
                 personaje.getMochila()!!.restarDinero(5)
                 entrar.visibility = View.INVISIBLE
@@ -133,6 +155,30 @@ class TabernaActivity : AppCompatActivity() {
             R.id.paraM ->{
                 mediaplayer.pause()
                 log.info("Musica parada valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.textToSpeechBtn -> {
+                if (textoPagar.isVisible){
+                    textToSpeech.speak(
+                        textazo.trim(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null)
+                }
+                if (textoNoPagar.isVisible){
+                    textToSpeech.speak(
+                        textazo2.trim(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null)
+                }
+                if (textoPrecio.isVisible){
+                    textToSpeech.speak(
+                        textazo3.trim(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
