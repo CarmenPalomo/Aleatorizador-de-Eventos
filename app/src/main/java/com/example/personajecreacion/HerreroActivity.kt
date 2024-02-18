@@ -82,7 +82,7 @@ class HerreroActivity : AppCompatActivity() {
 
                 if (martillo == null) {
                     val martilloCreado =
-                        Articulo("MARTILLO", 3, Articulo.TipoArt.ARMA, "martillo", 3, 3)
+                        Articulo("MARTILLO", 3, Articulo.TipoArt.ARMA, "martillo", 1, 3)
                     martilloCreado.setIdArticulo(99999)
                     personaje.getMochila()!!.guardarArticulo(martilloCreado)
                 } else {
