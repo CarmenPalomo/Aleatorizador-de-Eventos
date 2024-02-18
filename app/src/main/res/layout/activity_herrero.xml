@@ -48,6 +48,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
         app:layout_constraintVertical_bias="0.095" />
+    <ImageView
+        android:id="@+id/ImagenYelmo"
+        android:layout_width="363dp"
+        android:layout_height="338dp"
+        android:src="@drawable/yelmo"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintVertical_bias="0.095" />
+    <ImageView
+        android:id="@+id/ImagenEspada"
+        android:layout_width="363dp"
+        android:layout_height="338dp"
+        android:src="@drawable/espada_fuego"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintVertical_bias="0.095" />
 
     <Button
         android:id="@+id/crear"

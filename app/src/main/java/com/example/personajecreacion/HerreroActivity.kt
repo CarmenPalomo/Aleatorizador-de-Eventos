@@ -30,6 +30,8 @@ class HerreroActivity : AppCompatActivity() {
         botonPelea = findViewById(R.id.pelea)
         botonMercader = findViewById(R.id.mercader)
         var ImagenMartillo : ImageView = findViewById(R.id.ImagenMartillo)
+        var ImagenYelmo : ImageView = findViewById(R.id.ImagenYelmo)
+        var ImagenEspada : ImageView = findViewById(R.id.ImagenEspada)
         var ImagenHerrero : ImageView = findViewById(R.id.ImagenHerrero)
         var marcharse: Button = findViewById(R.id.marcharse)
 
@@ -49,22 +51,18 @@ class HerreroActivity : AppCompatActivity() {
                 numeroUnidades += articulo.getUnidades()
             }
         }
-        for(articulo in lista!!){
-            if (articulo.getNombre() == "GARRAS_MONSTRUO"){
+
+        for (articulo in lista) {
+            if (articulo.getNombre() == "GARRAS_MONSTRUO") {
                 garra += 1
-
-            }else if (articulo.getNombre() == "BRONCE"){
-                bronce+= 1
-
-            }else if (articulo.getNombre() == "PELO"){
-                pelo+= 1
-
-            }else if (articulo.getNombre() == "HIERRO"){
-                hierro+= 1
-
-            }else if(articulo.getNombre() == "LINGOTE"){
-                lingote+= 1
-
+            } else if (articulo.getNombre() == "BRONCE") {
+                bronce += 1
+            } else if (articulo.getNombre() == "PELO") {
+                pelo += 1
+            } else if (articulo.getNombre() == "HIERRO") {
+                hierro += 1
+            } else if (articulo.getNombre() == "LINGOTE") {
+                lingote += 1
             }
         }
 
@@ -114,9 +112,34 @@ class HerreroActivity : AppCompatActivity() {
                 }
                 Toast.makeText(this, "Se ha creado un yelmo", Toast.LENGTH_LONG).show()
                 personaje.getMochila()!!.eliminarArticuloMonstruoLingote(1)
-                ImagenMartillo.visibility = View.VISIBLE
+                ImagenYelmo.visibility = View.VISIBLE
                 ImagenHerrero.visibility = View.INVISIBLE
-            }else{
+            }else if(garra >= 1 && pelo >= 1 && hierro >= 1){
+                var estada_infernal: Articulo? = null
+                var indice = 0
+                while (indice < lista.size && estada_infernal == null) {
+                    if (lista[indice].getNombre() == "ESPADA") {
+                        estada_infernal = lista[indice]
+                    }
+                    indice++
+                }
+
+                if (estada_infernal == null) {
+                    val espadaCreada =
+                        Articulo("ESPADA", 2, Articulo.TipoArt.ARMA, "espada_fuego", 1, 3)
+                    espadaCreada.setIdArticulo(9555)
+                    personaje.getMochila()!!.guardarArticulo(espadaCreada)
+                } else {
+                    estada_infernal.sumaUnidades(1)
+                }
+                Toast.makeText(this, "Se ha creado una espada infernal", Toast.LENGTH_LONG).show()
+                personaje.getMochila()!!.eliminarArticuloMonstruoGarra(1)
+                personaje.getMochila()!!.eliminarArticuloMonstruoHierro(1)
+                personaje.getMochila()!!.eliminarArticuloMonstruoPelo(1)
+                ImagenEspada.visibility = View.VISIBLE
+                ImagenHerrero.visibility = View.INVISIBLE
+
+            } else{
                 Toast.makeText(
                     this,
                     "No tienes suficinetes objetos para crear un arma",

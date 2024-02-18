@@ -102,117 +102,78 @@ class Mochila(
         return "Mochila(espacio=$espacio, articulos=$articulos)"
     }
 
-    fun eliminarArticulosMonstruo(unidades: Int) {
-        var unidadesAReducir = unidades
-        var indice = 0
-        var unidadesArticulo = 0
-        while (indice < articulos.size && unidadesAReducir > 0) {
-            if (Articulo.TipoArt.OBJETOMONSTRUO == articulos[indice].getTipo()) {
-                if (articulos[indice].getUnidades() <= unidadesAReducir) {
-                    unidadesArticulo = articulos[indice].getUnidades()
-                    unidadesAReducir -= unidadesArticulo
-                    articulos[indice].reduceUnidades(unidadesArticulo)
-                } else {
-                    articulos[indice].reduceUnidades(unidadesAReducir)
-                    unidadesAReducir = 0
-                }
-            }
-            indice++
-        }
-
-        indice = 0
-        while (indice < articulos.size) {
-            if (articulos[indice].getUnidades() == 0) {
-                articulos.remove(articulos[indice])
-                espacio++
-            } else {
-                indice++
-            }
-        }
-    }
     fun eliminarArticuloMonstruoGarra(unidades: Int) {
-        var unidadesAReducir = unidades
+        var garraObjeto: Articulo? = null
         var indice = 0
-        var unidadesArticulo = 0
-        while (indice < articulos.size && unidadesAReducir > 0) {
-            if ("GARRAS_MONSTRUO" == articulos[indice].getNombre()) {
-                if (articulos[indice].getUnidades() <= unidadesAReducir) {
-                    unidadesArticulo = articulos[indice].getUnidades()
-                    unidadesAReducir -= unidadesArticulo
-                    articulos[indice].reduceUnidades(unidadesArticulo)
-                } else {
-                    articulos[indice].reduceUnidades(unidadesAReducir)
-                    unidadesAReducir = 0
-                }
+        while (indice < articulos.size && garraObjeto == null) {
+            if (articulos[indice].getNombre() == "GARRAS_MONSTRUO") {
+                garraObjeto = articulos[indice]
             }
             indice++
         }
 
-        indice = 0
-        while (indice < articulos.size) {
-            if (articulos[indice].getUnidades() == 0) {
+        if (garraObjeto != null) {
+            garraObjeto.reduceUnidades(unidades)
+            if (garraObjeto.getUnidades() == 0) {
                 articulos.remove(articulos[indice])
                 espacio++
-            } else {
-                indice++
             }
         }
     }
 
     fun eliminarArticuloMonstruoHierro(unidades: Int) {
-        var unidadesAReducir = unidades
+        var hierroObjetoMonstruo: Articulo? = null
         var indice = 0
-        var unidadesArticulo = 0
-        while (indice < articulos.size && unidadesAReducir > 0) {
-            if ("HIERRO" == articulos[indice].getNombre()) {
-                if (articulos[indice].getUnidades() <= unidadesAReducir) {
-                    unidadesArticulo = articulos[indice].getUnidades()
-                    unidadesAReducir -= unidadesArticulo
-                    articulos[indice].reduceUnidades(unidadesArticulo)
-                } else {
-                    articulos[indice].reduceUnidades(unidadesAReducir)
-                    unidadesAReducir = 0
-                }
+        while (indice < articulos.size && hierroObjetoMonstruo == null) {
+            if (articulos[indice].getNombre() == "HIERRO") {
+                hierroObjetoMonstruo = articulos[indice]
             }
             indice++
         }
 
-        indice = 0
-        while (indice < articulos.size) {
-            if (articulos[indice].getUnidades() == 0) {
+        if (hierroObjetoMonstruo != null) {
+            hierroObjetoMonstruo.reduceUnidades(unidades)
+            if (hierroObjetoMonstruo.getUnidades() == 0) {
                 articulos.remove(articulos[indice])
                 espacio++
-            } else {
-                indice++
+            }
+        }
+    }
+
+    fun eliminarArticuloMonstruoPelo(unidades: Int) {
+        var hierroObjetoMonstruo: Articulo? = null
+        var indice = 0
+        while (indice < articulos.size && hierroObjetoMonstruo == null) {
+            if (articulos[indice].getNombre() == "PELO") {
+                hierroObjetoMonstruo = articulos[indice]
+            }
+            indice++
+        }
+
+        if (hierroObjetoMonstruo != null) {
+            hierroObjetoMonstruo.reduceUnidades(unidades)
+            if (hierroObjetoMonstruo.getUnidades() == 0) {
+                articulos.remove(articulos[indice])
+                espacio++
             }
         }
     }
 
     fun eliminarArticuloMonstruoLingote(unidades: Int) {
-        var unidadesAReducir = unidades
+        var hierroObjetoMonstruo: Articulo? = null
         var indice = 0
-        var unidadesArticulo = 0
-        while (indice < articulos.size && unidadesAReducir > 0) {
-            if ("YELMO" == articulos[indice].getNombre()) {
-                if (articulos[indice].getUnidades() <= unidadesAReducir) {
-                    unidadesArticulo = articulos[indice].getUnidades()
-                    unidadesAReducir -= unidadesArticulo
-                    articulos[indice].reduceUnidades(unidadesArticulo)
-                } else {
-                    articulos[indice].reduceUnidades(unidadesAReducir)
-                    unidadesAReducir = 0
-                }
+        while (indice < articulos.size && hierroObjetoMonstruo == null) {
+            if (articulos[indice].getNombre() == "LINGOTE") {
+                hierroObjetoMonstruo = articulos[indice]
             }
             indice++
         }
 
-        indice = 0
-        while (indice < articulos.size) {
-            if (articulos[indice].getUnidades() == 0) {
+        if (hierroObjetoMonstruo != null) {
+            hierroObjetoMonstruo.reduceUnidades(unidades)
+            if (hierroObjetoMonstruo.getUnidades() == 0) {
                 articulos.remove(articulos[indice])
                 espacio++
-            } else {
-                indice++
             }
         }
     }
