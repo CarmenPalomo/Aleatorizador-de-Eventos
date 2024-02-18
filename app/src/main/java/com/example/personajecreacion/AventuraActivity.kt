@@ -43,12 +43,18 @@ class AventuraActivity : AppCompatActivity() {
                 1 -> {
                     intent = Intent(this, ObjetoActivity::class.java)
                     intent.putExtra("Personaje", personaje)
+                    intent.putExtra("musicaMin", mediaplayer.currentPosition)
+                    intent.putExtra("estadoM", mediaplayer.isPlaying)
+                    mediaplayer.pause()
                     startActivity(intent)
                 }
 
                 2 -> {
                     intent = Intent(this, CiudadActivity::class.java)
                     intent.putExtra("Personaje", personaje)
+                    intent.putExtra("musicaMin", mediaplayer.currentPosition)
+                    intent.putExtra("estadoM", mediaplayer.isPlaying)
+                    mediaplayer.pause()
                     startActivity(intent)
                 }
 
@@ -64,6 +70,9 @@ class AventuraActivity : AppCompatActivity() {
                 4 -> {
                     intent = Intent(this, EnemigoActivity::class.java)
                     intent.putExtra("Personaje", personaje)
+                    intent.putExtra("musicaMin", mediaplayer.currentPosition)
+                    intent.putExtra("estadoM", mediaplayer.isPlaying)
+                    mediaplayer.pause()
                     startActivity(intent)
                 }
             }
