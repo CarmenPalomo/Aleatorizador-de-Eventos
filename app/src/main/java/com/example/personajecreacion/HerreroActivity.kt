@@ -93,7 +93,30 @@ class HerreroActivity : AppCompatActivity() {
                 personaje.getMochila()!!.eliminarArticuloMonstruoHierro(1)
                 ImagenMartillo.visibility = View.VISIBLE
                 ImagenHerrero.visibility = View.INVISIBLE
-            } else {
+            }
+            else if(lingote >= 1){
+                var yelmo: Articulo? = null
+                var indice = 0
+                while (indice < lista.size && yelmo == null) {
+                    if (lista[indice].getNombre() == "YELMO") {
+                        yelmo = lista[indice]
+                    }
+                    indice++
+                }
+
+                if (yelmo == null) {
+                    val yelmoCreado =
+                        Articulo("YELMO", 2, Articulo.TipoArt.PROTECCION, "yelmo", 1, 3)
+                    yelmoCreado.setIdArticulo(9229)
+                    personaje.getMochila()!!.guardarArticulo(yelmoCreado)
+                } else {
+                    yelmo.sumaUnidades(1)
+                }
+                Toast.makeText(this, "Se ha creado un yelmo", Toast.LENGTH_LONG).show()
+                personaje.getMochila()!!.eliminarArticuloMonstruoLingote(1)
+                ImagenMartillo.visibility = View.VISIBLE
+                ImagenHerrero.visibility = View.INVISIBLE
+            }else{
                 Toast.makeText(
                     this,
                     "No tienes suficinetes objetos para crear un arma",

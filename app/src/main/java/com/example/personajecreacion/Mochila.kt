@@ -188,6 +188,35 @@ class Mochila(
         }
     }
 
+    fun eliminarArticuloMonstruoLingote(unidades: Int) {
+        var unidadesAReducir = unidades
+        var indice = 0
+        var unidadesArticulo = 0
+        while (indice < articulos.size && unidadesAReducir > 0) {
+            if ("YELMO" == articulos[indice].getNombre()) {
+                if (articulos[indice].getUnidades() <= unidadesAReducir) {
+                    unidadesArticulo = articulos[indice].getUnidades()
+                    unidadesAReducir -= unidadesArticulo
+                    articulos[indice].reduceUnidades(unidadesArticulo)
+                } else {
+                    articulos[indice].reduceUnidades(unidadesAReducir)
+                    unidadesAReducir = 0
+                }
+            }
+            indice++
+        }
+
+        indice = 0
+        while (indice < articulos.size) {
+            if (articulos[indice].getUnidades() == 0) {
+                articulos.remove(articulos[indice])
+                espacio++
+            } else {
+                indice++
+            }
+        }
+    }
+
     fun eliminarArticulos(unidades: Int): ArrayList<Articulo> {
         var articulosEliminados: ArrayList<Articulo> = arrayListOf()
         var unidadesAReducir = unidades
