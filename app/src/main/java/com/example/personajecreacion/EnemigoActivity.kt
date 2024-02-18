@@ -1,16 +1,19 @@
 package com.example.personajecreacion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import java.util.logging.Logger
 
 class EnemigoActivity : AppCompatActivity() {
     private lateinit var personaje: Personaje
     private lateinit var personajeDataBase: PersonajeDataBase
-
+    private lateinit var mediaplayer : MediaPlayer
+    val log = Logger.getLogger("EnemigoActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enemigo)
@@ -23,16 +26,34 @@ class EnemigoActivity : AppCompatActivity() {
         val luchar: Button = findViewById(R.id.luchar)
         val huir : Button = findViewById(R.id.huir)
 
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
+
+
+        val musicaMin = intent.getIntExtra("musicaMin",0)
+        val estadoM = intent.getBooleanExtra("estadoM",false)
+        mediaplayer.seekTo(musicaMin)
+        if (estadoM){
+            mediaplayer.start()
+        }
+
+//hacer
         luchar.setOnClickListener {
             val intent = Intent(this,PeleaActivity::class.java)
             intent.putExtra("Personaje", personaje)
             intent.putExtra("Monstruo", monstruo)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 
         huir.setOnClickListener {
             val intent = Intent(this,AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
     }
@@ -52,6 +73,16 @@ class EnemigoActivity : AppCompatActivity() {
                 var intent = Intent(this,Dialogflow::class.java)
                 intent.putExtra("Personaje", personaje)
                 startActivity(intent)
+                true
+            }
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
                 true
             }
             else -> super.onOptionsItemSelected(item)

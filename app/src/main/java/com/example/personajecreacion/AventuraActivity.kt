@@ -96,6 +96,7 @@ class AventuraActivity : AppCompatActivity() {
             R.id.botonDialogFlow->{
                 var intent = Intent(this,Dialogflow::class.java)
                 intent.putExtra("Personaje", personaje)
+                mediaplayer.pause()
                 startActivity(intent)
                 true
             }

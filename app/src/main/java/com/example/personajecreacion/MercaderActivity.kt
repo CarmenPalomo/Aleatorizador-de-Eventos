@@ -61,6 +61,9 @@ class MercaderActivity : AppCompatActivity() {
         botonContinuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 

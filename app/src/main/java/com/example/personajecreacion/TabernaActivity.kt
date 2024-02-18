@@ -1,6 +1,7 @@
 package com.example.personajecreacion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,10 +11,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import java.util.logging.Logger
 
 class TabernaActivity : AppCompatActivity() {
     private lateinit var personaje: Personaje
     private lateinit var personajeDataBase: PersonajeDataBase
+    private lateinit var mediaplayer : MediaPlayer
+    val log = Logger.getLogger("TabernaActivity")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,17 @@ class TabernaActivity : AppCompatActivity() {
         val textoPrecio : TextView = findViewById(R.id.textoPrecio)
         val textoNoPagar : TextView = findViewById(R.id.textoNoPagar)
         val imagenTabernaInterior : ImageView = findViewById(R.id.imagenTabernaInterior)
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
+
+
+        val musicaMin = intent.getIntExtra("musicaMin",0)
+        val estadoM = intent.getBooleanExtra("estadoM",false)
+        mediaplayer.seekTo(musicaMin)
+        if (estadoM){
+            mediaplayer.start()
+        }
+
 
 
         entrar.setOnClickListener {
@@ -54,6 +69,9 @@ class TabernaActivity : AppCompatActivity() {
             Toast.makeText(this, "Has perdido $numAtaque de ataque y $numVida de vida. Ahora tu personaje tiene ${personaje.getAtaque()} de ataque y  ${personaje.getSalud()} de vida}}", Toast.LENGTH_SHORT).show()
             val intent = Intent(this,AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 
@@ -105,6 +123,16 @@ class TabernaActivity : AppCompatActivity() {
                 var intent = Intent(this,Dialogflow::class.java)
                 intent.putExtra("Personaje", personaje)
                 startActivity(intent)
+                true
+            }
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Spinner
+import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private var opcionImagen: Int = 0
     private lateinit var nombreEditText: EditText
     private lateinit var mediaplayer : MediaPlayer
-
+    val log = Logger.getLogger("MainActivity")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             intent.putExtra("musicaMin", mediaplayer.currentPosition)
             intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 
@@ -312,7 +314,16 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 mediaplayer.pause()
                 true
             }
-
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

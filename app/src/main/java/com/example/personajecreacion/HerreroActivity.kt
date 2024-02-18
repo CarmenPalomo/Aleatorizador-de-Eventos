@@ -1,6 +1,7 @@
 package com.example.personajecreacion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import java.util.logging.Logger
 
 class HerreroActivity : AppCompatActivity() {
     private lateinit var botonPelea: Button
@@ -17,7 +19,8 @@ class HerreroActivity : AppCompatActivity() {
     private lateinit var botonCrear: Button
     private lateinit var personaje: Personaje
     private lateinit var personajeDataBase: PersonajeDataBase
-
+    private lateinit var mediaplayer : MediaPlayer
+    val log = Logger.getLogger("HerreroActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_herrero)
@@ -37,6 +40,18 @@ class HerreroActivity : AppCompatActivity() {
         var martillo: Button = findViewById(R.id.martillo)
         var yelmo: Button = findViewById(R.id.yelmo)
         var espada_infernal: Button = findViewById(R.id.espada)
+
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
+
+
+        val musicaMin = intent.getIntExtra("musicaMin",0)
+        val estadoM = intent.getBooleanExtra("estadoM",false)
+        mediaplayer.seekTo(musicaMin)
+        if (estadoM){
+            mediaplayer.start()
+        }
+
 
         var lista = personaje.getMochila()?.getArticulos()
 
@@ -218,6 +233,9 @@ class HerreroActivity : AppCompatActivity() {
         botonPelea.setOnClickListener {
             var intent = Intent(this, EnemigoActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 
@@ -225,11 +243,17 @@ class HerreroActivity : AppCompatActivity() {
             var intent: Intent = Intent(this, MercaderActivity::class.java)
             intent.putExtra("Personaje", personaje)
             startActivity(intent)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
         }
 
         marcharse.setOnClickListener {
             var intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 
@@ -254,7 +278,16 @@ class HerreroActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
-
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

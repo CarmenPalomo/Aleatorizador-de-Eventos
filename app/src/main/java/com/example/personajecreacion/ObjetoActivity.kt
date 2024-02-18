@@ -1,6 +1,7 @@
 package com.example.personajecreacion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +17,7 @@ class ObjetoActivity : AppCompatActivity() {
     val log = Logger.getLogger("ObjectoActivity")
     private lateinit var personaje: Personaje
     private lateinit var personajeDataBase: PersonajeDataBase
-
+    private lateinit var mediaplayer : MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_objeto)
@@ -36,6 +37,18 @@ class ObjetoActivity : AppCompatActivity() {
         val recoger: Button = findViewById(R.id.recoger)
         val siguiente: Button = findViewById(R.id.continuarOb)
 
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
+
+
+        val musicaMin = intent.getIntExtra("musicaMin",0)
+        val estadoM = intent.getBooleanExtra("estadoM",false)
+        mediaplayer.seekTo(musicaMin)
+        if (estadoM){
+            mediaplayer.start()
+        }
+
+
         imageView.setImageResource(cascoId)
 
         textoConirmacion.setVisibility(View.INVISIBLE)
@@ -50,9 +63,12 @@ class ObjetoActivity : AppCompatActivity() {
             }
         }
 
-        siguiente.setOnClickListener {
+        siguiente.setOnClickListener {//hacer
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
     }
@@ -72,6 +88,16 @@ class ObjetoActivity : AppCompatActivity() {
                 var intent = Intent(this,Dialogflow::class.java)
                 intent.putExtra("Personaje", personaje)
                 startActivity(intent)
+                true
+            }
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -2,16 +2,22 @@ package com.example.personajecreacion
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.util.logging.Logger
+
 
 class PeleaActivity : AppCompatActivity() {
 
+    private lateinit var personajeDataBase: PersonajeDataBase
     private lateinit var objDataBase: ObjectosDataBase
     private lateinit var vidaMonstruo: ProgressBar
     private lateinit var vidaJugador: ProgressBar
@@ -22,10 +28,13 @@ class PeleaActivity : AppCompatActivity() {
     private lateinit var imageView : ImageView
     private lateinit var continuar : Button
     private lateinit var mercader : Button
+    private lateinit var mediaplayer : MediaPlayer
+    val log = Logger.getLogger("PeleaActivity")
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pelea)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         objDataBase = ObjectosDataBase(applicationContext)
         personaje = intent.getParcelableExtra("Personaje")!!
@@ -37,6 +46,18 @@ class PeleaActivity : AppCompatActivity() {
         imageView = findViewById(R.id.imagenPersonaje)
         continuar = findViewById(R.id.continuar)
         mercader = findViewById(R.id.mercaderP)
+        personajeDataBase = PersonajeDataBase(applicationContext)
+        mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
+        mediaplayer.setLooping(true);
+
+
+        val musicaMin = intent.getIntExtra("musicaMin",0)
+        val estadoM = intent.getBooleanExtra("estadoM",false)
+        mediaplayer.seekTo(musicaMin)
+        if (estadoM){
+            mediaplayer.start()
+        }
+
 
 
         atacarButton.setOnClickListener {
@@ -46,12 +67,18 @@ class PeleaActivity : AppCompatActivity() {
         mercader.setOnClickListener {
             val intent = Intent(this, MercaderActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 
         continuar.setOnClickListener {
             val intent = Intent(this, AventuraActivity::class.java)
             intent.putExtra("Personaje", personaje)
+            intent.putExtra("musicaMin", mediaplayer.currentPosition)
+            intent.putExtra("estadoM", mediaplayer.isPlaying)
+            mediaplayer.pause()
             startActivity(intent)
         }
 
@@ -286,6 +313,38 @@ class PeleaActivity : AppCompatActivity() {
             continuar.visibility= View.VISIBLE
             personaje = Personaje(personaje.getIdPersonaje(),personaje.getNombre(),personaje.getEstadoVital(),personaje.getRaza(),personaje.getClase(),personaje.getMochila())
 
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.botonGuardar -> {
+                personajeDataBase.actualizarPersonaje(personaje)
+                true
+            }
+            R.id.botonDialogFlow->{
+                var intent = Intent(this,Dialogflow::class.java)
+                intent.putExtra("Personaje", personaje)
+                startActivity(intent)
+                true
+            }
+            R.id.suenaM -> {
+                mediaplayer.start()
+                log.info("Musica sonando valor ${mediaplayer.isPlaying}")
+                true
+            }
+            R.id.paraM ->{
+                mediaplayer.pause()
+                log.info("Musica parada valor ${mediaplayer.isPlaying}")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
