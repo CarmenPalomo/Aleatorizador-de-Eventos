@@ -146,7 +146,16 @@ class Dialogflow : AppCompatActivity() {
 
             if (mensaje == personaje.getNombre()){
                 mensaje = "Tenemos el mismo nombre"
+            }else{
+                if (mensaje == mensaje.toUpperCase()&&mensaje.contains("?")){
+                    mensaje = "pregunta fea"
+                }else{
+                    if (mensaje == mensaje.toUpperCase()){
+                        mensaje = "Enfado"
+                    }
+                }
             }
+
 
 
             val ingresarConsulta =

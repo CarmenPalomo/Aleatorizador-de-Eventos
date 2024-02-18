@@ -50,6 +50,7 @@ class PeleaActivity : AppCompatActivity() {
         mediaplayer = MediaPlayer.create(this, R.raw.sinfonia_molto_allegro)
         mediaplayer.setLooping(true);
 
+        vidaJugador.max = personaje.getSalud()!!
 
         val musicaMin = intent.getIntExtra("musicaMin",0)
         val estadoM = intent.getBooleanExtra("estadoM",false)

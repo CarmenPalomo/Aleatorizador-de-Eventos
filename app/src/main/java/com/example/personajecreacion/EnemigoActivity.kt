@@ -12,7 +12,6 @@ import java.util.logging.Logger
 class EnemigoActivity : AppCompatActivity() {
     private lateinit var personaje: Personaje
     private lateinit var personajeDataBase: PersonajeDataBase
-    private lateinit var monstruoDataBase: MonstruoDataBase
     private lateinit var mediaplayer : MediaPlayer
     val log = Logger.getLogger("EnemigoActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +19,6 @@ class EnemigoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_enemigo)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        monstruoDataBase = MonstruoDataBase(applicationContext)
         personajeDataBase = PersonajeDataBase(applicationContext)
         personaje = intent.getParcelableExtra("Personaje")!!
         val personaje: Personaje? = intent.getParcelableExtra("Personaje")
@@ -41,13 +39,12 @@ class EnemigoActivity : AppCompatActivity() {
 
 //hacer
         luchar.setOnClickListener {
-           var monstruo =  monstruoDataBase.getMonstruoAleatorio()
             val intent = Intent(this,PeleaActivity::class.java)
             intent.putExtra("Personaje", personaje)
             intent.putExtra("Monstruo", monstruo)
             intent.putExtra("musicaMin", mediaplayer.currentPosition)
             intent.putExtra("estadoM", mediaplayer.isPlaying)
-            intent.putExtra("monstruo", monstruo
+            intent.putExtra("monstruo", monstruo)
             mediaplayer.pause()
             startActivity(intent)
         }
